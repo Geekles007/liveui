@@ -1,0 +1,24 @@
+{
+  "name": "async-state",
+  "type": "lib",
+  "version": "1.0.0",
+  "description": "The AsyncState<T> contract every vital component speaks: idle, loading, empty, error, success.",
+  "states": [],
+  "dependencies": [],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "manifest": {
+    "intents": [
+      "model loading, empty and error states of async data",
+      "normalize a fetch result into a typed state"
+    ],
+    "examples": ["const state = fromResult(data, { error });"]
+  },
+  "files": [
+    {
+      "from": "files/async-state.ts",
+      "path": "lib/async-state.ts",
+      "type": "lib"
+    }
+  ]
+}

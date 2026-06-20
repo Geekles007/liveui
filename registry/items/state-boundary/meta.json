@@ -1,0 +1,34 @@
+{
+  "name": "state-boundary",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "Maps an AsyncState<T> onto loading/empty/error/success slots with built-in live-region announcements and focus management.",
+  "states": ["loading", "empty", "error"],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "Polite live region announces every state transition",
+      "aria-busy is set while loading",
+      "Focus moves to the retry control on error",
+      "Errors are exposed as role=alert"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "render loading, empty and error states for any async value",
+      "wrap content that depends on a fetch"
+    ],
+    "examples": ["<StateBoundary state={state}>{(data) => <List data={data} />}</StateBoundary>"]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": ["async-state"],
+  "files": [
+    {
+      "from": "files/state-boundary.tsx",
+      "path": "components/state-boundary.tsx",
+      "type": "component"
+    }
+  ]
+}

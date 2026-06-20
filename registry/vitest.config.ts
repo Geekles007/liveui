@@ -1,0 +1,26 @@
+import { fileURLToPath } from 'node:url';
+import { defineConfig } from 'vitest/config';
+
+/**
+ * Runs the a11y tests that ship inside each item. The `@/...` aliases mirror the
+ * import paths a consumer gets after `vital add`, so the tests exercise the exact
+ * files we publish.
+ */
+const itemFile = (p: string) => fileURLToPath(new URL(`./items/${p}`, import.meta.url));
+
+export default defineConfig({
+  resolve: {
+    alias: {
+      '@/lib/async-state': itemFile('async-state/files/async-state.ts'),
+      '@/components/state-boundary': itemFile('state-boundary/files/state-boundary.tsx'),
+      '@/components/data-list': itemFile('data-list/files/data-list.tsx'),
+    },
+  },
+  esbuild: { jsx: 'automatic' },
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: ['./vitest.setup.ts'],
+    include: ['items/**/tests/**/*.test.{ts,tsx}'],
+  },
+});

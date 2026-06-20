@@ -1,0 +1,36 @@
+{
+  "name": "data-list",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "A list that is state-complete by construction: skeletons, empty slot, error + retry and a result-count announcement. You only write the row.",
+  "states": ["loading", "empty", "error"],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "Renders a labelled role=list with role=listitem rows",
+      "Announces the result count via the StateBoundary live region",
+      "Loading skeleton is aria-hidden and aria-busy"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "render a list of fetched items with loading and empty states",
+      "paginated or filtered results list",
+      "list view with skeletons and retry"
+    ],
+    "examples": [
+      "<DataList state={users} label=\"Users\" getKey={(u) => u.id}>{(u) => <UserRow user={u} />}</DataList>"
+    ]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": ["state-boundary"],
+  "files": [
+    {
+      "from": "files/data-list.tsx",
+      "path": "components/data-list.tsx",
+      "type": "component"
+    }
+  ]
+}
