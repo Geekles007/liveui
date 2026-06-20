@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'vital',
+  title: 'liveui',
   description: 'A shadcn-style, registry-as-code package. No database, no backend.',
 };
 

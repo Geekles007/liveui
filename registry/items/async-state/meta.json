@@ -2,7 +2,7 @@
   "name": "async-state",
   "type": "lib",
   "version": "1.0.0",
-  "description": "The AsyncState<T> contract every vital component speaks: idle, loading, empty, error, success.",
+  "description": "The AsyncState<T> contract every liveui component speaks: idle, loading, empty, error, success.",
   "states": [],
   "dependencies": [],
   "devDependencies": [],

@@ -1,4 +1,4 @@
-import { fetchRegistryIndex } from '@vital/core';
+import { fetchRegistryIndex } from '@liveui/core';
 import { bold, dim } from 'kleur/colors';
 import { resolveRegistry } from '../config.js';
 import { nodeFetch } from '../fetch.js';

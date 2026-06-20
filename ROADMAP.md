@@ -1,6 +1,6 @@
-# vital — Roadmap des composants
+# liveui — Roadmap des composants
 
-> En clair : `vital` est une boîte de **briques d'interface** (boutons, listes,
+> En clair : `liveui` est une boîte de **briques d'interface** (boutons, listes,
 > tableaux…) que tu copies dans ton projet. La particularité : chaque brique sait
 > déjà gérer les moments "réels" d'une appli — _ça charge_, _il n'y a rien_, _ça a
 > planté_, _c'est prêt_ — et reste utilisable par tout le monde (clavier, lecteurs
@@ -25,7 +25,7 @@ Légende : ✅ fait · 🔜 prochain · ⬜ à venir
 | `use-online` | Sait quand l'utilisateur perd internet, pour que les briques réagissent. | ⬜ |
 | `skeleton` | Les rectangles gris qui "clignotent" pendant que le vrai contenu arrive. | ⬜ |
 
-## Couche 1 — Les briques d'état (ce qui rend vital différent)
+## Couche 1 — Les briques d'état (ce qui rend liveui différent)
 
 | Brique | En clair | Statut |
 | --- | --- | --- |
@@ -80,6 +80,6 @@ Légende : ✅ fait · 🔜 prochain · ⬜ à venir
 6. Le reste au fil de l'eau.
 
 Chaque brique livrée embarque un **test d'accessibilité** (axe) et une **fiche
-lisible par l'IA** (pour `vital gen`).
+lisible par l'IA** (pour `liveui gen`).
 
 **Total : ~24 briques** — 3 faites, 21 à venir.

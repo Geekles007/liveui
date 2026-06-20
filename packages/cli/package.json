@@ -1,11 +1,11 @@
 {
-  "name": "@vital/cli",
+  "name": "@liveui/cli",
   "version": "0.0.0",
   "description": "CLI to add registry items into a project.",
   "license": "MIT",
   "type": "module",
   "bin": {
-    "vital": "./dist/index.js"
+    "liveui": "./dist/index.js"
   },
   "files": ["dist"],
   "scripts": {
@@ -15,7 +15,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@vital/core": "workspace:*",
+    "@liveui/core": "workspace:*",
     "commander": "^12.1.0",
     "kleur": "^4.1.5"
   },

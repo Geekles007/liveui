@@ -1,6 +1,6 @@
 import { StateBoundary } from '@/components/state-boundary';
 // Resolved via the vitest aliases (see registry/vitest.config.ts), mirroring the
-// "@/..." paths a consumer gets after `vital add`.
+// "@/..." paths a consumer gets after `liveui add`.
 import { error, loading, success } from '@/lib/async-state';
 import { cleanup, render, screen } from '@testing-library/react';
 import axe from 'axe-core';

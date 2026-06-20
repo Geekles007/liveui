@@ -32,7 +32,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm registry:build
       - name: Build site
-        run: pnpm --filter @vital/www build
+        run: pnpm --filter @liveui/www build
         env:
           # Project pages live under /<repo>; user/org pages should set this to ''.
           BASE_PATH: ${{ steps.pages.outputs.base_path }}

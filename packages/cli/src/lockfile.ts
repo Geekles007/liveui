@@ -1,10 +1,10 @@
 import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import type { RegistryItem } from '@vital/core';
-import { hashContent } from '@vital/core';
+import type { RegistryItem } from '@liveui/core';
+import { hashContent } from '@liveui/core';
 
-export const LOCKFILE_NAME = 'vital.lock.json';
+export const LOCKFILE_NAME = 'liveui.lock.json';
 
 /** One installed item: the version pinned and the hash of each file we wrote. */
 export interface LockedItem {
@@ -20,7 +20,7 @@ export interface Lockfile {
 
 function emptyLock(registry: string): Lockfile {
   return {
-    $schema: 'https://vital/schema/lockfile.json',
+    $schema: 'https://liveui/schema/lockfile.json',
     registry,
     items: {},
   };

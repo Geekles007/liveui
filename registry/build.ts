@@ -22,14 +22,14 @@ import {
   hashContent,
   registryIndexSchema,
   registryItemSchema,
-} from '@vital/core';
+} from '@liveui/core';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const ITEMS_DIR = join(ROOT, 'items');
 const OUT_DIR = join(ROOT, 'public', 'r');
 
-const REGISTRY_NAME = 'vital';
-const HOMEPAGE = 'https://Geekles007.github.io/vital';
+const REGISTRY_NAME = 'liveui';
+const HOMEPAGE = 'https://Geekles007.github.io/liveui';
 
 interface MetaFile {
   from: string;
@@ -115,7 +115,7 @@ async function main(): Promise<void> {
   }
 
   const index: RegistryIndex = registryIndexSchema.parse({
-    $schema: 'https://vital/schema/registry-index.json',
+    $schema: 'https://liveui/schema/registry-index.json',
     name: REGISTRY_NAME,
     homepage: HOMEPAGE,
     items: items

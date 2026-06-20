@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { type RegistryIndex, registryIndexSchema } from '@vital/core';
+import { type RegistryIndex, registryIndexSchema } from '@liveui/core';
 
 /**
  * Reads the compiled registry index at build time. `copy-registry.mjs` places
@@ -20,7 +20,7 @@ export default async function Home() {
 
   return (
     <main className="wrap">
-      <h1>{index?.name ?? 'vital'}</h1>
+      <h1>{index?.name ?? 'liveui'}</h1>
       <p className="tagline">
         A shadcn-style, registry-as-code package. No database, no backend — just static JSON and a
         CLI that copies files into your project.
@@ -28,7 +28,7 @@ export default async function Home() {
 
       <h2>Install an item</h2>
       <pre>
-        <code>npx vital add data-list</code>
+        <code>npx liveui add data-list</code>
       </pre>
 
       <h2>Available items</h2>

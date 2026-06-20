@@ -1,7 +1,7 @@
 import { existsSync } from 'node:fs';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
-import { resolveItemTree } from '@vital/core';
+import { resolveItemTree } from '@liveui/core';
 import { bold, cyan, dim, green, red, yellow } from 'kleur/colors';
 import { resolveRegistry } from '../config.js';
 import { nodeFetch } from '../fetch.js';
@@ -51,7 +51,7 @@ export async function add(names: string[], options: AddOptions): Promise<void> {
       written += 1;
       itemWritten = true;
     }
-    // Track what we installed so `vital upgrade` can detect local edits later.
+    // Track what we installed so `liveui upgrade` can detect local edits later.
     if (itemWritten || !lock.items[item.name]) recordItem(lock, item);
   }
 

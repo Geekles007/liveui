@@ -7,5 +7,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["@vital/www", "@vital/registry"]
+  "ignore": ["@liveui/www", "@liveui/registry"]
 }

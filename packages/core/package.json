@@ -1,5 +1,5 @@
 {
-  "name": "@vital/core",
+  "name": "@liveui/core",
   "version": "0.0.0",
   "description": "Headless schema and helpers for the registry.",
   "license": "MIT",

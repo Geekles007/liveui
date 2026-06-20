@@ -8,7 +8,7 @@ import { upgrade } from './commands/upgrade.js';
 const program = new Command();
 
 program
-  .name('vital')
+  .name('liveui')
   .description('State-complete, accessible, upgradeable components — installed into your project.')
   .version('0.0.0');
 
@@ -26,7 +26,7 @@ program
 program
   .command('upgrade')
   .description('Update installed items, preserving your local edits (3-way safe).')
-  .argument('[items...]', 'item name(s) to upgrade (default: all in vital.lock.json)')
+  .argument('[items...]', 'item name(s) to upgrade (default: all in liveui.lock.json)')
   .option('-r, --registry <url>', 'registry base URL')
   .option('-c, --cwd <path>', 'working directory', process.cwd())
   .action(async (items: string[], options) => {

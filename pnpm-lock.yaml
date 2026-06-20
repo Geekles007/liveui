@@ -23,7 +23,7 @@ importers:
 
   apps/www:
     dependencies:
-      '@vital/core':
+      '@liveui/core':
         specifier: workspace:*
         version: link:../../packages/core
       next:
@@ -45,7 +45,7 @@ importers:
       '@types/react-dom':
         specifier: ^19.0.2
         version: 19.2.3(@types/react@19.2.17)
-      '@vital/registry':
+      '@liveui/registry':
         specifier: workspace:*
         version: link:../../registry
       typescript:
@@ -54,7 +54,7 @@ importers:
 
   packages/cli:
     dependencies:
-      '@vital/core':
+      '@liveui/core':
         specifier: workspace:*
         version: link:../core
       commander:
@@ -98,7 +98,7 @@ importers:
 
   registry:
     dependencies:
-      '@vital/core':
+      '@liveui/core':
         specifier: workspace:*
         version: link:../packages/core
     devDependencies:
