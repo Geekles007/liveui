@@ -9,7 +9,8 @@
       "@/hooks/use-async": ["./items/use-async/files/use-async.ts"],
       "@/components/async-button": ["./items/async-button/files/async-button.tsx"],
       "@/components/state-boundary": ["./items/state-boundary/files/state-boundary.tsx"],
-      "@/components/data-list": ["./items/data-list/files/data-list.tsx"]
+      "@/components/data-list": ["./items/data-list/files/data-list.tsx"],
+      "@/components/data-table": ["./items/data-table/files/data-table.tsx"]
     }
   },
   "include": ["build.ts", "items/**/files/**/*.ts"]

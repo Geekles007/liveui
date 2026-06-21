@@ -33,7 +33,7 @@ export const components: Comp[] = [
   { name: 'error-state', layer: 1, status: 'planned', kind: 'component', a11y: true },
   { name: 'async-button', layer: 1, status: 'done', kind: 'component', a11y: true },
   { name: 'data-list', layer: 2, status: 'done', kind: 'component', a11y: true },
-  { name: 'data-table', layer: 2, status: 'planned', kind: 'component', a11y: true },
+  { name: 'data-table', layer: 2, status: 'done', kind: 'component', a11y: true },
   { name: 'card-collection', layer: 2, status: 'planned', kind: 'component', a11y: true },
   { name: 'detail-view', layer: 2, status: 'planned', kind: 'component', a11y: true },
   { name: 'avatar', layer: 2, status: 'planned', kind: 'component', a11y: false },
@@ -545,9 +545,72 @@ export const docs: Record<string, Doc> = {
   },
   'data-table': {
     intro:
-      'A sortable table over an AsyncState — with loading rows, empty and error states, and announced sort changes.',
-    apiFile: 'data-table.tsx',
-    api: '<DataTable state={rows} columns={columns} getKey={(r) => r.id} />',
+      'A sortable table over an AsyncState<T[]> — skeleton rows while loading, empty/error via state-boundary, and sortable columns with aria-sort and announced sort changes. You describe columns; the table does the rest.',
+    apiFile: 'components/data-table.tsx',
+    api: '<DataTable\n  state={users}\n  columns={columns}\n  getKey={(u) => u.id}\n  label="Users"\n/>',
+    tutorialIntro:
+      'Pass an AsyncState and a column list. data-table composes state-boundary under the hood, so you inherit every state and accessibility guarantee.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Pulls in data-table and its axe test. It depends on state-boundary, which the CLI adds for you.',
+        file: 'terminal',
+        code: '$ npx liveui add data-table\n+ also adding dependency: state-boundary\n✓ wrote components/data-table.tsx',
+      },
+      {
+        title: 'Describe your columns',
+        body: 'Each column has a key and a header. Add `sortable` to make it sortable; `cell` to customise rendering.',
+        file: 'columns.tsx',
+        code: 'const columns: Column<User>[] = [\n  { key: "name", header: "Name", sortable: true },\n  { key: "role", header: "Role" },\n  { key: "seats", header: "Seats", align: "right", sortable: true,\n    sortValue: (u) => u.seats },\n];',
+      },
+      {
+        title: 'Render the table',
+        body: 'Give it the AsyncState, the columns, a getKey and a label. Loading, empty and error are handled for you.',
+        file: 'users.tsx',
+        code: '<DataTable\n  state={users}\n  columns={columns}\n  getKey={(u) => u.id}\n  label="Team members"\n/>',
+      },
+      {
+        title: 'Sorting is accessible by default',
+        body: 'Sortable headers are buttons with aria-sort; each click cycles ascending → descending → off and is announced via a polite live region.',
+        file: '—',
+        code: '// click "Name" → aria-sort="ascending"\n// → announces: "Sorted by Name, ascending"',
+      },
+    ],
+    propsTitle: 'Props',
+    propsIntro: 'The surface of <DataTable> and a Column<T>.',
+    col0: 'Prop',
+    props: [
+      {
+        name: 'state',
+        type: 'AsyncState<T[]>',
+        desc: 'Required. The rows state — an empty array resolves to the empty slot.',
+      },
+      {
+        name: 'columns',
+        type: 'Column<T>[]',
+        desc: 'Required. { key, header, cell?, sortable?, sortValue?, align? }.',
+      },
+      { name: 'getKey', type: '(item: T) => Key', desc: 'Required. Stable React key per row.' },
+      {
+        name: 'label',
+        type: 'string',
+        desc: 'Accessible name, rendered as a visually-hidden <caption>.',
+      },
+      {
+        name: 'loadingRows',
+        type: 'number',
+        desc: 'Skeleton rows shown while loading. Default 5.',
+      },
+      { name: 'empty', type: 'ReactNode', desc: 'Custom empty slot.' },
+    ],
+    a11y: true,
+    a11yList: [
+      'Renders a real <table> with a <caption>, scope="col" headers and aria-sort on sortable columns.',
+      'Sort controls are native buttons; each sort change is announced via aria-live="polite".',
+      'Loading sets aria-busy and shows skeleton rows shaped like the columns.',
+      'Empty and error slots inherit state-boundary’s roles and focus behaviour.',
+      'Shipped axe-core test covers success, sorting, loading and empty.',
+    ],
   },
   'card-collection': {
     intro:

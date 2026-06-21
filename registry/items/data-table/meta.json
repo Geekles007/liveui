@@ -1,0 +1,37 @@
+{
+  "name": "data-table",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "A sortable table over an AsyncState<T[]>: loading skeleton rows, empty/error via state-boundary, and sortable columns with aria-sort and announced sort changes. You describe columns; the table does the rest.",
+  "states": ["loading", "empty", "error"],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "Renders a real <table> with <caption>, scope=col headers and aria-sort on sortable columns",
+      "Sort controls are buttons; sort changes are announced via a polite live region",
+      "Loading state sets aria-busy and shows skeleton rows",
+      "Empty and error slots inherit state-boundary's roles and focus behaviour"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "a sortable data table with loading and empty states",
+      "table over fetched rows",
+      "tabular data with column sorting"
+    ],
+    "examples": [
+      "<DataTable state={rows} columns={columns} getKey={(r) => r.id} label=\"Users\" />"
+    ]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": ["state-boundary"],
+  "files": [
+    {
+      "from": "files/data-table.tsx",
+      "path": "components/data-table.tsx",
+      "type": "component"
+    }
+  ]
+}

@@ -131,7 +131,7 @@ const homeComponents: HC[] = [
   {
     name: 'data-table',
     layer: 2,
-    status: 'planned',
+    status: 'done',
     kind: 'component',
     a11y: true,
     desc: 'Sortable table with loading rows and empty/error states.',
