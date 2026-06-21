@@ -66,7 +66,6 @@ export function StateBoundary<T>({
       aria-busy={state.status === 'loading' || undefined}
     >
       {/* Polite live region: announced, not seen. */}
-      {/* biome-ignore lint/a11y/useSemanticElements: role=status on a generic span is the standard live-region pattern; <output> is form-output semantics we don't want here. */}
       <span role="status" aria-live="polite" className="sr-only">
         {label}
       </span>

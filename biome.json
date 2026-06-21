@@ -23,6 +23,9 @@
       "recommended": true,
       "suspicious": {
         "noConsoleLog": "off"
+      },
+      "a11y": {
+        "useSemanticElements": "off"
       }
     }
   },
