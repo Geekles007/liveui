@@ -24,7 +24,7 @@ export const layerNames: Record<number, string> = {
 export const components: Comp[] = [
   { name: 'async-state', layer: 0, status: 'done', kind: 'lib', a11y: false },
   { name: 'theme', layer: 0, status: 'done', kind: 'tokens', a11y: false },
-  { name: 'use-async', layer: 0, status: 'planned', kind: 'hook', a11y: false },
+  { name: 'use-async', layer: 0, status: 'done', kind: 'hook', a11y: false },
   { name: 'use-optimistic-list', layer: 0, status: 'planned', kind: 'hook', a11y: false },
   { name: 'use-online', layer: 0, status: 'planned', kind: 'hook', a11y: false },
   { name: 'skeleton', layer: 0, status: 'planned', kind: 'component', a11y: true },
@@ -374,9 +374,72 @@ export const docs: Record<string, Doc> = {
   },
   'use-async': {
     intro:
-      'A hook that runs an async function and hands you back a fully typed AsyncState<T> — including the retry callback — so you never assemble the union by hand.',
-    apiFile: 'use-async.ts',
-    api: 'const users = useAsync(() => api.users.list(), []);\n// users: AsyncState<User[]>\n\n<DataList state={users}>{…}</DataList>',
+      'A hook that runs an async function and hands you back a fully typed AsyncState<T> — including the retry callback — so you never assemble the union by hand. The bridge from any fetcher to every liveui component.',
+    apiFile: 'hooks/use-async.ts',
+    api: 'const users = useAsync(() => api.users.list(), []);\n// users.state: AsyncState<User[]>\n\n<DataList state={users.state} label="Users" getKey={(u) => u.id}>\n  {(u) => <UserRow user={u} />}\n</DataList>',
+    tutorialIntro:
+      'use-async wraps a promise in the AsyncState contract for you. It depends on async-state, which the CLI adds automatically.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Adds the hook and its dependency, async-state, in one go.',
+        file: 'terminal',
+        code: '$ npx liveui add use-async\n+ also adding dependency: async-state\n✓ wrote hooks/use-async.ts',
+      },
+      {
+        title: 'Call it with a fetcher',
+        body: 'Pass a function returning a promise plus a deps array (same contract as useEffect). It returns { state, refetch }.',
+        file: 'users.tsx',
+        code: 'const users = useAsync(() => api.users.list(), []);\n// users.state is AsyncState<User[]>, starting at "loading"',
+      },
+      {
+        title: 'Hand the state to a component',
+        body: 'No manual loading/error wiring — the state already speaks the contract every liveui component understands.',
+        file: 'users.tsx',
+        code: '<DataList state={users.state} label="Users" getKey={(u) => u.id}>\n  {(u) => <UserRow user={u} />}\n</DataList>',
+      },
+      {
+        title: 'Retry comes built in',
+        body: 'On failure, the error variant already carries retry() (wired to refetch), so DataList shows a working Retry button with nothing extra from you.',
+        file: '—',
+        code: '// state = { status: "error", error, retry }\n// the retry button just works',
+      },
+    ],
+    propsTitle: 'Signature',
+    propsIntro: 'useAsync(fetcher, deps?, options?) → { state, refetch }.',
+    col0: 'argument',
+    props: [
+      {
+        name: 'fetcher',
+        type: '() => Promise<T>',
+        desc: 'Required. The async function to run. Its resolved type becomes T.',
+      },
+      {
+        name: 'deps',
+        type: 'unknown[]',
+        desc: 'Re-runs the fetcher when any entry changes (like useEffect). Default [].',
+      },
+      {
+        name: 'options.enabled',
+        type: 'boolean',
+        desc: 'Skip running until true — e.g. wait for an id. Default true.',
+      },
+      {
+        name: 'options.isEmpty',
+        type: '(data: T) => boolean',
+        desc: 'Decide what counts as the empty state. Default: empty array / null.',
+      },
+      {
+        name: '→ state',
+        type: 'AsyncState<T>',
+        desc: 'The current state, ready for any liveui component.',
+      },
+      {
+        name: '→ refetch',
+        type: '() => void',
+        desc: 'Manually re-run; also wired into the error variant’s retry().',
+      },
+    ],
   },
   'use-optimistic-list': {
     intro:

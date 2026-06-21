@@ -2,7 +2,14 @@
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "noEmit": true,
-    "types": ["node"]
+    "types": ["node"],
+    "jsx": "react-jsx",
+    "paths": {
+      "@/lib/async-state": ["./items/async-state/files/async-state.ts"],
+      "@/hooks/use-async": ["./items/use-async/files/use-async.ts"],
+      "@/components/state-boundary": ["./items/state-boundary/files/state-boundary.tsx"],
+      "@/components/data-list": ["./items/data-list/files/data-list.tsx"]
+    }
   },
   "include": ["build.ts", "items/**/files/**/*.ts"]
 }

@@ -12,6 +12,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@/lib/async-state': itemFile('async-state/files/async-state.ts'),
+      '@/hooks/use-async': itemFile('use-async/files/use-async.ts'),
       '@/components/state-boundary': itemFile('state-boundary/files/state-boundary.tsx'),
       '@/components/data-list': itemFile('data-list/files/data-list.tsx'),
     },

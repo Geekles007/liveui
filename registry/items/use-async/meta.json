@@ -1,0 +1,27 @@
+{
+  "name": "use-async",
+  "type": "hook",
+  "version": "1.0.0",
+  "description": "Run an async function and get a fully typed AsyncState<T> back — including the retry callback — so you never assemble the union by hand.",
+  "states": ["loading", "error"],
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": ["async-state"],
+  "manifest": {
+    "intents": [
+      "turn a fetch into a typed AsyncState",
+      "run an async function in a component with loading and error states",
+      "refetch and retry data"
+    ],
+    "examples": [
+      "const users = useAsync(() => api.users.list(), []);\n<DataList state={users.state} label=\"Users\" getKey={(u) => u.id}>{(u) => <UserRow user={u} />}</DataList>"
+    ]
+  },
+  "files": [
+    {
+      "from": "files/use-async.ts",
+      "path": "hooks/use-async.ts",
+      "type": "hook"
+    }
+  ]
+}

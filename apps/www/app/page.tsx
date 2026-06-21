@@ -50,10 +50,10 @@ const homeComponents: HC[] = [
   {
     name: 'use-async',
     layer: 0,
-    status: 'planned',
+    status: 'done',
     kind: 'hook',
     a11y: false,
-    desc: 'Run an async function and get a typed AsyncState back.',
+    desc: 'Run an async function and get a typed AsyncState back, with retry built in.',
     states: ['idle', 'loading', 'error', 'success'],
   },
   {
