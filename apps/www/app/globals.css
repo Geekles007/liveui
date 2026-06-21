@@ -177,6 +177,22 @@ pre {
     padding: 14px 0 !important;
   }
 }
+@media (max-width: 900px) {
+  [data-hero="1"],
+  [data-diff="1"] {
+    grid-template-columns: 1fr !important;
+    gap: 36px !important;
+  }
+  [data-grid3="1"] {
+    grid-template-columns: 1fr !important;
+  }
+  [data-flow="1"] {
+    grid-template-columns: 1fr !important;
+  }
+  [data-arrow="1"] {
+    transform: rotate(90deg);
+  }
+}
 @media (max-width: 620px) {
   [data-exrow="1"] {
     grid-template-columns: 1fr !important;
@@ -186,5 +202,10 @@ pre {
   }
   h1 {
     font-size: 30px !important;
+  }
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
   }
 }
