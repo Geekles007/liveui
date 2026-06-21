@@ -1,0 +1,63 @@
+/**
+ * liveui design tokens — the semantic colour layer every component speaks.
+ *
+ * Import this once (e.g. in your global stylesheet) and pair it with the Tailwind
+ * preset so utilities like `bg-background`, `text-muted-foreground`,
+ * `border-border` and `bg-primary` resolve. Toggle dark mode by setting
+ * `data-theme="dark"` (or the `.dark` class) on <html>.
+ *
+ * Values are HSL channels so Tailwind can compose them with opacity:
+ *   background: hsl(var(--background))
+ */
+:root,
+[data-theme="light"] {
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+
+  --muted: 240 4.8% 95.9%;
+  --muted-foreground: 240 3.8% 46.1%;
+
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 83 65% 40%;
+
+  --primary: 83 68% 40%;
+  --primary-foreground: 80 60% 8%;
+
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 98%;
+
+  --radius: 0.5rem;
+  color-scheme: light;
+}
+
+.dark,
+[data-theme="dark"] {
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --ring: 83 100% 59%;
+
+  --primary: 83 100% 59%;
+  --primary-foreground: 80 60% 8%;
+
+  --destructive: 0 70% 55%;
+  --destructive-foreground: 0 0% 98%;
+
+  color-scheme: dark;
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+}

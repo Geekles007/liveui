@@ -23,7 +23,7 @@ export const layerNames: Record<number, string> = {
 
 export const components: Comp[] = [
   { name: 'async-state', layer: 0, status: 'done', kind: 'lib', a11y: false },
-  { name: 'theme', layer: 0, status: 'next', kind: 'tokens', a11y: false },
+  { name: 'theme', layer: 0, status: 'done', kind: 'tokens', a11y: false },
   { name: 'use-async', layer: 0, status: 'planned', kind: 'hook', a11y: false },
   { name: 'use-optimistic-list', layer: 0, status: 'planned', kind: 'hook', a11y: false },
   { name: 'use-online', layer: 0, status: 'planned', kind: 'hook', a11y: false },
@@ -308,9 +308,69 @@ export const docs: Record<string, Doc> = {
   // ---- planned (intended API) ----
   theme: {
     intro:
-      'Semantic CSS variables — background, foreground, muted, border, destructive, primary — with first-class dark and light. The token layer this very site dogfoods.',
-    apiFile: 'theme.css',
-    api: ':root, [data-theme="dark"] {\n  --background: …;\n  --foreground: …;\n  --primary: …;\n  --destructive: …;\n}\n[data-theme="light"] { … }',
+      'Semantic CSS variables — background, foreground, muted, border, destructive, primary — with first-class dark and light, plus the Tailwind preset that wires them up. The token layer every liveui component speaks (and this very site dogfoods).',
+    apiFile: 'tailwind.preset.ts',
+    api: 'import liveui from "./tailwind.preset";\n\nexport default {\n  presets: [liveui],\n  content: ["./src/**/*.{ts,tsx}"],\n};',
+    tutorialIntro:
+      'theme ships two files — the CSS variables and a Tailwind preset. Install it before any other component; everything else assumes these tokens exist.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Copies the token stylesheet and the Tailwind preset into your project. The CLI adds it automatically the first time you add a component that needs it.',
+        file: 'terminal',
+        code: '$ npx liveui add theme\n✓ wrote styles/theme.css\n✓ wrote tailwind.preset.ts',
+      },
+      {
+        title: 'Import the tokens',
+        body: 'Pull the stylesheet into your global CSS once. It defines the variables for light and dark and sets the base background / foreground.',
+        file: 'app/globals.css',
+        code: '@import "../styles/theme.css";',
+      },
+      {
+        title: 'Wire up Tailwind',
+        body: 'Add the preset so utilities like bg-background, text-muted-foreground and border-border resolve to the tokens — with opacity modifiers (bg-destructive/10) working.',
+        file: 'tailwind.config.ts',
+        code: 'import liveui from "./tailwind.preset";\n\nexport default {\n  presets: [liveui],\n  content: ["./src/**/*.{ts,tsx}"],\n};',
+      },
+      {
+        title: 'Toggle dark mode',
+        body: 'Set data-theme on <html>. Every token flips; no component needs to know about the theme.',
+        file: '—',
+        code: '<html data-theme="dark"> … </html>',
+      },
+    ],
+    propsTitle: 'Tokens',
+    propsIntro:
+      'The semantic variables, exposed as HSL channels so Tailwind can compose them with opacity.',
+    col0: 'token',
+    props: [
+      {
+        name: '--background / --foreground',
+        type: 'page',
+        desc: 'Base surface and text colour for the whole app.',
+      },
+      {
+        name: '--muted / --muted-foreground',
+        type: 'subtle',
+        desc: 'Subdued surfaces (skeletons, chips) and secondary text.',
+      },
+      {
+        name: '--border / --input / --ring',
+        type: 'lines',
+        desc: 'Borders, form field outlines, and the focus ring.',
+      },
+      {
+        name: '--primary / --primary-foreground',
+        type: 'brand',
+        desc: 'Primary action colour and the text that sits on it.',
+      },
+      {
+        name: '--destructive / --destructive-foreground',
+        type: 'danger',
+        desc: 'Error and destructive states.',
+      },
+      { name: '--radius', type: 'shape', desc: 'Base corner radius; md and sm derive from it.' },
+    ],
   },
   'use-async': {
     intro:

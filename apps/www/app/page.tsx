@@ -41,10 +41,10 @@ const homeComponents: HC[] = [
   {
     name: 'theme',
     layer: 0,
-    status: 'next',
+    status: 'done',
     kind: 'tokens',
     a11y: false,
-    desc: 'Semantic CSS variables (background, foreground, primary…) with dark and light.',
+    desc: 'Semantic CSS variables (background, foreground, primary…) with dark and light, plus the Tailwind preset.',
     states: [],
   },
   {
@@ -1564,8 +1564,8 @@ export default function Home() {
                   'font-size:16px;line-height:1.6;color:var(--muted);max-width:560px;margin:0',
                 )}
               >
-                Three components are live now — each state-complete, AA-verified and upgradeable.
-                Each comes with a full tutorial, live example and API reference.
+                {doneCount} components are live now — each state-complete, AA-verified and
+                upgradeable. Each comes with a full tutorial, live example and API reference.
               </p>
             </div>
             <Link

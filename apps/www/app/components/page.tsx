@@ -713,33 +713,39 @@ export default function ComponentsPage() {
                 Live example
               </h2>
 
-              {planned && (
+              {!exAsyncState && !exInteractive && (
                 <div
                   style={s(
-                    'border:1px dashed var(--border-strong);border-radius:14px;padding:40px 24px;text-align:center;background:var(--surface)',
+                    `border:1px ${planned ? 'dashed var(--border-strong)' : 'solid var(--border)'};border-radius:14px;padding:${planned ? '40px 24px' : '20px'};text-align:${planned ? 'center' : 'left'};background:var(--surface)`,
                   )}
                 >
+                  {planned && (
+                    <>
+                      <div
+                        style={s(
+                          "display:inline-flex;align-items:center;gap:8px;font-family:'Geist Mono',monospace;font-size:12.5px;color:var(--warning);margin-bottom:14px;padding:5px 12px;border-radius:999px;border:1px solid var(--warning)",
+                        )}
+                      >
+                        <span
+                          style={s(
+                            'width:6px;height:6px;border-radius:50%;background:var(--warning)',
+                          )}
+                        />
+                        {statusMeta[meta.status].label} · Layer {meta.layer}
+                      </div>
+                      <p
+                        style={s(
+                          'font-size:15px;color:var(--muted);margin:0 auto 18px;max-width:440px',
+                        )}
+                      >
+                        This component isn&apos;t shipped yet. Here&apos;s the intended API it will
+                        expose once it lands.
+                      </p>
+                    </>
+                  )}
                   <div
                     style={s(
-                      "display:inline-flex;align-items:center;gap:8px;font-family:'Geist Mono',monospace;font-size:12.5px;color:var(--warning);margin-bottom:14px;padding:5px 12px;border-radius:999px;border:1px solid var(--warning)",
-                    )}
-                  >
-                    <span
-                      style={s('width:6px;height:6px;border-radius:50%;background:var(--warning)')}
-                    />
-                    {statusMeta[meta.status].label} · Layer {meta.layer}
-                  </div>
-                  <p
-                    style={s(
-                      'font-size:15px;color:var(--muted);margin:0 auto 18px;max-width:440px',
-                    )}
-                  >
-                    This component isn&apos;t shipped yet. Here&apos;s the intended API it will
-                    expose once it lands.
-                  </p>
-                  <div
-                    style={s(
-                      'text-align:left;max-width:560px;margin:0 auto;background:#0c0d10;border:1px solid #20232a;border-radius:12px;overflow:hidden',
+                      `text-align:left;${planned ? 'max-width:560px;margin:0 auto;' : ''}background:#0c0d10;border:1px solid #20232a;border-radius:12px;overflow:hidden`,
                     )}
                   >
                     <div
