@@ -113,7 +113,7 @@ const homeComponents: HC[] = [
   {
     name: 'async-button',
     layer: 1,
-    status: 'planned',
+    status: 'done',
     kind: 'component',
     a11y: true,
     desc: 'A button that owns its own pending and error state.',

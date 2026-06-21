@@ -31,7 +31,7 @@ export const components: Comp[] = [
   { name: 'state-boundary', layer: 1, status: 'done', kind: 'component', a11y: true },
   { name: 'empty-state', layer: 1, status: 'planned', kind: 'component', a11y: true },
   { name: 'error-state', layer: 1, status: 'planned', kind: 'component', a11y: true },
-  { name: 'async-button', layer: 1, status: 'planned', kind: 'component', a11y: true },
+  { name: 'async-button', layer: 1, status: 'done', kind: 'component', a11y: true },
   { name: 'data-list', layer: 2, status: 'done', kind: 'component', a11y: true },
   { name: 'data-table', layer: 2, status: 'planned', kind: 'component', a11y: true },
   { name: 'card-collection', layer: 2, status: 'planned', kind: 'component', a11y: true },
@@ -473,9 +473,75 @@ export const docs: Record<string, Doc> = {
   },
   'async-button': {
     intro:
-      'A button that owns its own pending and error state — disables, shows a spinner, and recovers, from a single onClick that returns a promise.',
-    apiFile: 'async-button.tsx',
+      'A button that owns its own pending and error state — disables, shows a spinner, sets aria-busy and announces the result, from a single onClick that returns a promise. No useState, no double-submit.',
+    apiFile: 'components/async-button.tsx',
     api: '<AsyncButton onClick={() => save(form)}>\n  Save changes\n</AsyncButton>',
+    tutorialIntro:
+      'Drop it in wherever a click kicks off an async action. If your handler returns a promise, the button takes over the pending lifecycle.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Copies the component and its axe test. It only needs React and the theme tokens.',
+        file: 'terminal',
+        code: '$ npx liveui add async-button\n✓ wrote components/async-button.tsx',
+      },
+      {
+        title: 'Return a promise from onClick',
+        body: 'That is the whole API. While the promise is pending the button disables itself, shows a spinner and sets aria-busy.',
+        file: 'save.tsx',
+        code: '<AsyncButton onClick={() => api.save(form)}>\n  Save changes\n</AsyncButton>',
+      },
+      {
+        title: 'Customise the pending + error text',
+        body: 'Optional. Swap the label shown while pending, and the message announced to screen readers on failure.',
+        file: 'save.tsx',
+        code: '<AsyncButton\n  onClick={() => api.save(form)}\n  pendingLabel="Saving…"\n  errorLabel="Could not save"\n>\n  Save\n</AsyncButton>',
+      },
+      {
+        title: 'Synchronous handlers still work',
+        body: 'If onClick returns nothing, AsyncButton behaves exactly like a native button — no spinner, no pending.',
+        file: '—',
+        code: '<AsyncButton onClick={() => setOpen(true)}>Open</AsyncButton>',
+      },
+    ],
+    propsTitle: 'Props',
+    propsIntro: 'Extends the native <button> props (minus onClick).',
+    col0: 'Prop',
+    props: [
+      {
+        name: 'onClick',
+        type: '(e) => unknown',
+        desc: 'Your handler. Return a promise to hand the pending state to the button.',
+      },
+      {
+        name: 'pendingLabel',
+        type: 'ReactNode',
+        desc: 'Shown beside the spinner while pending. Defaults to the children.',
+      },
+      {
+        name: 'errorLabel',
+        type: 'string',
+        desc: 'Announced via the live region on failure. Default "Action failed".',
+      },
+      {
+        name: 'disabled',
+        type: 'boolean',
+        desc: 'Disables the button; pending also disables it automatically.',
+      },
+      {
+        name: '…rest',
+        type: 'ButtonHTMLAttributes',
+        desc: 'Any other native button attribute (type, form, aria-*, className).',
+      },
+    ],
+    a11y: true,
+    a11yList: [
+      'Sets disabled and aria-busy="true" for the whole pending window — no double-submit.',
+      'The spinner is decorative (aria-hidden) and only spins under motion-safe (respects prefers-reduced-motion).',
+      'Success and failure are announced through an aria-live="polite" region.',
+      'Keeps native <button> semantics, keyboard activation and focus.',
+      'Shipped axe-core test covers the rest, pending and error states.',
+    ],
   },
   'data-table': {
     intro:

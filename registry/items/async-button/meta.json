@@ -1,0 +1,35 @@
+{
+  "name": "async-button",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "A button that owns its own pending and error state: give it an onClick that returns a promise and it disables, shows a spinner, sets aria-busy and announces the result.",
+  "states": ["loading", "error"],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "Disables and sets aria-busy while the promise is pending — no double-submit",
+      "The spinner is decorative (aria-hidden) and respects prefers-reduced-motion",
+      "Success and failure are announced via a polite live region",
+      "Keeps the native <button> semantics and focus behaviour"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "a button with a built-in loading and error state",
+      "submit or save button that disables while pending",
+      "prevent double submit on async actions"
+    ],
+    "examples": ["<AsyncButton onClick={() => save(form)}>Save changes</AsyncButton>"]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "from": "files/async-button.tsx",
+      "path": "components/async-button.tsx",
+      "type": "component"
+    }
+  ]
+}
