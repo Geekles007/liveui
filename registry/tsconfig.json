@@ -4,5 +4,5 @@
     "noEmit": true,
     "types": ["node"]
   },
-  "include": ["build.ts", "items/**/*.ts"]
+  "include": ["build.ts", "items/**/files/**/*.ts"]
 }
