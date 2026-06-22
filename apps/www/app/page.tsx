@@ -493,8 +493,10 @@ export default function Home() {
     );
   }, [aiQuery]);
 
-  const featured = homeComponents.filter((c) => c.status === 'done');
-  const doneCount = featured.length;
+  const shipped = homeComponents.filter((c) => c.status === 'done');
+  const doneCount = shipped.length;
+  // Home teaser shows at most 6; the "Browse all" link covers the rest.
+  const featured = shipped.slice(0, 6);
   const dotColor: Record<string, string> = {
     done: 'var(--primary)',
     next: 'var(--warning)',
