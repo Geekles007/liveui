@@ -10,7 +10,8 @@
       "@/components/async-button": ["./items/async-button/files/async-button.tsx"],
       "@/components/state-boundary": ["./items/state-boundary/files/state-boundary.tsx"],
       "@/components/data-list": ["./items/data-list/files/data-list.tsx"],
-      "@/components/data-table": ["./items/data-table/files/data-table.tsx"]
+      "@/components/data-table": ["./items/data-table/files/data-table.tsx"],
+      "@/components/async-combobox": ["./items/async-combobox/files/async-combobox.tsx"]
     }
   },
   "include": ["build.ts", "items/**/files/**/*.ts"]

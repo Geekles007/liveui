@@ -1,0 +1,38 @@
+{
+  "name": "async-combobox",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "A combobox that fetches options as you type — debounced, with loading, empty and error states inside the listbox, and the full ARIA 1.2 combobox keyboard pattern.",
+  "states": ["loading", "empty", "error"],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "role=combobox input wired to a role=listbox via aria-controls / aria-expanded",
+      "Highlighted option tracked with aria-activedescendant (focus stays in the input)",
+      "Keyboard: ArrowDown/Up move, Enter selects, Escape closes",
+      "Loading sets aria-busy; errors expose role=alert with a retry",
+      "Options are role=option with aria-selected"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "search-as-you-type select that fetches options",
+      "autocomplete / typeahead over a remote source",
+      "combobox with loading and empty states"
+    ],
+    "examples": [
+      "<AsyncCombobox load={(q) => api.search(q)} getLabel={(o) => o.name} getKey={(o) => o.id} label=\"Search users\" />"
+    ]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": ["async-state"],
+  "files": [
+    {
+      "from": "files/async-combobox.tsx",
+      "path": "components/async-combobox.tsx",
+      "type": "component"
+    }
+  ]
+}

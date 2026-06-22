@@ -167,7 +167,7 @@ const homeComponents: HC[] = [
   {
     name: 'async-combobox',
     layer: 3,
-    status: 'planned',
+    status: 'done',
     kind: 'component',
     a11y: true,
     desc: 'Combobox that fetches options as you type.',

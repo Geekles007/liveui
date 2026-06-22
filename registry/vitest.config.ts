@@ -17,6 +17,7 @@ export default defineConfig({
       '@/components/state-boundary': itemFile('state-boundary/files/state-boundary.tsx'),
       '@/components/data-list': itemFile('data-list/files/data-list.tsx'),
       '@/components/data-table': itemFile('data-table/files/data-table.tsx'),
+      '@/components/async-combobox': itemFile('async-combobox/files/async-combobox.tsx'),
     },
   },
   esbuild: { jsx: 'automatic' },

@@ -37,7 +37,7 @@ export const components: Comp[] = [
   { name: 'card-collection', layer: 2, status: 'planned', kind: 'component', a11y: true },
   { name: 'detail-view', layer: 2, status: 'planned', kind: 'component', a11y: true },
   { name: 'avatar', layer: 2, status: 'planned', kind: 'component', a11y: false },
-  { name: 'async-combobox', layer: 3, status: 'planned', kind: 'component', a11y: true },
+  { name: 'async-combobox', layer: 3, status: 'done', kind: 'component', a11y: true },
   { name: 'command-palette', layer: 3, status: 'planned', kind: 'component', a11y: true },
   { name: 'file-upload', layer: 3, status: 'planned', kind: 'component', a11y: true },
   { name: 'toast', layer: 4, status: 'planned', kind: 'component', a11y: true },
@@ -630,9 +630,64 @@ export const docs: Record<string, Doc> = {
   },
   'async-combobox': {
     intro:
-      'A combobox that fetches options as you type — debounced, with loading, empty and error states inside the listbox.',
-    apiFile: 'async-combobox.tsx',
-    api: '<AsyncCombobox\n  load={(q) => api.search(q)}\n  getLabel={(o) => o.name}\n/>',
+      'A combobox that fetches options as you type — debounced, with loading, empty and error states inside the listbox, and the full ARIA 1.2 keyboard pattern. The first input that is interactive and async at once.',
+    apiFile: 'components/async-combobox.tsx',
+    api: '<AsyncCombobox\n  load={(q) => api.search(q)}\n  getLabel={(o) => o.name}\n  getKey={(o) => o.id}\n  onSelect={setUser}\n  label="Search users"\n/>',
+    tutorialIntro:
+      'Give it an async `load(query)` and how to label an option. It debounces, fetches, and renders the right state in the popup — you wire nothing.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Pulls in async-combobox and async-state (for the contract it speaks).',
+        file: 'terminal',
+        code: '$ npx liveui add async-combobox\n+ also adding dependency: async-state\n✓ wrote components/async-combobox.tsx',
+      },
+      {
+        title: 'Wire a fetcher',
+        body: 'load is called (debounced) with the current query and returns a promise of options. Loading / empty / error are handled inside the listbox.',
+        file: 'user-search.tsx',
+        code: '<AsyncCombobox\n  load={(q) => api.users.search(q)}\n  getLabel={(u) => u.name}\n  getKey={(u) => u.id}\n  label="Search users"\n/>',
+      },
+      {
+        title: 'Handle the selection',
+        body: 'onSelect fires with the chosen option; the label is written into the input for you.',
+        file: 'user-search.tsx',
+        code: 'const [user, setUser] = useState<User | null>(null);\n\n<AsyncCombobox … onSelect={setUser} />',
+      },
+      {
+        title: 'Keyboard works out of the box',
+        body: '↓/↑ move the highlight (tracked via aria-activedescendant), Enter selects, Esc closes — focus never leaves the input.',
+        file: '—',
+        code: '// ArrowDown → highlight next · Enter → select · Esc → close',
+      },
+    ],
+    propsTitle: 'Props',
+    propsIntro: 'The surface of <AsyncCombobox>.',
+    col0: 'Prop',
+    props: [
+      {
+        name: 'load',
+        type: '(q: string) => Promise<T[]>',
+        desc: 'Required. Fetch options for the query. Debounced for you.',
+      },
+      {
+        name: 'getLabel',
+        type: '(item: T) => string',
+        desc: 'Required. Option label; also written into the input on select.',
+      },
+      { name: 'getKey', type: '(item: T) => Key', desc: 'Required. Stable key per option.' },
+      { name: 'onSelect', type: '(item: T) => void', desc: 'Called when an option is chosen.' },
+      { name: 'label', type: 'string', desc: 'Accessible name for the input.' },
+      { name: 'debounceMs', type: 'number', desc: 'Debounce before firing load. Default 250.' },
+    ],
+    a11y: true,
+    a11yList: [
+      'role="combobox" input wired to a role="listbox" popup via aria-controls and aria-expanded.',
+      'The highlighted option is tracked with aria-activedescendant — focus stays in the input.',
+      'Full keyboard: ArrowDown/Up move, Enter selects, Escape closes.',
+      'Loading sets aria-busy; errors expose role="alert" with a retry control.',
+      'Options are role="option" with aria-selected; shipped axe test covers each state.',
+    ],
   },
   'command-palette': {
     intro:
