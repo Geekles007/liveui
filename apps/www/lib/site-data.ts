@@ -40,7 +40,7 @@ export const components: Comp[] = [
   { name: 'async-combobox', layer: 3, status: 'done', kind: 'component', a11y: true },
   { name: 'command-palette', layer: 3, status: 'planned', kind: 'component', a11y: true },
   { name: 'file-upload', layer: 3, status: 'planned', kind: 'component', a11y: true },
-  { name: 'toast', layer: 4, status: 'planned', kind: 'component', a11y: true },
+  { name: 'toast', layer: 4, status: 'done', kind: 'component', a11y: true },
   { name: 'confirm-dialog', layer: 4, status: 'planned', kind: 'component', a11y: true },
   { name: 'sheet', layer: 4, status: 'planned', kind: 'component', a11y: true },
   { name: 'pagination', layer: 5, status: 'planned', kind: 'component', a11y: true },
@@ -702,9 +702,75 @@ export const docs: Record<string, Doc> = {
   },
   toast: {
     intro:
-      'Promise-aware notifications — pass a promise and the toast moves through loading → success / error on its own.',
-    apiFile: 'toast.ts',
-    api: 'toast.promise(save(form), {\n  loading: "Saving…",\n  success: "Saved",\n  error: "Could not save",\n});',
+      'Promise-aware notifications — pass a promise and the toast moves through loading → success / error on its own. A tiny module store plus a single <Toaster /> live region. The AsyncState idea, applied to transient feedback.',
+    apiFile: 'components/toast.tsx',
+    api: 'toast.promise(api.save(form), {\n  loading: "Saving…",\n  success: "Saved",\n  error: "Could not save",\n});',
+    tutorialIntro:
+      'Mount <Toaster /> once near your app root, then call toast from anywhere — no context, no hooks.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Copies the store and the Toaster component (and its axe test). Only needs React and the theme tokens.',
+        file: 'terminal',
+        code: '$ npx ibirdui add toast\n✓ wrote components/toast.tsx',
+      },
+      {
+        title: 'Mount the Toaster once',
+        body: 'Render it near the root. It is the live region that announces and shows every toast.',
+        file: 'app/layout.tsx',
+        code: 'import { Toaster } from "@/components/toast";\n\n<body>\n  {children}\n  <Toaster />\n</body>',
+      },
+      {
+        title: 'Fire toasts from anywhere',
+        body: 'Import toast and call it. No provider, no hook — it is a plain module store.',
+        file: 'save.ts',
+        code: 'import { toast } from "@/components/toast";\n\ntoast.success("Saved");\ntoast.error("Could not save");',
+      },
+      {
+        title: 'Let a promise drive it',
+        body: 'toast.promise shows a loading toast, then swaps it to success or error when the promise settles — success/error can be functions of the result.',
+        file: 'save.ts',
+        code: 'toast.promise(api.save(form), {\n  loading: "Saving…",\n  success: (r) => `Saved ${r.name}`,\n  error: "Could not save",\n});',
+      },
+    ],
+    propsTitle: 'API',
+    propsIntro: 'The toast function, its variants, and the <Toaster /> component.',
+    col0: 'member',
+    props: [
+      {
+        name: 'toast(msg)',
+        type: '(node, ms?) => id',
+        desc: 'Show an info toast. Returns its id.',
+      },
+      {
+        name: 'toast.success / .error / .info',
+        type: '(node, ms?) => id',
+        desc: 'Typed variants; errors persist longer and announce assertively.',
+      },
+      {
+        name: 'toast.promise',
+        type: '(p, { loading, success, error })',
+        desc: 'Drive a toast from a promise; success/error may be functions of the value/error.',
+      },
+      {
+        name: 'toast.dismiss(id)',
+        type: '(id) => void',
+        desc: 'Dismiss one toast; dismissAll() clears them.',
+      },
+      {
+        name: '<Toaster />',
+        type: 'position?',
+        desc: 'Mount once. Anchors the stack to a corner (default bottom-right).',
+      },
+    ],
+    a11y: true,
+    a11yList: [
+      'The stack is a labelled region; each toast is role="status" (polite) or role="alert" (assertive) for errors.',
+      'Dismiss controls are real buttons with an accessible label and a focus ring.',
+      'The loading spinner is decorative (aria-hidden) and only spins under motion-safe.',
+      'Loading toasts never auto-dismiss; errors stay longer so they can be read.',
+      'Shipped axe-core test covers success, error and the promise lifecycle.',
+    ],
   },
   'confirm-dialog': {
     intro: 'An async confirm dialog whose action button owns its own pending and error state.',

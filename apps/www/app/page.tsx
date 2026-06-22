@@ -194,7 +194,7 @@ const homeComponents: HC[] = [
   {
     name: 'toast',
     layer: 4,
-    status: 'planned',
+    status: 'done',
     kind: 'component',
     a11y: true,
     desc: 'Promise-aware notifications.',

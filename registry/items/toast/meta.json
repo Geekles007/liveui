@@ -1,0 +1,37 @@
+{
+  "name": "toast",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "Promise-aware notifications: toast.promise(p, { loading, success, error }) walks a promise through its states on its own. Tiny module store + a single <Toaster /> live region.",
+  "states": ["loading", "error"],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "Stack is a labelled region; each toast is role=status (polite) or role=alert (assertive for errors)",
+      "Dismiss buttons are real buttons with an accessible label and focus ring",
+      "The spinner is decorative and respects prefers-reduced-motion",
+      "Errors persist longer; loading toasts never auto-dismiss"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "promise-aware toast notifications",
+      "show saving / saved / failed feedback automatically",
+      "transient success and error messages"
+    ],
+    "examples": [
+      "toast.promise(api.save(form), { loading: \"Saving…\", success: \"Saved\", error: \"Could not save\" });"
+    ]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "from": "files/toast.tsx",
+      "path": "components/toast.tsx",
+      "type": "component"
+    }
+  ]
+}
