@@ -1,9 +1,20 @@
 {
   "name": "@liveui/cli",
-  "version": "0.0.0",
-  "description": "CLI to add registry items into a project.",
+  "version": "0.1.0",
+  "description": "The liveui CLI — add, upgrade and gen state-complete, accessible components into your project.",
   "license": "MIT",
+  "author": "Geekles007",
+  "homepage": "https://geekles007.github.io/liveui",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Geekles007/liveui.git",
+    "directory": "packages/cli"
+  },
+  "keywords": ["liveui", "cli", "registry", "shadcn", "react", "components"],
   "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
   "bin": {
     "liveui": "./dist/index.js"
   },
