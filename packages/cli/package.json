@@ -1,22 +1,22 @@
 {
-  "name": "everstate",
+  "name": "ibirdui",
   "version": "0.1.0",
-  "description": "The everstate CLI — add, upgrade and gen state-complete, accessible components into your project.",
+  "description": "The ibirdui CLI — add, upgrade and gen state-complete, accessible components into your project.",
   "license": "MIT",
   "author": "Geekles007",
-  "homepage": "https://geekles007.github.io/everstate",
+  "homepage": "https://geekles007.github.io/ibirdui",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Geekles007/everstate.git",
+    "url": "git+https://github.com/Geekles007/ibirdui.git",
     "directory": "packages/cli"
   },
-  "keywords": ["everstate", "cli", "registry", "shadcn", "react", "components"],
+  "keywords": ["ibirdui", "cli", "registry", "shadcn", "react", "components"],
   "type": "module",
   "publishConfig": {
     "access": "public"
   },
   "bin": {
-    "everstate": "./dist/index.js"
+    "ibirdui": "./dist/index.js"
   },
   "files": ["dist"],
   "scripts": {
@@ -26,7 +26,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "everstate-core": "workspace:*",
+    "ibirdui-core": "workspace:*",
     "commander": "^12.1.0",
     "kleur": "^4.1.5"
   },

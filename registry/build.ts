@@ -22,14 +22,14 @@ import {
   hashContent,
   registryIndexSchema,
   registryItemSchema,
-} from 'everstate-core';
+} from 'ibirdui-core';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const ITEMS_DIR = join(ROOT, 'items');
 const OUT_DIR = join(ROOT, 'public', 'r');
 
-const REGISTRY_NAME = 'everstate';
-const HOMEPAGE = 'https://Geekles007.github.io/everstate';
+const REGISTRY_NAME = 'ibirdui';
+const HOMEPAGE = 'https://Geekles007.github.io/ibirdui';
 
 interface MetaFile {
   from: string;
@@ -115,7 +115,7 @@ async function main(): Promise<void> {
   }
 
   const index: RegistryIndex = registryIndexSchema.parse({
-    $schema: 'https://everstate/schema/registry-index.json',
+    $schema: 'https://ibirdui/schema/registry-index.json',
     name: REGISTRY_NAME,
     homepage: HOMEPAGE,
     items: items

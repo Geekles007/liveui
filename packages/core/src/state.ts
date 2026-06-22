@@ -1,9 +1,9 @@
 /**
- * The async contract every everstate component speaks.
+ * The async contract every ibirdui component speaks.
  *
  * A component never invents its own loading / error / empty handling — it accepts
  * an `AsyncState<T>` and renders the matching slot. This single type is what makes
- * everstate components "state-complete": the five real-world states of any async UI
+ * ibirdui components "state-complete": the five real-world states of any async UI
  * are modelled once, here, instead of being re-implemented per component.
  */
 export type AsyncStatus = 'idle' | 'loading' | 'empty' | 'error' | 'success';

@@ -1,4 +1,4 @@
-import { normalizeBaseUrl } from 'everstate-core';
+import { normalizeBaseUrl } from 'ibirdui-core';
 import { bold, cyan, dim, green } from 'kleur/colors';
 import { resolveRegistry } from '../config.js';
 import { nodeFetch } from '../fetch.js';
@@ -50,7 +50,7 @@ export async function gen(prompt: string, options: GenOptions): Promise<void> {
   console.log(bold(`\nPrompt: ${dim(prompt)}\n`));
 
   if (ranked.length === 0) {
-    console.log("No matching components. Try `everstate list` to see what's available.");
+    console.log("No matching components. Try `ibirdui list` to see what's available.");
     return;
   }
 
@@ -64,7 +64,7 @@ export async function gen(prompt: string, options: GenOptions): Promise<void> {
   }
 
   const addList = ranked.map((r) => r.item.name).join(' ');
-  console.log(cyan(`Add them all:\n  everstate add ${addList}`));
+  console.log(cyan(`Add them all:\n  ibirdui add ${addList}`));
 }
 
 function scoreItem(item: ManifestItem, terms: string[]): number {

@@ -23,7 +23,7 @@ importers:
 
   apps/www:
     dependencies:
-      'everstate-core':
+      'ibirdui-core':
         specifier: workspace:*
         version: link:../../packages/core
       next:
@@ -36,7 +36,7 @@ importers:
         specifier: ^19.0.0
         version: 19.2.7(react@19.2.7)
     devDependencies:
-      'everstate-registry':
+      'ibirdui-registry':
         specifier: workspace:*
         version: link:../../registry
       '@types/node':
@@ -54,7 +54,7 @@ importers:
 
   packages/cli:
     dependencies:
-      'everstate-core':
+      'ibirdui-core':
         specifier: workspace:*
         version: link:../core
       commander:
@@ -98,7 +98,7 @@ importers:
 
   registry:
     dependencies:
-      'everstate-core':
+      'ibirdui-core':
         specifier: workspace:*
         version: link:../packages/core
     devDependencies:

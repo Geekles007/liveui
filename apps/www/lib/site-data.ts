@@ -89,16 +89,16 @@ export interface Doc {
 export const docs: Record<string, Doc> = {
   'async-state': {
     intro:
-      'The contract at the centre of everstate. One discriminated union, AsyncState<T>, models the full lifecycle of any async value — so every component speaks the same five-state language.',
+      'The contract at the centre of ibirdui. One discriminated union, AsyncState<T>, models the full lifecycle of any async value — so every component speaks the same five-state language.',
     example: 'asyncstate',
     tutorialIntro:
-      'async-state is a tiny type-only module. Model your data once, then hand it to any everstate component.',
+      'async-state is a tiny type-only module. Model your data once, then hand it to any ibirdui component.',
     tutorial: [
       {
         title: 'Add the contract',
         body: 'It copies a single, dependency-free .ts file into your project. No runtime, just types and a couple of helpers.',
         file: 'terminal',
-        code: '$ npx everstate add async-state\n✓ wrote lib/async-state.ts\n✓ updated everstate.lock.json',
+        code: '$ npx ibirdui add async-state\n✓ wrote lib/async-state.ts\n✓ updated ibirdui.lock.json',
       },
       {
         title: 'Model your data',
@@ -114,7 +114,7 @@ export const docs: Record<string, Doc> = {
       },
       {
         title: 'Hand it to a component',
-        body: 'Any everstate display component accepts an AsyncState and renders the right slot automatically. You write zero state-handling code.',
+        body: 'Any ibirdui display component accepts an AsyncState and renders the right slot automatically. You write zero state-handling code.',
         file: 'users.tsx',
         code: '<DataList state={users} label="Users" getKey={(u) => u.id}>\n  {(u) => <UserRow user={u} />}\n</DataList>',
       },
@@ -160,7 +160,7 @@ export const docs: Record<string, Doc> = {
         title: 'Install',
         body: 'Copies the component plus its axe test into your repo. You own both.',
         file: 'terminal',
-        code: '$ npx everstate add state-boundary\n✓ wrote components/state-boundary.tsx\n✓ wrote components/state-boundary.test.tsx',
+        code: '$ npx ibirdui add state-boundary\n✓ wrote components/state-boundary.tsx\n✓ wrote components/state-boundary.test.tsx',
       },
       {
         title: 'Wrap your async region',
@@ -239,7 +239,7 @@ export const docs: Record<string, Doc> = {
         title: 'Install',
         body: 'Pulls in data-list and its axe test. It depends on state-boundary, which the CLI adds for you if it is missing.',
         file: 'terminal',
-        code: '$ npx everstate add data-list\n+ also adding dependency: state-boundary\n✓ wrote components/data-list.tsx',
+        code: '$ npx ibirdui add data-list\n+ also adding dependency: state-boundary\n✓ wrote components/data-list.tsx',
       },
       {
         title: 'Write one row',
@@ -308,9 +308,9 @@ export const docs: Record<string, Doc> = {
   // ---- planned (intended API) ----
   theme: {
     intro:
-      'Semantic CSS variables — background, foreground, muted, border, destructive, primary — with first-class dark and light, plus the Tailwind preset that wires them up. The token layer every everstate component speaks (and this very site dogfoods).',
+      'Semantic CSS variables — background, foreground, muted, border, destructive, primary — with first-class dark and light, plus the Tailwind preset that wires them up. The token layer every ibirdui component speaks (and this very site dogfoods).',
     apiFile: 'tailwind.preset.ts',
-    api: 'import everstate from "./tailwind.preset";\n\nexport default {\n  presets: [everstate],\n  content: ["./src/**/*.{ts,tsx}"],\n};',
+    api: 'import ibirdui from "./tailwind.preset";\n\nexport default {\n  presets: [ibirdui],\n  content: ["./src/**/*.{ts,tsx}"],\n};',
     tutorialIntro:
       'theme ships two files — the CSS variables and a Tailwind preset. Install it before any other component; everything else assumes these tokens exist.',
     tutorial: [
@@ -318,7 +318,7 @@ export const docs: Record<string, Doc> = {
         title: 'Install',
         body: 'Copies the token stylesheet and the Tailwind preset into your project. The CLI adds it automatically the first time you add a component that needs it.',
         file: 'terminal',
-        code: '$ npx everstate add theme\n✓ wrote styles/theme.css\n✓ wrote tailwind.preset.ts',
+        code: '$ npx ibirdui add theme\n✓ wrote styles/theme.css\n✓ wrote tailwind.preset.ts',
       },
       {
         title: 'Import the tokens',
@@ -330,7 +330,7 @@ export const docs: Record<string, Doc> = {
         title: 'Wire up Tailwind',
         body: 'Add the preset so utilities like bg-background, text-muted-foreground and border-border resolve to the tokens — with opacity modifiers (bg-destructive/10) working.',
         file: 'tailwind.config.ts',
-        code: 'import everstate from "./tailwind.preset";\n\nexport default {\n  presets: [everstate],\n  content: ["./src/**/*.{ts,tsx}"],\n};',
+        code: 'import ibirdui from "./tailwind.preset";\n\nexport default {\n  presets: [ibirdui],\n  content: ["./src/**/*.{ts,tsx}"],\n};',
       },
       {
         title: 'Toggle dark mode',
@@ -374,7 +374,7 @@ export const docs: Record<string, Doc> = {
   },
   'use-async': {
     intro:
-      'A hook that runs an async function and hands you back a fully typed AsyncState<T> — including the retry callback — so you never assemble the union by hand. The bridge from any fetcher to every everstate component.',
+      'A hook that runs an async function and hands you back a fully typed AsyncState<T> — including the retry callback — so you never assemble the union by hand. The bridge from any fetcher to every ibirdui component.',
     apiFile: 'hooks/use-async.ts',
     api: 'const users = useAsync(() => api.users.list(), []);\n// users.state: AsyncState<User[]>\n\n<DataList state={users.state} label="Users" getKey={(u) => u.id}>\n  {(u) => <UserRow user={u} />}\n</DataList>',
     tutorialIntro:
@@ -384,7 +384,7 @@ export const docs: Record<string, Doc> = {
         title: 'Install',
         body: 'Adds the hook and its dependency, async-state, in one go.',
         file: 'terminal',
-        code: '$ npx everstate add use-async\n+ also adding dependency: async-state\n✓ wrote hooks/use-async.ts',
+        code: '$ npx ibirdui add use-async\n+ also adding dependency: async-state\n✓ wrote hooks/use-async.ts',
       },
       {
         title: 'Call it with a fetcher',
@@ -394,7 +394,7 @@ export const docs: Record<string, Doc> = {
       },
       {
         title: 'Hand the state to a component',
-        body: 'No manual loading/error wiring — the state already speaks the contract every everstate component understands.',
+        body: 'No manual loading/error wiring — the state already speaks the contract every ibirdui component understands.',
         file: 'users.tsx',
         code: '<DataList state={users.state} label="Users" getKey={(u) => u.id}>\n  {(u) => <UserRow user={u} />}\n</DataList>',
       },
@@ -432,7 +432,7 @@ export const docs: Record<string, Doc> = {
       {
         name: '→ state',
         type: 'AsyncState<T>',
-        desc: 'The current state, ready for any everstate component.',
+        desc: 'The current state, ready for any ibirdui component.',
       },
       {
         name: '→ refetch',
@@ -483,7 +483,7 @@ export const docs: Record<string, Doc> = {
         title: 'Install',
         body: 'Copies the component and its axe test. It only needs React and the theme tokens.',
         file: 'terminal',
-        code: '$ npx everstate add async-button\n✓ wrote components/async-button.tsx',
+        code: '$ npx ibirdui add async-button\n✓ wrote components/async-button.tsx',
       },
       {
         title: 'Return a promise from onClick',
@@ -555,7 +555,7 @@ export const docs: Record<string, Doc> = {
         title: 'Install',
         body: 'Pulls in data-table and its axe test. It depends on state-boundary, which the CLI adds for you.',
         file: 'terminal',
-        code: '$ npx everstate add data-table\n+ also adding dependency: state-boundary\n✓ wrote components/data-table.tsx',
+        code: '$ npx ibirdui add data-table\n+ also adding dependency: state-boundary\n✓ wrote components/data-table.tsx',
       },
       {
         title: 'Describe your columns',
@@ -640,7 +640,7 @@ export const docs: Record<string, Doc> = {
         title: 'Install',
         body: 'Pulls in async-combobox and async-state (for the contract it speaks).',
         file: 'terminal',
-        code: '$ npx everstate add async-combobox\n+ also adding dependency: async-state\n✓ wrote components/async-combobox.tsx',
+        code: '$ npx ibirdui add async-combobox\n+ also adding dependency: async-state\n✓ wrote components/async-combobox.tsx',
       },
       {
         title: 'Wire a fetcher',

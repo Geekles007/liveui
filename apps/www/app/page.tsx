@@ -248,7 +248,7 @@ const homeComponents: HC[] = [
 ];
 
 const termLines = [
-  { text: '$ everstate upgrade', color: '#e6edf3' },
+  { text: '$ ibirdui upgrade', color: '#e6edf3' },
   { text: 'state-boundary 1.0.0 → 1.1.0', color: '#79c0ff' },
   {
     text: '  conflict components/state-boundary.tsx → wrote components/state-boundary.tsx.new',
@@ -487,7 +487,7 @@ export default function Home() {
           name: n,
           desc: c?.desc ?? '',
           status: c?.status ?? 'planned',
-          add: `npx everstate add ${n}`,
+          add: `npx ibirdui add ${n}`,
         };
       }),
     );
@@ -511,9 +511,9 @@ export default function Home() {
     };
   });
 
-  const qsList = `${runner[pkg]} everstate list`;
-  const qsAdd = `${runner[pkg]} everstate add data-list`;
-  const qsUpgrade = `${runner[pkg]} everstate upgrade`;
+  const qsList = `${runner[pkg]} ibirdui list`;
+  const qsAdd = `${runner[pkg]} ibirdui add data-list`;
+  const qsUpgrade = `${runner[pkg]} ibirdui upgrade`;
 
   const eyebrow =
     "font-family:'Geist Mono',monospace;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-fg);margin-bottom:16px";
@@ -568,21 +568,21 @@ export default function Home() {
           <div style={s('display:flex;flex-wrap:wrap;gap:12px;align-items:center')}>
             <button
               type="button"
-              onClick={() => copy('npx everstate add data-list', 'hero')}
-              aria-label="Copy install command: npx everstate add data-list"
+              onClick={() => copy('npx ibirdui add data-list', 'hero')}
+              aria-label="Copy install command: npx ibirdui add data-list"
               className="hov-accent"
               style={s(
                 `display:inline-flex;align-items:center;gap:12px;padding:13px 18px;border-radius:11px;background:var(--surface);border:1px solid var(--border-strong);cursor:pointer;font-family:${mono};font-size:14.5px`,
               )}
             >
               <span style={s('color:var(--muted-2)')}>$</span>
-              <span>npx everstate add data-list</span>
+              <span>npx ibirdui add data-list</span>
               <span aria-hidden="true" style={s('display:inline-flex;color:var(--accent-fg)')}>
                 <CopyIcon copied={copiedId === 'hero'} />
               </span>
             </button>
             <a
-              href="https://github.com/Geekles007/everstate"
+              href="https://github.com/Geekles007/ibirdui"
               target="_blank"
               rel="noreferrer noopener"
               className="hov-dim"
@@ -846,7 +846,7 @@ export default function Home() {
           >
             You copy a component, then re-implement loading, empty and error states in every
             project. Accessibility is asserted, never checked. And once you edit the code, you can
-            never upgrade what you copied. everstate adds back the two things ownership cost you —{' '}
+            never upgrade what you copied. ibirdui adds back the two things ownership cost you —{' '}
             <strong style={s('color:var(--foreground);font-weight:600')}>completeness</strong> and{' '}
             <strong style={s('color:var(--foreground);font-weight:600')}>maintainability</strong>.
           </p>
@@ -1242,7 +1242,7 @@ export default function Home() {
                   `font-family:${mono};font-size:14px;background:var(--background);padding:2px 7px;border-radius:6px;border:1px solid var(--border);color:var(--accent-fg)`,
                 )}
               >
-                everstate add
+                ibirdui add
               </code>{' '}
               writes a{' '}
               <code
@@ -1250,7 +1250,7 @@ export default function Home() {
                   `font-family:${mono};font-size:14px;background:var(--background);padding:2px 7px;border-radius:6px;border:1px solid var(--border);color:var(--accent-fg)`,
                 )}
               >
-                everstate.lock.json
+                ibirdui.lock.json
               </code>{' '}
               — a version and a content fingerprint per file.{' '}
               <code
@@ -1258,7 +1258,7 @@ export default function Home() {
                   `font-family:${mono};font-size:14px;background:var(--background);padding:2px 7px;border-radius:6px;border:1px solid var(--border);color:var(--accent-fg)`,
                 )}
               >
-                everstate upgrade
+                ibirdui upgrade
               </code>{' '}
               updates files you haven&apos;t touched, and for files you edited it never overwrites —
               it drops the new version as{' '}
@@ -1339,7 +1339,7 @@ export default function Home() {
             , focus management, correct roles. And every component carries a machine-readable
             manifest, so{' '}
             <code style={s(`font-family:${mono};font-size:14px;color:var(--accent-fg)`)}>
-              everstate gen
+              ibirdui gen
             </code>{' '}
             can suggest the right pieces for a task.
           </p>
@@ -1461,7 +1461,7 @@ export default function Home() {
           <div
             style={s(`font-size:12px;color:var(--muted-2);margin-bottom:16px;font-family:${mono}`)}
           >
-            $ everstate gen &quot;{aiQuery}&quot;
+            $ ibirdui gen &quot;{aiQuery}&quot;
           </div>
 
           {aiResults && aiResults.length > 0 && (
@@ -1581,7 +1581,7 @@ export default function Home() {
           </div>
           <div
             role="list"
-            aria-label="Shipped everstate components"
+            aria-label="Shipped ibirdui components"
             data-grid3="1"
             style={s('display:grid;grid-template-columns:repeat(3,1fr);gap:16px')}
           >
@@ -1702,7 +1702,7 @@ export default function Home() {
             [
               'your-project/',
               'You own it',
-              'The CLI copies files in and writes everstate.lock.json.',
+              'The CLI copies files in and writes ibirdui.lock.json.',
             ],
           ].map(([tag, title, body], i) => (
             <div key={tag} style={s('display:contents')}>
@@ -1765,7 +1765,7 @@ export default function Home() {
               'font-size:34px;line-height:1.16;letter-spacing:-.02em;font-weight:600;margin:0 0 32px',
             )}
           >
-            Where everstate sits.
+            Where ibirdui sits.
           </h2>
           <div
             style={s(
@@ -1778,7 +1778,7 @@ export default function Home() {
                   'position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)',
                 )}
               >
-                Feature comparison of everstate, shadcn/ui, and hand-rolled components
+                Feature comparison of ibirdui, shadcn/ui, and hand-rolled components
               </caption>
               <thead>
                 <tr style={s('border-bottom:1px solid var(--border)')}>
@@ -1796,7 +1796,7 @@ export default function Home() {
                       'text-align:center;padding:16px 20px;font-size:14px;font-weight:600;color:var(--accent-fg)',
                     )}
                   >
-                    everstate
+                    ibirdui
                   </th>
                   <th
                     scope="col"

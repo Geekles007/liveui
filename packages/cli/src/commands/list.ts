@@ -1,4 +1,4 @@
-import { fetchRegistryIndex } from 'everstate-core';
+import { fetchRegistryIndex } from 'ibirdui-core';
 import { bold, dim } from 'kleur/colors';
 import { resolveRegistry } from '../config.js';
 import { nodeFetch } from '../fetch.js';

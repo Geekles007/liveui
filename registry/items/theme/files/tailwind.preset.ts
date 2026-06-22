@@ -1,12 +1,12 @@
 import type { Config } from 'tailwindcss';
 
 /**
- * everstate Tailwind preset. Wires the semantic CSS variables from `theme.css` to
- * Tailwind colour utilities, so every everstate component's classes resolve.
+ * ibirdui Tailwind preset. Wires the semantic CSS variables from `theme.css` to
+ * Tailwind colour utilities, so every ibirdui component's classes resolve.
  *
  *   // tailwind.config.ts
- *   import everstate from "./tailwind.preset";
- *   export default { presets: [everstate], content: ["./src/**\/*.{ts,tsx}"] };
+ *   import ibirdui from "./tailwind.preset";
+ *   export default { presets: [ibirdui], content: ["./src/**\/*.{ts,tsx}"] };
  *
  * Uses the `<alpha-value>` placeholder so opacity modifiers work
  * (e.g. `bg-destructive/10`). Dark mode is driven by `data-theme`.

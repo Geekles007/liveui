@@ -7,5 +7,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["everstate-www", "everstate-registry"]
+  "ignore": ["ibirdui-www", "ibirdui-registry"]
 }

@@ -1,5 +1,5 @@
 {
-  "name": "everstate-www",
+  "name": "ibirdui-www",
   "version": "0.0.0",
   "private": true,
   "description": "Documentation site. Also serves the static registry under /r.",
@@ -14,13 +14,13 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "everstate-core": "workspace:*",
+    "ibirdui-core": "workspace:*",
     "next": "^15.1.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "everstate-registry": "workspace:*",
+    "ibirdui-registry": "workspace:*",
     "@types/node": "^22.10.2",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",

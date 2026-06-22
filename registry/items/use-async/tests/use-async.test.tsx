@@ -1,5 +1,5 @@
 // Resolved via the vitest aliases (registry/vitest.config.ts), mirroring the
-// "@/..." paths a consumer gets after `everstate add`.
+// "@/..." paths a consumer gets after `ibirdui add`.
 import { useAsync } from '@/hooks/use-async';
 import { act, renderHook, waitFor } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';

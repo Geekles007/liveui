@@ -40,7 +40,7 @@ export interface StateBoundaryProps<T> {
  *  - `aria-busy` is set while loading
  *  - focus moves to the retry control when an error appears
  *
- * This is the primitive that makes every everstate component "state-complete".
+ * This is the primitive that makes every ibirdui component "state-complete".
  */
 export function StateBoundary<T>({
   state,
@@ -62,7 +62,7 @@ export function StateBoundary<T>({
 
   return (
     <div
-      className={cn('everstate-state-boundary', className)}
+      className={cn('ibirdui-state-boundary', className)}
       aria-busy={state.status === 'loading' || undefined}
     >
       {/* Polite live region: announced, not seen. */}

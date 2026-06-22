@@ -1,10 +1,10 @@
 import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import type { RegistryItem } from 'everstate-core';
-import { hashContent } from 'everstate-core';
+import type { RegistryItem } from 'ibirdui-core';
+import { hashContent } from 'ibirdui-core';
 
-export const LOCKFILE_NAME = 'everstate.lock.json';
+export const LOCKFILE_NAME = 'ibirdui.lock.json';
 
 /** One installed item: the version pinned and the hash of each file we wrote. */
 export interface LockedItem {
@@ -20,7 +20,7 @@ export interface Lockfile {
 
 function emptyLock(registry: string): Lockfile {
   return {
-    $schema: 'https://everstate/schema/lockfile.json',
+    $schema: 'https://ibirdui/schema/lockfile.json',
     registry,
     items: {},
   };

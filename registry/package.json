@@ -1,5 +1,5 @@
 {
-  "name": "everstate-registry",
+  "name": "ibirdui-registry",
   "version": "0.0.0",
   "private": true,
   "description": "Source items and build script that compile to a static JSON registry.",
@@ -13,7 +13,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "everstate-core": "workspace:*"
+    "ibirdui-core": "workspace:*"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",

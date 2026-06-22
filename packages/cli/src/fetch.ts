@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
  * Node-aware fetch passed to the (browser-safe) core helpers. Adds `file://`
  * support so the registry can be tested locally without a running server:
  *
- *   everstate list --registry "file://$(pwd)/registry/public"
+ *   ibirdui list --registry "file://$(pwd)/registry/public"
  */
 export async function nodeFetch(input: string) {
   if (input.startsWith('file://')) {

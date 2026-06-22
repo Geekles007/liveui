@@ -1,5 +1,5 @@
 /**
- * The async contract every everstate component speaks.
+ * The async contract every ibirdui component speaks.
  *
  * A component never invents its own loading / error / empty handling — it accepts
  * an `AsyncState<T>` and renders the matching slot. Model the five real-world

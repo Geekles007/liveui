@@ -2,19 +2,19 @@
   "name": "theme",
   "type": "tokens",
   "version": "1.0.0",
-  "description": "Semantic CSS variables (background, foreground, muted, border, destructive, primary…) with first-class dark and light, plus the Tailwind preset that wires them up. The token layer every everstate component speaks.",
+  "description": "Semantic CSS variables (background, foreground, muted, border, destructive, primary…) with first-class dark and light, plus the Tailwind preset that wires them up. The token layer every ibirdui component speaks.",
   "states": [],
   "dependencies": [],
   "devDependencies": ["tailwindcss"],
   "registryDependencies": [],
   "manifest": {
     "intents": [
-      "set up the design tokens for everstate components",
+      "set up the design tokens for ibirdui components",
       "dark and light theme variables",
       "tailwind colour mapping for background, muted, destructive, primary"
     ],
     "examples": [
-      "import everstate from \"./tailwind.preset\"; export default { presets: [everstate] };"
+      "import ibirdui from \"./tailwind.preset\"; export default { presets: [ibirdui] };"
     ]
   },
   "files": [
