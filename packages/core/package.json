@@ -1,16 +1,16 @@
 {
-  "name": "@liveui/core",
+  "name": "everstate-core",
   "version": "0.1.0",
-  "description": "Headless contract (AsyncState), content hashing, and registry schema/helpers for liveui.",
+  "description": "Headless contract (AsyncState), content hashing, and registry schema/helpers for everstate.",
   "license": "MIT",
   "author": "Geekles007",
-  "homepage": "https://geekles007.github.io/liveui",
+  "homepage": "https://geekles007.github.io/everstate",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Geekles007/liveui.git",
+    "url": "git+https://github.com/Geekles007/everstate.git",
     "directory": "packages/core"
   },
-  "keywords": ["liveui", "async-state", "registry", "react", "shadcn"],
+  "keywords": ["everstate", "async-state", "registry", "react", "shadcn"],
   "type": "module",
   "publishConfig": {
     "access": "public"

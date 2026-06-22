@@ -3,7 +3,7 @@ import { defineConfig } from 'vitest/config';
 
 /**
  * Runs the a11y tests that ship inside each item. The `@/...` aliases mirror the
- * import paths a consumer gets after `liveui add`, so the tests exercise the exact
+ * import paths a consumer gets after `everstate add`, so the tests exercise the exact
  * files we publish.
  */
 const itemFile = (p: string) => fileURLToPath(new URL(`./items/${p}`, import.meta.url));

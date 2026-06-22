@@ -2,18 +2,20 @@
   "name": "theme",
   "type": "tokens",
   "version": "1.0.0",
-  "description": "Semantic CSS variables (background, foreground, muted, border, destructive, primary…) with first-class dark and light, plus the Tailwind preset that wires them up. The token layer every liveui component speaks.",
+  "description": "Semantic CSS variables (background, foreground, muted, border, destructive, primary…) with first-class dark and light, plus the Tailwind preset that wires them up. The token layer every everstate component speaks.",
   "states": [],
   "dependencies": [],
   "devDependencies": ["tailwindcss"],
   "registryDependencies": [],
   "manifest": {
     "intents": [
-      "set up the design tokens for liveui components",
+      "set up the design tokens for everstate components",
       "dark and light theme variables",
       "tailwind colour mapping for background, muted, destructive, primary"
     ],
-    "examples": ["import liveui from \"./tailwind.preset\"; export default { presets: [liveui] };"]
+    "examples": [
+      "import everstate from \"./tailwind.preset\"; export default { presets: [everstate] };"
+    ]
   },
   "files": [
     {

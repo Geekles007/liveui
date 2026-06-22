@@ -3,7 +3,7 @@
  *
  *   node scripts/rename.mjs --scope mdkit --owner Geekles007 --repo mdkit
  *
- *   --scope  new package scope, replaces `liveui`
+ *   --scope  new package scope, replaces `everstate`
  *            (e.g. `mdkit` -> packages become @mdkit/core, @mdkit/cli, ...)
  *   --owner  GitHub owner/org for the Pages URL (default: Geekles007)
  *   --repo   GitHub repo name, used for the Pages base path (default: <scope>)
@@ -63,9 +63,9 @@ async function main() {
   const newPagesUrl = `https://${owner}.github.io/${repo}`;
 
   const replacements = [
-    [/@liveui/g, `@${scope}`],
-    [/Geekles007\.github\.io\/liveui/g, `${owner}.github.io/${repo}`],
-    [/liveui/g, scope],
+    [/@everstate/g, `@${scope}`],
+    [/Geekles007\.github\.io\/everstate/g, `${owner}.github.io/${repo}`],
+    [/everstate/g, scope],
   ];
 
   let changed = 0;

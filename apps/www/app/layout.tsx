@@ -3,20 +3,20 @@ import type { ReactNode } from 'react';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'liveui — state-complete, accessible, upgradeable React components',
+  title: 'everstate — state-complete, accessible, upgradeable React components',
   description:
     'Registry-as-code React components. Own the code like shadcn — but with every async state, verified accessibility, and an upgrade path that survives your edits.',
   openGraph: {
-    title: 'liveui',
+    title: 'everstate',
     description:
       'State-complete, accessible, upgradeable React components — distributed as registry-as-code.',
-    url: 'https://geekles007.github.io/liveui',
-    siteName: 'liveui',
+    url: 'https://geekles007.github.io/everstate',
+    siteName: 'everstate',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'liveui',
+    title: 'everstate',
     description:
       'State-complete, accessible, upgradeable React components — distributed as registry-as-code.',
   },

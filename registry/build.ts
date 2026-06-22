@@ -22,14 +22,14 @@ import {
   hashContent,
   registryIndexSchema,
   registryItemSchema,
-} from '@liveui/core';
+} from 'everstate-core';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const ITEMS_DIR = join(ROOT, 'items');
 const OUT_DIR = join(ROOT, 'public', 'r');
 
-const REGISTRY_NAME = 'liveui';
-const HOMEPAGE = 'https://Geekles007.github.io/liveui';
+const REGISTRY_NAME = 'everstate';
+const HOMEPAGE = 'https://Geekles007.github.io/everstate';
 
 interface MetaFile {
   from: string;
@@ -115,7 +115,7 @@ async function main(): Promise<void> {
   }
 
   const index: RegistryIndex = registryIndexSchema.parse({
-    $schema: 'https://liveui/schema/registry-index.json',
+    $schema: 'https://everstate/schema/registry-index.json',
     name: REGISTRY_NAME,
     homepage: HOMEPAGE,
     items: items

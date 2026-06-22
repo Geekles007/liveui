@@ -11,7 +11,7 @@ export interface UseAsyncOptions<T> {
 }
 
 export interface UseAsyncResult<T> {
-  /** The current state, ready to hand to any liveui component. */
+  /** The current state, ready to hand to any everstate component. */
   state: AsyncState<T>;
   /** Re-run the fetcher. Also wired into the `error` variant's retry(). */
   refetch: () => void;

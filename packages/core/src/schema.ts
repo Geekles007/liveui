@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-/** The five real-world async states a liveui component is expected to handle. */
+/** The five real-world async states a everstate component is expected to handle. */
 export const asyncStateNameSchema = z.enum(['loading', 'empty', 'error', 'optimistic', 'offline']);
 
 export type AsyncStateName = z.infer<typeof asyncStateNameSchema>;
@@ -35,7 +35,7 @@ export const a11ySchema = z.object({
 export type A11y = z.infer<typeof a11ySchema>;
 
 /**
- * Machine-readable description for AI / agent consumers. Lets `liveui gen` (and
+ * Machine-readable description for AI / agent consumers. Lets `everstate gen` (and
  * any external agent) compose UIs from real components with valid props instead
  * of hallucinating markup.
  */
@@ -49,7 +49,7 @@ export type Manifest = z.infer<typeof manifestSchema>;
 /**
  * The unit a consumer installs with `add <name>`. Kept generic enough for UI
  * components, headless libs, hooks and snippets, but enriched with the metadata
- * that powers liveui's three differentiators: state-completeness (`states`),
+ * that powers everstate's three differentiators: state-completeness (`states`),
  * upgradeability (`version` + per-file `hash`) and AI-readiness (`manifest`).
  */
 export const registryItemSchema = z.object({

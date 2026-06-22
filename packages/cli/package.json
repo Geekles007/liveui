@@ -1,22 +1,22 @@
 {
-  "name": "@liveui/cli",
+  "name": "everstate",
   "version": "0.1.0",
-  "description": "The liveui CLI — add, upgrade and gen state-complete, accessible components into your project.",
+  "description": "The everstate CLI — add, upgrade and gen state-complete, accessible components into your project.",
   "license": "MIT",
   "author": "Geekles007",
-  "homepage": "https://geekles007.github.io/liveui",
+  "homepage": "https://geekles007.github.io/everstate",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Geekles007/liveui.git",
+    "url": "git+https://github.com/Geekles007/everstate.git",
     "directory": "packages/cli"
   },
-  "keywords": ["liveui", "cli", "registry", "shadcn", "react", "components"],
+  "keywords": ["everstate", "cli", "registry", "shadcn", "react", "components"],
   "type": "module",
   "publishConfig": {
     "access": "public"
   },
   "bin": {
-    "liveui": "./dist/index.js"
+    "everstate": "./dist/index.js"
   },
   "files": ["dist"],
   "scripts": {
@@ -26,7 +26,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@liveui/core": "workspace:*",
+    "everstate-core": "workspace:*",
     "commander": "^12.1.0",
     "kleur": "^4.1.5"
   },

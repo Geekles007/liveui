@@ -2,7 +2,7 @@
   "name": "async-state",
   "type": "lib",
   "version": "1.1.0",
-  "description": "The AsyncState<T> contract every liveui component speaks: idle, loading, empty, error, success — with constructors, type guards and an exhaustive match() helper.",
+  "description": "The AsyncState<T> contract every everstate component speaks: idle, loading, empty, error, success — with constructors, type guards and an exhaustive match() helper.",
   "states": [],
   "dependencies": [],
   "devDependencies": [],

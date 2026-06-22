@@ -266,7 +266,7 @@ export default function ComponentsPage() {
   const meta = components.find((c) => c.name === selected) ?? firstComponent;
   const d = docs[meta.name] || ({} as (typeof docs)[string]);
   const planned = meta.status !== 'done';
-  const install = `npx liveui add ${meta.name}`;
+  const install = `npx everstate add ${meta.name}`;
   const exAsyncState = !planned && d.example === 'asyncstate';
   const exInteractive = !planned && d.example === 'interactive';
   const hasTutorial = !planned && !!d.tutorial;
@@ -380,7 +380,7 @@ export default function ComponentsPage() {
                 )}
               />
             </span>
-            liveui
+            everstate
           </Link>
           <div
             style={s('display:none;align-items:center;gap:4px;margin-left:8px')}
@@ -476,10 +476,10 @@ export default function ComponentsPage() {
               )}
             </button>
             <a
-              href="https://github.com/Geekles007/liveui"
+              href="https://github.com/Geekles007/everstate"
               target="_blank"
               rel="noreferrer noopener"
-              aria-label="liveui on GitHub"
+              aria-label="everstate on GitHub"
               className="hov-border"
               style={s(
                 'display:flex;align-items:center;gap:8px;padding:7px 13px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:14px;font-weight:500',
@@ -1294,7 +1294,7 @@ export default function ComponentsPage() {
                 )}
               />
             </span>
-            liveui
+            everstate
           </div>
           <div
             style={s("font-size:12.5px;color:var(--muted-2);font-family:'Geist Mono',monospace")}
@@ -1303,7 +1303,7 @@ export default function ComponentsPage() {
           </div>
           <div style={s('display:flex;gap:18px;font-size:13.5px')}>
             <a
-              href="https://github.com/Geekles007/liveui"
+              href="https://github.com/Geekles007/everstate"
               target="_blank"
               rel="noreferrer noopener"
               className="hov-fg"

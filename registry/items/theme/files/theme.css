@@ -1,5 +1,5 @@
 /**
- * liveui design tokens — the semantic colour layer every component speaks.
+ * everstate design tokens — the semantic colour layer every component speaks.
  *
  * Import this once (e.g. in your global stylesheet) and pair it with the Tailwind
  * preset so utilities like `bg-background`, `text-muted-foreground`,

@@ -1,5 +1,5 @@
 // Resolved via the vitest alias (registry/vitest.config.ts), mirroring the
-// "@/lib/async-state" path a consumer gets after `liveui add`.
+// "@/lib/async-state" path a consumer gets after `everstate add`.
 import { error, fromResult, isSuccess, loading, match, success } from '@/lib/async-state';
 import { describe, expect, it, vi } from 'vitest';
 

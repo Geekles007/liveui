@@ -1,7 +1,7 @@
 import { existsSync } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
-import { type RegistryItem, fetchRegistryItem, hashContent } from '@liveui/core';
+import { type RegistryItem, fetchRegistryItem, hashContent } from 'everstate-core';
 import { bold, cyan, dim, green, red, yellow } from 'kleur/colors';
 import { resolveRegistry } from '../config.js';
 import { nodeFetch } from '../fetch.js';
@@ -31,7 +31,7 @@ export async function upgrade(names: string[], options: UpgradeOptions): Promise
 
   const targets = names.length > 0 ? names : Object.keys(lock.items);
   if (targets.length === 0) {
-    console.log(yellow('Nothing installed yet. Run `liveui add <item>` first.'));
+    console.log(yellow('Nothing installed yet. Run `everstate add <item>` first.'));
     return;
   }
 

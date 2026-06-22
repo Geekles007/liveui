@@ -1,12 +1,12 @@
 import type { Config } from 'tailwindcss';
 
 /**
- * liveui Tailwind preset. Wires the semantic CSS variables from `theme.css` to
- * Tailwind colour utilities, so every liveui component's classes resolve.
+ * everstate Tailwind preset. Wires the semantic CSS variables from `theme.css` to
+ * Tailwind colour utilities, so every everstate component's classes resolve.
  *
  *   // tailwind.config.ts
- *   import liveui from "./tailwind.preset";
- *   export default { presets: [liveui], content: ["./src/**\/*.{ts,tsx}"] };
+ *   import everstate from "./tailwind.preset";
+ *   export default { presets: [everstate], content: ["./src/**\/*.{ts,tsx}"] };
  *
  * Uses the `<alpha-value>` placeholder so opacity modifiers work
  * (e.g. `bg-destructive/10`). Dark mode is driven by `data-theme`.
