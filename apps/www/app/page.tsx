@@ -203,7 +203,7 @@ const homeComponents: HC[] = [
   {
     name: 'confirm-dialog',
     layer: 4,
-    status: 'planned',
+    status: 'done',
     kind: 'component',
     a11y: true,
     desc: 'Async confirm with a pending action.',

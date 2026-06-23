@@ -19,6 +19,7 @@ export default defineConfig({
       '@/components/data-table': itemFile('data-table/files/data-table.tsx'),
       '@/components/async-combobox': itemFile('async-combobox/files/async-combobox.tsx'),
       '@/components/toast': itemFile('toast/files/toast.tsx'),
+      '@/components/confirm-dialog': itemFile('confirm-dialog/files/confirm-dialog.tsx'),
     },
   },
   esbuild: { jsx: 'automatic' },

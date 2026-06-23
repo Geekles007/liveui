@@ -41,7 +41,7 @@ export const components: Comp[] = [
   { name: 'command-palette', layer: 3, status: 'planned', kind: 'component', a11y: true },
   { name: 'file-upload', layer: 3, status: 'planned', kind: 'component', a11y: true },
   { name: 'toast', layer: 4, status: 'done', kind: 'component', a11y: true },
-  { name: 'confirm-dialog', layer: 4, status: 'planned', kind: 'component', a11y: true },
+  { name: 'confirm-dialog', layer: 4, status: 'done', kind: 'component', a11y: true },
   { name: 'sheet', layer: 4, status: 'planned', kind: 'component', a11y: true },
   { name: 'pagination', layer: 5, status: 'planned', kind: 'component', a11y: true },
   { name: 'infinite-list', layer: 5, status: 'planned', kind: 'component', a11y: true },
@@ -773,9 +773,77 @@ export const docs: Record<string, Doc> = {
     ],
   },
   'confirm-dialog': {
-    intro: 'An async confirm dialog whose action button owns its own pending and error state.',
-    apiFile: 'confirm-dialog.tsx',
-    api: 'const ok = await confirm({\n  title: "Delete project?",\n  action: () => api.remove(id),\n});',
+    intro:
+      'An imperative async confirm dialog whose action button owns its own pending and error state. await confirm({…}) anywhere; the dialog only closes once the action succeeds, and shows the error in place if it fails. Focus-trapped and Escape-dismissable.',
+    apiFile: 'components/confirm-dialog.tsx',
+    api: 'const ok = await confirm({\n  title: "Delete project?",\n  destructive: true,\n  action: () => api.remove(id),\n});',
+    tutorialIntro:
+      'Like toast, it is imperative: mount <ConfirmDialog /> once, then await confirm() from anywhere — no local open state to wire.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Copies the store and the dialog (and its axe test). Needs React and the theme tokens.',
+        file: 'terminal',
+        code: '$ npx ibirdui add confirm-dialog\n✓ wrote components/confirm-dialog.tsx',
+      },
+      {
+        title: 'Mount it once',
+        body: 'Render <ConfirmDialog /> near your app root, alongside <Toaster />.',
+        file: 'app/layout.tsx',
+        code: 'import { ConfirmDialog } from "@/components/confirm-dialog";\n\n<body>{children}<ConfirmDialog /></body>',
+      },
+      {
+        title: 'Ask, and await the answer',
+        body: 'confirm() returns a promise of boolean — true if confirmed, false if cancelled.',
+        file: 'delete.ts',
+        code: 'const ok = await confirm({\n  title: "Delete project?",\n  description: "This cannot be undone.",\n  destructive: true,\n});\nif (ok) remove();',
+      },
+      {
+        title: 'Let the dialog own the action',
+        body: 'Pass an async action: the confirm button shows pending while it runs, and on failure the dialog stays open with the error — it only closes on success.',
+        file: 'delete.ts',
+        code: 'await confirm({\n  title: "Delete project?",\n  action: () => api.remove(id),\n});',
+      },
+    ],
+    propsTitle: 'API',
+    propsIntro: 'confirm(options) → Promise<boolean>, plus the <ConfirmDialog /> renderer.',
+    col0: 'option',
+    props: [
+      {
+        name: 'title',
+        type: 'ReactNode',
+        desc: 'Required. The dialog heading (its accessible name).',
+      },
+      {
+        name: 'description',
+        type: 'ReactNode',
+        desc: 'Optional supporting text (the accessible description).',
+      },
+      {
+        name: 'action',
+        type: '() => Promise<unknown>',
+        desc: 'Optional. Runs on confirm; the button owns its pending/error, dialog closes on success.',
+      },
+      { name: 'destructive', type: 'boolean', desc: 'Style the confirm button as destructive.' },
+      {
+        name: 'confirmLabel / cancelLabel',
+        type: 'string',
+        desc: 'Override the button text. Default "Confirm" / "Cancel".',
+      },
+      {
+        name: '<ConfirmDialog />',
+        type: '—',
+        desc: 'Mount once near the root to render the active dialog.',
+      },
+    ],
+    a11y: true,
+    a11yList: [
+      'role="alertdialog" with aria-modal, labelled by the title and described by the message.',
+      'Focus moves into the dialog on open, is trapped while open, and returns to the trigger on close.',
+      'Escape and backdrop click cancel — both disabled while the action is pending.',
+      'On failure the error is exposed as role="alert" and the dialog stays open; confirm sets aria-busy while pending.',
+      'Shipped axe-core test covers open/focus, confirm, cancel, pending and error.',
+    ],
   },
   sheet: {
     intro: 'A slide-over panel for detail views and forms, with a loading state for its contents.',

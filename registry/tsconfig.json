@@ -12,7 +12,8 @@
       "@/components/data-list": ["./items/data-list/files/data-list.tsx"],
       "@/components/data-table": ["./items/data-table/files/data-table.tsx"],
       "@/components/async-combobox": ["./items/async-combobox/files/async-combobox.tsx"],
-      "@/components/toast": ["./items/toast/files/toast.tsx"]
+      "@/components/toast": ["./items/toast/files/toast.tsx"],
+      "@/components/confirm-dialog": ["./items/confirm-dialog/files/confirm-dialog.tsx"]
     }
   },
   "include": ["build.ts", "items/**/files/**/*.ts"]

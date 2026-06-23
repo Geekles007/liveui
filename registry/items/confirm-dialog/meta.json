@@ -1,0 +1,37 @@
+{
+  "name": "confirm-dialog",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "An imperative async confirm dialog whose action button owns its own pending and error state: await confirm({ title, action }). The dialog only closes once the action succeeds.",
+  "states": ["loading", "error"],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "role=alertdialog, aria-modal, labelled by title and described by the message",
+      "Focus moves into the dialog on open, is trapped while open, and returns to the trigger on close",
+      "Escape and backdrop click cancel (disabled while the action is pending)",
+      "On failure the dialog stays open and shows the error as role=alert; the confirm button sets aria-busy while pending"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "ask the user to confirm a destructive action",
+      "async confirm dialog with a pending action",
+      "are you sure modal that handles errors"
+    ],
+    "examples": [
+      "const ok = await confirm({ title: \"Delete project?\", destructive: true, action: () => api.remove(id) });"
+    ]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "from": "files/confirm-dialog.tsx",
+      "path": "components/confirm-dialog.tsx",
+      "type": "component"
+    }
+  ]
+}
