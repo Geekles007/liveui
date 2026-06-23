@@ -13,6 +13,39 @@ const navItems = [
   { label: 'Roadmap', href: '/roadmap' },
 ];
 
+/** Brand mark — the ibirdui bird on the rounded lime tile (matches the favicon). */
+function BirdMark({ size = 24 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 260 257"
+      role="img"
+      aria-hidden="true"
+    >
+      <g transform="translate(-177,-372.078727)">
+        <g transform="translate(1,0.078727)">
+          <g transform="matrix(1.069959,0,0,1.053183,-22.012346,-26.024589)">
+            <path
+              d="M429,421.92L429,578.08C429,602.32 409.629,622 385.769,622L229.231,622C205.371,622 186,602.32 186,578.08L186,421.92C186,397.68 205.371,378 229.231,378L385.769,378C409.629,378 429,397.68 429,421.92Z"
+              fill="#A6FF00"
+            />
+          </g>
+          <g transform="translate(-2.5,1.988372)">
+            <path
+              d="M217,544L294,467C294,467 286.151,429.759 318,411C349.849,392.241 374,418 374,418L406,427L380,450C380,450 397.792,510.182 368,545C338.208,579.818 288,568 288,568L213,593L253,550C253,550 330.785,552.821 351,527C371.632,500.646 356.553,480.022 356,480C356,480 349.142,471.608 337,471C337,471 364.335,483.422 351,512C337.665,540.578 282,542 282,542L217,544Z"
+              fill="#fff"
+            />
+            <g transform="matrix(1.052632,0,0,1.052632,-22.052632,-24.421053)">
+              <circle cx="352.5" cy="435.5" r="9.5" fill="#A6FF00" />
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
+  );
+}
+
 /** Shared header + footer + ⌘K palette + theme toggle for the non-docs pages. */
 export function SiteChrome({ current, children }: { current: string; children: ReactNode }) {
   const router = useRouter();
@@ -118,23 +151,7 @@ export function SiteChrome({ current, children }: { current: string; children: R
               'display:flex;align-items:center;gap:10px;font-weight:600;font-size:16px;letter-spacing:-.01em',
             )}
           >
-            <span
-              aria-hidden="true"
-              style={s(
-                'position:relative;display:inline-flex;width:22px;height:22px;align-items:center;justify-content:center',
-              )}
-            >
-              <span
-                style={s(
-                  'position:absolute;inset:0;border-radius:7px;background:var(--primary);opacity:.18',
-                )}
-              />
-              <span
-                style={s(
-                  'position:absolute;width:9px;height:9px;border-radius:50%;background:var(--primary);animation:pulse 1.8s ease-in-out infinite',
-                )}
-              />
-            </span>
+            <BirdMark size={24} />
             ibirdui
           </Link>
           <div
@@ -263,23 +280,7 @@ export function SiteChrome({ current, children }: { current: string; children: R
           )}
         >
           <div style={s('display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px')}>
-            <span
-              aria-hidden="true"
-              style={s(
-                'position:relative;display:inline-flex;width:20px;height:20px;align-items:center;justify-content:center',
-              )}
-            >
-              <span
-                style={s(
-                  'position:absolute;inset:0;border-radius:6px;background:var(--primary);opacity:.18',
-                )}
-              />
-              <span
-                style={s(
-                  'position:absolute;width:8px;height:8px;border-radius:50%;background:var(--primary);animation:pulse 1.8s ease-in-out infinite',
-                )}
-              />
-            </span>
+            <BirdMark size={22} />
             ibirdui
           </div>
           <div
