@@ -36,7 +36,7 @@ export const components: Comp[] = [
   { name: 'data-table', layer: 2, status: 'done', kind: 'component', a11y: true },
   { name: 'card-collection', layer: 2, status: 'planned', kind: 'component', a11y: true },
   { name: 'detail-view', layer: 2, status: 'planned', kind: 'component', a11y: true },
-  { name: 'avatar', layer: 2, status: 'planned', kind: 'component', a11y: false },
+  { name: 'avatar', layer: 2, status: 'done', kind: 'component', a11y: true },
   { name: 'async-combobox', layer: 3, status: 'done', kind: 'component', a11y: true },
   { name: 'command-palette', layer: 3, status: 'planned', kind: 'component', a11y: true },
   { name: 'file-upload', layer: 3, status: 'planned', kind: 'component', a11y: true },
@@ -820,9 +820,60 @@ export const docs: Record<string, Doc> = {
     api: '<DetailView state={order}>\n  {(o) => <OrderSummary order={o} />}\n</DetailView>',
   },
   avatar: {
-    intro: 'An avatar with image fallback and a loading state for the image itself.',
-    apiFile: 'avatar.tsx',
-    api: '<Avatar src={user.avatar} name={user.name} />',
+    intro:
+      "A profile image that degrades gracefully: a skeleton while it loads, the image once it's ready, and the person's initials if there's no image or it fails. It's labelled for assistive tech either way, so the person is announced whether you see a photo or initials.",
+    apiFile: 'components/avatar.tsx',
+    api: '<Avatar src={user.avatar} name={user.name} />\n<Avatar name="Ada Lovelace" size={56} />',
+    tutorialIntro:
+      'Give it a src and a name. It owns the whole image lifecycle — loading, loaded, failed — and always has something sensible to show.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Pulls in avatar and its skeleton dependency, which the CLI adds for you.',
+        file: 'terminal',
+        code: '$ npx ibirdui add avatar\n+ also adding dependency: skeleton\n✓ wrote components/avatar.tsx',
+      },
+      {
+        title: 'Pass a src and a name',
+        body: 'While the image loads you get a round skeleton; once it’s ready the image fades in. The name drives both the initials and the accessible label.',
+        file: 'profile.tsx',
+        code: '<Avatar src={user.avatar} name={user.name} />',
+      },
+      {
+        title: 'It falls back on its own',
+        body: 'No src, or the image 404s? It shows the initials derived from the name — no extra handling from you. With no name either, it shows a neutral person glyph.',
+        file: 'profile.tsx',
+        code: '<Avatar name="Ada Lovelace" />   // → "AL"\n<Avatar />                       // → person glyph, decorative',
+      },
+      {
+        title: 'Size and customise',
+        body: 'size sets the diameter in pixels (default 40); the initials scale with it. Pass a custom fallback node to override the initials entirely.',
+        file: 'profile.tsx',
+        code: '<Avatar name="Grace Hopper" size={56} />\n<Avatar name="Bot" fallback={<RobotIcon />} />',
+      },
+    ],
+    propsTitle: 'Props',
+    propsIntro: 'Forwards every native <span> attribute. The extras:',
+    col0: 'Prop',
+    props: [
+      { name: 'src', type: 'string', desc: 'Image URL. When absent or it fails to load, the fallback is shown.' },
+      { name: 'name', type: 'string', desc: "The person's name — drives the initials and the accessible label." },
+      { name: 'alt', type: 'string', desc: 'Accessible name for the image. Defaults to name.' },
+      { name: 'size', type: 'number', desc: 'Diameter in pixels. Default 40. The initials scale with it.' },
+      {
+        name: 'fallback',
+        type: 'ReactNode',
+        desc: 'Custom fallback when there is no image. Defaults to initials, then a person glyph.',
+      },
+    ],
+    a11y: true,
+    a11yList: [
+      'When the image renders it carries alt text, defaulting to the name.',
+      'The initials fallback is exposed as role="img" labelled with the name, so the person is announced either way.',
+      'With no name and no src the avatar is purely decorative and hidden from assistive tech.',
+      'The loading skeleton is decorative (aria-hidden) and respects prefers-reduced-motion.',
+      'Verified by a shipped axe-core test covering both the image and the initials fallback.',
+    ],
   },
   'async-combobox': {
     intro:

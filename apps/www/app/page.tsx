@@ -158,9 +158,9 @@ const homeComponents: HC[] = [
   {
     name: 'avatar',
     layer: 2,
-    status: 'planned',
+    status: 'done',
     kind: 'component',
-    a11y: false,
+    a11y: true,
     desc: 'Avatar with image fallback and loading state.',
     states: ['loading', 'error', 'success'],
   },

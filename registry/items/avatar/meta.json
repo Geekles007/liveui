@@ -1,0 +1,38 @@
+{
+  "name": "avatar",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "A profile image that degrades gracefully: a skeleton while it loads, the image once ready, and the person's initials (or a glyph) if there's no image or it fails. Labelled for assistive tech either way.",
+  "states": ["loading", "error"],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "When the image renders it carries alt text, defaulting to the name",
+      "The initials fallback is exposed as role=img labelled with the name, so the person is announced either way",
+      "With no name and no src the avatar is purely decorative and hidden from assistive tech",
+      "The loading skeleton is decorative (aria-hidden) and respects prefers-reduced-motion"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "a profile picture that falls back to initials when the image is missing or fails",
+      "a user avatar with a loading state for the image",
+      "round avatar with initials fallback"
+    ],
+    "examples": [
+      "<Avatar src={user.avatar} name={user.name} />",
+      "<Avatar name=\"Ada Lovelace\" size={56} />"
+    ]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": ["skeleton"],
+  "files": [
+    {
+      "from": "files/avatar.tsx",
+      "path": "components/avatar.tsx",
+      "type": "component"
+    }
+  ]
+}
