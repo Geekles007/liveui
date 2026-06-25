@@ -20,6 +20,7 @@ export const layerNames: Record<number, string> = {
   4: 'Feedback & overlays',
   5: 'Navigation',
   6: 'Forms',
+  7: 'Realtime',
 };
 
 export const components: Comp[] = [
@@ -54,6 +55,11 @@ export const components: Comp[] = [
   { name: 'multi-select', layer: 6, status: 'done', kind: 'component', a11y: true },
   { name: 'tag-input', layer: 6, status: 'done', kind: 'component', a11y: true },
   { name: 'date-picker', layer: 6, status: 'done', kind: 'component', a11y: true },
+  { name: 'use-stream', layer: 7, status: 'planned', kind: 'hook', a11y: false },
+  { name: 'streaming-list', layer: 7, status: 'planned', kind: 'component', a11y: true },
+  { name: 'presence', layer: 7, status: 'planned', kind: 'component', a11y: true },
+  { name: 'offline-banner', layer: 7, status: 'planned', kind: 'component', a11y: true },
+  { name: 'optimistic-toggle', layer: 7, status: 'planned', kind: 'component', a11y: true },
 ];
 
 /** Guaranteed first component, used as a safe fallback when a selection misses. */
@@ -2154,6 +2160,35 @@ export const docs: Record<string, Doc> = {
       'The selected day’s gridcell has aria-selected; out-of-range days are disabled.',
       'Verified by a shipped axe-core test of the open calendar.',
     ],
+  },
+  'use-stream': {
+    intro:
+      'Planned. Subscribe to a stream of data (Server-Sent Events or WebSocket) and turn it into the traffic-light states — so a live feed gets the same loading / error handling as a fetch.',
+    apiFile: 'hooks/use-stream.ts',
+    api: 'const feed = useStream(() => sse("/feed"));\n// feed.state: AsyncState<Event[]>, appended as events arrive',
+  },
+  'streaming-list': {
+    intro:
+      'Planned. A list that fills in live as data streams in, on top of use-stream — the same StateBoundary states, but the rows arrive over time.',
+    apiFile: 'components/streaming-list.tsx',
+    api: '<StreamingList state={feed.state} label="Activity" getKey={(e) => e.id}>\n  {(event) => <EventRow event={event} />}\n</StreamingList>',
+  },
+  presence: {
+    intro: 'Planned. Show who is online right now, kept in sync over a realtime channel.',
+    apiFile: 'components/presence.tsx',
+    api: '<Presence users={online} />',
+  },
+  'offline-banner': {
+    intro:
+      'Planned. A banner that appears on its own when the connection drops — the first real consumer of use-online.',
+    apiFile: 'components/offline-banner.tsx',
+    api: '<OfflineBanner />  // uses use-online under the hood',
+  },
+  'optimistic-toggle': {
+    intro:
+      'Planned. A like / favourite button that flips instantly and rolls back if the server refuses — a showcase of use-optimistic-list.',
+    apiFile: 'components/optimistic-toggle.tsx',
+    api: '<OptimisticToggle pressed={liked} onToggle={() => api.like(id)} label="Like" />',
   },
 };
 
