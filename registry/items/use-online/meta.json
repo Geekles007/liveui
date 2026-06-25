@@ -1,0 +1,27 @@
+{
+  "name": "use-online",
+  "type": "hook",
+  "version": "1.0.0",
+  "description": "Track the browser's online/offline status reactively, so components can render offline states and pause requests when the network drops. SSR-safe and tearing-free via useSyncExternalStore.",
+  "states": [],
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "manifest": {
+    "intents": [
+      "know when the user goes offline or loses connectivity",
+      "render an offline banner or disable actions when the network drops",
+      "react to the browser online and offline events"
+    ],
+    "examples": [
+      "const online = useOnline();\nif (!online) return <OfflineBanner />;"
+    ]
+  },
+  "files": [
+    {
+      "from": "files/use-online.ts",
+      "path": "hooks/use-online.ts",
+      "type": "hook"
+    }
+  ]
+}

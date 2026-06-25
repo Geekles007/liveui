@@ -68,10 +68,10 @@ const homeComponents: HC[] = [
   {
     name: 'use-online',
     layer: 0,
-    status: 'planned',
+    status: 'done',
     kind: 'hook',
     a11y: false,
-    desc: 'Track connectivity to drive offline states.',
+    desc: 'Reactive online/offline status — SSR-safe via useSyncExternalStore.',
     states: [],
   },
   {

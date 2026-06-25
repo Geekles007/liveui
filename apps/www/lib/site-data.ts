@@ -26,7 +26,7 @@ export const components: Comp[] = [
   { name: 'theme', layer: 0, status: 'done', kind: 'tokens', a11y: false },
   { name: 'use-async', layer: 0, status: 'done', kind: 'hook', a11y: false },
   { name: 'use-optimistic-list', layer: 0, status: 'planned', kind: 'hook', a11y: false },
-  { name: 'use-online', layer: 0, status: 'planned', kind: 'hook', a11y: false },
+  { name: 'use-online', layer: 0, status: 'done', kind: 'hook', a11y: false },
   { name: 'skeleton', layer: 0, status: 'done', kind: 'component', a11y: true },
   { name: 'state-boundary', layer: 1, status: 'done', kind: 'component', a11y: true },
   { name: 'empty-state', layer: 1, status: 'planned', kind: 'component', a11y: true },
@@ -511,9 +511,47 @@ export const docs: Record<string, Doc> = {
   },
   'use-online': {
     intro:
-      'Track connectivity so components can render offline states and pause requests when the network drops.',
-    apiFile: 'use-online.ts',
+      "A hook that tracks the browser's online/offline status reactively — so components can render offline states and pause requests the moment the network drops. SSR-safe and tearing-free, built on useSyncExternalStore.",
+    apiFile: 'hooks/use-online.ts',
     api: 'const online = useOnline();\nif (!online) return <OfflineBanner />;',
+    tutorialIntro:
+      'use-online subscribes to the browser online/offline events and hands you a single boolean. No state wiring, no effect, no cleanup to remember.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Copies the hook into your repo. No dependencies beyond React.',
+        file: 'terminal',
+        code: '$ npx ibirdui add use-online\n✓ wrote hooks/use-online.ts',
+      },
+      {
+        title: 'Read connectivity anywhere',
+        body: 'Call it in any client component. It returns true while the browser reports a connection and flips to false the instant it drops.',
+        file: 'app.tsx',
+        code: "const online = useOnline();\nif (!online) return <OfflineBanner />;",
+      },
+      {
+        title: 'Pause work while offline',
+        body: 'Gate a refetch or a submit on connectivity so you do not fire requests that are guaranteed to fail.',
+        file: 'feed.tsx',
+        code: 'const online = useOnline();\nconst feed = useAsync(() => api.feed.list(), [], { enabled: online });',
+      },
+      {
+        title: 'SSR is handled',
+        body: 'On the server there is no network to probe, so it assumes online — the first paint never flashes a false offline state before hydration corrects it.',
+        file: '—',
+        code: '// server snapshot = true, then hydrates to navigator.onLine',
+      },
+    ],
+    propsTitle: 'Signature',
+    propsIntro: 'useOnline() → boolean. No arguments.',
+    col0: 'returns',
+    props: [
+      {
+        name: '→ online',
+        type: 'boolean',
+        desc: 'true while the browser reports a connection, false when it drops. Updates on the online / offline events.',
+      },
+    ],
   },
   'empty-state': {
     intro:
