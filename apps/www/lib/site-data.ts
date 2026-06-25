@@ -29,8 +29,8 @@ export const components: Comp[] = [
   { name: 'use-online', layer: 0, status: 'done', kind: 'hook', a11y: false },
   { name: 'skeleton', layer: 0, status: 'done', kind: 'component', a11y: true },
   { name: 'state-boundary', layer: 1, status: 'done', kind: 'component', a11y: true },
-  { name: 'empty-state', layer: 1, status: 'planned', kind: 'component', a11y: true },
-  { name: 'error-state', layer: 1, status: 'planned', kind: 'component', a11y: true },
+  { name: 'empty-state', layer: 1, status: 'done', kind: 'component', a11y: true },
+  { name: 'error-state', layer: 1, status: 'done', kind: 'component', a11y: true },
   { name: 'async-button', layer: 1, status: 'done', kind: 'component', a11y: true },
   { name: 'data-list', layer: 2, status: 'done', kind: 'component', a11y: true },
   { name: 'data-table', layer: 2, status: 'done', kind: 'component', a11y: true },
@@ -555,15 +555,117 @@ export const docs: Record<string, Doc> = {
   },
   'empty-state': {
     intro:
-      'A considered empty slot with an icon, a message and a primary action — drop-in for any boundary’s empty prop.',
-    apiFile: 'empty-state.tsx',
-    api: '<EmptyState\n  title="No projects yet"\n  action={<Button>New project</Button>}\n/>',
+      "A considered “there's nothing here yet” panel — an optional icon, a title, a description and a primary action. Drops straight into a state-boundary's empty slot, and imposes no role or live region of its own so the boundary still owns the announcement.",
+    apiFile: 'components/empty-state.tsx',
+    api: '<EmptyState\n  title="No projects yet"\n  description="Create your first project to get started."\n  action={<button>New project</button>}\n/>',
+    tutorialIntro:
+      'EmptyState is a presentational panel. Give it a title; layer on a description, a custom icon or an action as you need them.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Copies the component plus its axe test into your repo. No dependencies beyond React.',
+        file: 'terminal',
+        code: '$ npx ibirdui add empty-state\n✓ wrote components/empty-state.tsx\n✓ wrote components/empty-state.test.tsx',
+      },
+      {
+        title: 'Say what is missing',
+        body: 'A title is all it needs. A neutral tray icon shows by default; pass icon={null} to drop it, or your own glyph to replace it.',
+        file: 'projects.tsx',
+        code: '<EmptyState\n  title="No projects yet"\n  description="Create your first project to get started."\n/>',
+      },
+      {
+        title: 'Add a way out',
+        body: 'Hand it any focusable control as the action — a button or a link. It keeps its native semantics; EmptyState just places it.',
+        file: 'projects.tsx',
+        code: '<EmptyState\n  title="No projects yet"\n  action={<button onClick={createProject}>New project</button>}\n/>',
+      },
+      {
+        title: 'Drop it into a boundary',
+        body: 'Pass it to the empty slot. The boundary announces "No results"; EmptyState is the panel the sighted user sees.',
+        file: 'list.tsx',
+        code: '<StateBoundary state={projects} empty={<EmptyState title="No projects yet" action={<NewProjectButton />} />}>\n  {(data) => <ProjectGrid projects={data} />}\n</StateBoundary>',
+      },
+    ],
+    propsTitle: 'Props',
+    propsIntro: 'Forwards every native <div> attribute. The extras:',
+    col0: 'Prop',
+    props: [
+      { name: 'title', type: 'ReactNode', desc: 'Required. The headline — what is missing, in plain words.' },
+      { name: 'description', type: 'ReactNode', desc: 'Optional supporting line under the title.' },
+      {
+        name: 'icon',
+        type: 'ReactNode',
+        desc: 'Decorative glyph above the title. Defaults to a tray icon; pass null to hide it.',
+      },
+      { name: 'action', type: 'ReactNode', desc: 'Primary action — e.g. a button that creates the first item.' },
+    ],
+    a11y: true,
+    a11yList: [
+      'The icon is decorative (aria-hidden), so screen readers get the message, not the glyph.',
+      "Imposes no role or live region — the surrounding state-boundary owns the empty announcement.",
+      'The action is whatever focusable control you pass in, keeping native button / link semantics.',
+      'Verified by a shipped axe-core test covering the panel with an action.',
+    ],
   },
   'error-state': {
     intro:
-      'An error slot with retry and expandable technical details, wired to the AsyncState error variant.',
-    apiFile: 'error-state.tsx',
+      "A clear “something went wrong” panel with an optional retry button and an expandable technical-details disclosure. It is a role=alert, so assistive tech is told the moment it appears — a drop-in for any state-boundary's error slot.",
+    apiFile: 'components/error-state.tsx',
     api: '<ErrorState error={err} onRetry={retry} />',
+    tutorialIntro:
+      'ErrorState turns an error plus an optional retry into an announced, actionable panel. Hand it a string or an Error.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Copies the component plus its axe test into your repo. No dependencies beyond React.',
+        file: 'terminal',
+        code: '$ npx ibirdui add error-state\n✓ wrote components/error-state.tsx\n✓ wrote components/error-state.test.tsx',
+      },
+      {
+        title: 'Surface the failure',
+        body: 'Pass a string to show as-is, or an Error to read its message. The container is role=alert, so it is announced on appearance.',
+        file: 'page.tsx',
+        code: '<ErrorState error={err} />\n// or\n<ErrorState error="Could not load users" />',
+      },
+      {
+        title: 'Give it a retry',
+        body: 'Provide onRetry to render a focusable retry button. Without it, the panel is informational only.',
+        file: 'page.tsx',
+        code: '<ErrorState error={err} onRetry={refetch} retryLabel="Reload" />',
+      },
+      {
+        title: 'Wire it to a boundary',
+        body: "The error slot receives the error and the AsyncState's retry. Set autoFocus so keyboard users land on the retry button when the panel appears.",
+        file: 'list.tsx',
+        code: '<StateBoundary state={users} error={(err, retry) => <ErrorState error={err} onRetry={retry} autoFocus />}>\n  {(data) => <UserList users={data} />}\n</StateBoundary>',
+      },
+    ],
+    propsTitle: 'Props',
+    propsIntro: 'Forwards every native <div> attribute. The extras:',
+    col0: 'Prop',
+    props: [
+      {
+        name: 'error',
+        type: 'Error | string',
+        desc: 'Required. A string is shown as-is; an Error shows its message and exposes its stack in the details disclosure.',
+      },
+      { name: 'onRetry', type: '() => void', desc: 'When provided, renders a focusable retry button wired to this callback.' },
+      { name: 'title', type: 'ReactNode', desc: 'Headline above the message. Default “Something went wrong”.' },
+      { name: 'retryLabel', type: 'string', desc: 'Label for the retry button. Default “Try again”.' },
+      {
+        name: 'autoFocus',
+        type: 'boolean',
+        desc: 'Move focus to the retry button on mount — set it for state transitions. Default false, so an initial-load panel never steals focus.',
+      },
+    ],
+    a11y: true,
+    a11yList: [
+      'The container is role=alert, so assistive tech is told the moment the panel appears.',
+      'Optional autoFocus moves focus to the retry button on a state transition, so keyboard users land on the action.',
+      'The retry control is a native <button>, keeping built-in focus and keyboard semantics.',
+      'Technical details live in a collapsed <details> disclosure — keyboard-operable and out of the way.',
+      'Verified by a shipped axe-core test covering the panel with a retry button.',
+    ],
   },
   'async-button': {
     intro:

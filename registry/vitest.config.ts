@@ -17,6 +17,8 @@ export default defineConfig({
       '@/components/async-button': itemFile('async-button/files/async-button.tsx'),
       '@/components/skeleton': itemFile('skeleton/files/skeleton.tsx'),
       '@/components/state-boundary': itemFile('state-boundary/files/state-boundary.tsx'),
+      '@/components/empty-state': itemFile('empty-state/files/empty-state.tsx'),
+      '@/components/error-state': itemFile('error-state/files/error-state.tsx'),
       '@/components/data-list': itemFile('data-list/files/data-list.tsx'),
       '@/components/data-table': itemFile('data-table/files/data-table.tsx'),
       '@/components/async-combobox': itemFile('async-combobox/files/async-combobox.tsx'),

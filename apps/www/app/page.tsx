@@ -95,7 +95,7 @@ const homeComponents: HC[] = [
   {
     name: 'empty-state',
     layer: 1,
-    status: 'planned',
+    status: 'done',
     kind: 'component',
     a11y: true,
     desc: 'A considered empty slot with a primary action.',
@@ -104,10 +104,10 @@ const homeComponents: HC[] = [
   {
     name: 'error-state',
     layer: 1,
-    status: 'planned',
+    status: 'done',
     kind: 'component',
     a11y: true,
-    desc: 'Error slot with retry and expandable details.',
+    desc: 'role=alert error slot with retry and expandable details.',
     states: ['error'],
   },
   {

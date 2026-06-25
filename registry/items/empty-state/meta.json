@@ -1,0 +1,36 @@
+{
+  "name": "empty-state",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "A considered empty slot: an optional icon, a title, a description and a primary action — a drop-in for any state-boundary's empty prop, with no role or live region of its own.",
+  "states": ["empty"],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "The icon is decorative (aria-hidden) so screen readers get the message, not the glyph",
+      "Imposes no role or live region — the surrounding boundary owns the empty announcement",
+      "The action is whatever focusable control you pass in, keeping native button/link semantics"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "a friendly empty state when a list or search has no results",
+      "a 'nothing here yet' panel with an icon, message and a call to action",
+      "the empty slot for a state-boundary"
+    ],
+    "examples": [
+      "<EmptyState title=\"No projects yet\" description=\"Create your first project to get started.\" action={<button>New project</button>} />"
+    ]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "from": "files/empty-state.tsx",
+      "path": "components/empty-state.tsx",
+      "type": "component"
+    }
+  ]
+}

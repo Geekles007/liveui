@@ -30,8 +30,8 @@ Légende : ✅ fait · 🔜 prochain · ⬜ à venir
 | Brique | En clair | Statut |
 | --- | --- | --- |
 | `state-boundary` | Affiche la bonne chose selon le feu tricolore (spinner, "rien ici", erreur + réessayer, ou le contenu). | ✅ |
-| `empty-state` | Un panneau sympa "il n'y a rien pour l'instant", avec un bouton pour agir. | ⬜ |
-| `error-state` | Un panneau clair "quelque chose a planté" avec un bouton _Réessayer_. | ⬜ |
+| `empty-state` | Un panneau sympa "il n'y a rien pour l'instant", avec un bouton pour agir. | ✅ |
+| `error-state` | Un panneau clair "quelque chose a planté" avec un bouton _Réessayer_. | ✅ |
 | `async-button` | Un bouton qui se sait occupé : il montre un spinner, bloque les double-clics, et dit si ça a marché. | ⬜ |
 
 ## Couche 2 — Affichage de données (montrer des contenus)

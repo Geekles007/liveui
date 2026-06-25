@@ -1,0 +1,38 @@
+{
+  "name": "error-state",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "A clear 'something went wrong' panel with a retry button and an expandable technical-details disclosure — a role=alert drop-in for any state-boundary's error slot.",
+  "states": ["error"],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "The container is role=alert, so assistive tech is told the moment the panel appears",
+      "Optional autoFocus moves focus to the retry button on a state transition, so keyboard users land on the action",
+      "The retry control is a native <button>, keeping built-in focus and keyboard semantics",
+      "Technical details live in a collapsed <details> disclosure, keyboard-operable and out of the way"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "an error panel with a retry button when a fetch fails",
+      "a 'something went wrong' slot for a state-boundary",
+      "surface an error message with optional technical details and a retry action"
+    ],
+    "examples": [
+      "<ErrorState error={err} onRetry={retry} />",
+      "<StateBoundary state={users} error={(err, retry) => <ErrorState error={err} onRetry={retry} autoFocus />}>{(data) => <UserList users={data} />}</StateBoundary>"
+    ]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "from": "files/error-state.tsx",
+      "path": "components/error-state.tsx",
+      "type": "component"
+    }
+  ]
+}
