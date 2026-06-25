@@ -48,7 +48,7 @@ Légende : ✅ fait · 🔜 prochain · ⬜ à venir
 
 | Brique | En clair | Statut |
 | --- | --- | --- |
-| `async-combobox` | Un menu déroulant "recherche en tapant" qui va chercher les options sur le serveur. | ⬜ |
+| `async-combobox` | Un menu déroulant "recherche en tapant" qui va chercher les options sur le serveur. | ✅ |
 | `command-palette` | La barre de recherche Cmd+K (comme dans Slack/VSCode) pour aller partout vite. | ⬜ |
 | `file-upload` | Un dépôt de fichiers glisser-déposer qui montre la progression, avec réessai si un fichier échoue. | ⬜ |
 

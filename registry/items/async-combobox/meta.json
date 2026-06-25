@@ -1,7 +1,7 @@
 {
   "name": "async-combobox",
   "type": "component",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A combobox that fetches options as you type — debounced, with loading, empty and error states inside the listbox, and the full ARIA 1.2 combobox keyboard pattern.",
   "states": ["loading", "empty", "error"],
   "a11y": {

@@ -51,9 +51,9 @@ export function AsyncCombobox<T>({
   const [active, setActive] = React.useState(-1);
   const [state, setState] = React.useState<AsyncState<T[]>>({ status: 'idle' });
 
-  const timer = React.useRef<ReturnType<typeof setTimeout>>();
+  const timer = React.useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const runId = React.useRef(0);
-  const blurTimer = React.useRef<ReturnType<typeof setTimeout>>();
+  const blurTimer = React.useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   const run = React.useCallback(
     (q: string) => {
