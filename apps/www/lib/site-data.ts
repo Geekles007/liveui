@@ -35,7 +35,7 @@ export const components: Comp[] = [
   { name: 'data-list', layer: 2, status: 'done', kind: 'component', a11y: true },
   { name: 'data-table', layer: 2, status: 'done', kind: 'component', a11y: true },
   { name: 'card-collection', layer: 2, status: 'done', kind: 'component', a11y: true },
-  { name: 'detail-view', layer: 2, status: 'planned', kind: 'component', a11y: true },
+  { name: 'detail-view', layer: 2, status: 'done', kind: 'component', a11y: true },
   { name: 'avatar', layer: 2, status: 'done', kind: 'component', a11y: true },
   { name: 'async-combobox', layer: 3, status: 'done', kind: 'component', a11y: true },
   { name: 'command-palette', layer: 3, status: 'planned', kind: 'component', a11y: true },
@@ -863,9 +863,60 @@ export const docs: Record<string, Doc> = {
     ],
   },
   'detail-view': {
-    intro: 'A single-record view with loading and not-found handling for the empty state.',
-    apiFile: 'detail-view.tsx',
-    api: '<DetailView state={order}>\n  {(o) => <OrderSummary order={o} />}\n</DetailView>',
+    intro:
+      "A single-record view that is state-complete by construction: a skeleton while it loads, a not-found panel when the record is missing, error + retry, and screen-reader announcements — all via the StateBoundary primitive. You only ever write the resolved record.",
+    apiFile: 'components/detail-view.tsx',
+    api: '<DetailView state={order} label="Order">\n  {(o) => <OrderSummary order={o} />}\n</DetailView>',
+    tutorialIntro:
+      'DetailView is the single-record sibling of DataList. Treat the empty status as "not found" and it handles the blank-screen problem for you.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Pulls in detail-view plus its state-boundary and skeleton dependencies, which the CLI adds for you.',
+        file: 'terminal',
+        code: '$ npx ibirdui add detail-view\n+ also adding dependencies: state-boundary, skeleton\n✓ wrote components/detail-view.tsx',
+      },
+      {
+        title: 'Map a missing record to empty',
+        body: 'A fetched record that comes back null is not an error — it is "not found". Resolve it to the empty status and DetailView shows a clear, announced panel.',
+        file: 'order.tsx',
+        code: 'const order = useAsync(\n  async () => (await api.orders.get(id)) ?? Promise.reject(),\n  [id],\n  { isEmpty: (o) => o == null },\n);',
+      },
+      {
+        title: 'Write only the record',
+        body: 'Loading shows a title + paragraph skeleton; not-found and error are handled. Your children render just the happy path, inside a labelled region.',
+        file: 'order.tsx',
+        code: '<DetailView state={order.state} label="Order">\n  {(o) => <OrderSummary order={o} />}\n</DetailView>',
+      },
+      {
+        title: 'Customise the slots',
+        body: 'Override notFound for a richer missing-record panel, or loading to match your record’s exact shape.',
+        file: 'order.tsx',
+        code: '<DetailView\n  state={order.state}\n  label="Order"\n  notFound={<EmptyState title="Order not found" action={<BackToOrders />} />}\n>\n  {(o) => <OrderSummary order={o} />}\n</DetailView>',
+      },
+    ],
+    propsTitle: 'Props',
+    propsIntro: 'DetailView<T> renders one record; the empty status reads as "not found".',
+    col0: 'Prop',
+    props: [
+      {
+        name: 'state',
+        type: 'AsyncState<T>',
+        desc: 'The record as an async state. The empty status reads as "not found".',
+      },
+      { name: 'children', type: '(data: T) => ReactNode', desc: 'Render the resolved record. Only called on success.' },
+      { name: 'label', type: 'string', desc: 'Accessible name for the region, and the noun used in announcements.' },
+      { name: 'loading', type: 'ReactNode', desc: 'Custom loading content. Defaults to a title + paragraph skeleton.' },
+      { name: 'notFound', type: 'ReactNode', desc: 'Custom not-found content for the empty status.' },
+    ],
+    a11y: true,
+    a11yList: [
+      'Renders the record inside a labelled region.',
+      'Treats the empty status as "not found" and announces it via the StateBoundary live region.',
+      'Loading skeleton is aria-hidden and the region is aria-busy.',
+      'Error state surfaces the StateBoundary alert with a focus-managed retry button.',
+      'Verified by a shipped axe-core test across the success, empty and loading states.',
+    ],
   },
   avatar: {
     intro:

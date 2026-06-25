@@ -1,0 +1,36 @@
+{
+  "name": "detail-view",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "A single-record view that is state-complete by construction: a skeleton while it loads, a not-found panel for the empty status, error + retry and announcements. You only write the resolved record.",
+  "states": ["loading", "empty", "error"],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "Renders the record inside a labelled region",
+      "Treats the empty status as 'not found' and announces it via the StateBoundary live region",
+      "Loading skeleton is aria-hidden and the region is aria-busy"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "show the detail of a single fetched record with loading and not-found states",
+      "a record / entity detail page that handles missing data",
+      "single-item view with a skeleton and retry"
+    ],
+    "examples": [
+      "<DetailView state={order} label=\"Order\">{(o) => <OrderSummary order={o} />}</DetailView>"
+    ]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": ["state-boundary", "skeleton"],
+  "files": [
+    {
+      "from": "files/detail-view.tsx",
+      "path": "components/detail-view.tsx",
+      "type": "component"
+    }
+  ]
+}

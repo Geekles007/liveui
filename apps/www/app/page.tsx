@@ -149,7 +149,7 @@ const homeComponents: HC[] = [
   {
     name: 'detail-view',
     layer: 2,
-    status: 'planned',
+    status: 'done',
     kind: 'component',
     a11y: true,
     desc: 'Single-record view with loading and not-found.',
