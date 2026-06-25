@@ -39,7 +39,7 @@ export const components: Comp[] = [
   { name: 'avatar', layer: 2, status: 'done', kind: 'component', a11y: true },
   { name: 'async-combobox', layer: 3, status: 'done', kind: 'component', a11y: true },
   { name: 'command-palette', layer: 3, status: 'done', kind: 'component', a11y: true },
-  { name: 'file-upload', layer: 3, status: 'planned', kind: 'component', a11y: true },
+  { name: 'file-upload', layer: 3, status: 'done', kind: 'component', a11y: true },
   { name: 'toast', layer: 4, status: 'done', kind: 'component', a11y: true },
   { name: 'confirm-dialog', layer: 4, status: 'done', kind: 'component', a11y: true },
   { name: 'sheet', layer: 4, status: 'planned', kind: 'component', a11y: true },
@@ -1150,9 +1150,66 @@ export const docs: Record<string, Doc> = {
     ],
   },
   'file-upload': {
-    intro: 'Upload with progress, retry and error states, modelled on AsyncState.',
-    apiFile: 'file-upload.tsx',
-    api: '<FileUpload\n  upload={(file) => api.upload(file)}\n  accept="image/*"\n/>',
+    intro:
+      'A drag-and-drop dropzone that uploads each file on its own and survives partial failure: every file gets its own progress bar, and a failed upload shows a Retry button instead of sinking the whole batch. Keyboard-operable and announced, out of the box.',
+    apiFile: 'components/file-upload.tsx',
+    api: '<FileUpload\n  upload={(file, onProgress) => api.upload(file, onProgress)}\n  accept="image/*"\n/>',
+    tutorialIntro:
+      'Give it one prop — an upload function — and it owns the rest: drag-and-drop, the file picker, per-file progress, and retry on failure.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Copies the component plus its axe test into your repo. No dependencies beyond React.',
+        file: 'terminal',
+        code: '$ npx ibirdui add file-upload\n✓ wrote components/file-upload.tsx\n✓ wrote components/file-upload.test.tsx',
+      },
+      {
+        title: 'Report progress',
+        body: 'Your upload function gets the file and an onProgress callback. Call it with 0–100 as the upload streams; resolve when done, reject to surface a retryable error.',
+        file: 'uploader.ts',
+        code: 'async function upload(file: File, onProgress: (p: number) => void) {\n  const xhr = new XMLHttpRequest();\n  xhr.upload.onprogress = (e) => onProgress((e.loaded / e.total) * 100);\n  // …resolve on load, reject on error\n}',
+      },
+      {
+        title: 'Drop it in',
+        body: 'Drag-and-drop and click-to-browse both work; each file uploads independently and shows its own progress bar.',
+        file: 'form.tsx',
+        code: '<FileUpload upload={upload} accept="image/*" />',
+      },
+      {
+        title: 'Guard and react',
+        body: 'maxSize rejects oversized files before they upload; onComplete fires per file with whatever upload resolved to — wire it to your form state.',
+        file: 'form.tsx',
+        code: '<FileUpload\n  upload={upload}\n  accept="image/*"\n  maxSize={5 * 1024 * 1024}\n  onComplete={(file, { url }) => addAttachment(url)}\n/>',
+      },
+    ],
+    propsTitle: 'Props',
+    propsIntro: 'The only required prop is upload.',
+    col0: 'Prop',
+    props: [
+      {
+        name: 'upload',
+        type: '(file, onProgress) => Promise<unknown>',
+        desc: 'Upload one file. Call onProgress(0..100) to drive the bar; reject to surface a retryable error.',
+      },
+      { name: 'accept', type: 'string', desc: 'Restrict the file picker, e.g. "image/*".' },
+      { name: 'multiple', type: 'boolean', desc: 'Allow more than one file. Default true.' },
+      { name: 'maxSize', type: 'number', desc: 'Reject files larger than this many bytes before uploading.' },
+      { name: 'label', type: 'string', desc: 'Instruction text and accessible name for the dropzone.' },
+      {
+        name: 'onComplete',
+        type: '(file, result) => void',
+        desc: 'Called when a file finishes, with whatever upload resolved to.',
+      },
+    ],
+    a11y: true,
+    a11yList: [
+      'The dropzone is a keyboard-operable button — Enter / Space open the file picker.',
+      'Each file exposes a role="progressbar" with aria-valuenow.',
+      'Upload success and failure are announced via a polite live region.',
+      'Each file row carries a labelled Remove (and, on failure, Retry) control.',
+      'A failed upload shows an inline alert scoped to that file, so one failure never sinks the batch.',
+      'Verified by a shipped axe-core test covering an upload in progress.',
+    ],
   },
   toast: {
     intro:

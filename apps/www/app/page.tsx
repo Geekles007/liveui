@@ -185,7 +185,7 @@ const homeComponents: HC[] = [
   {
     name: 'file-upload',
     layer: 3,
-    status: 'planned',
+    status: 'done',
     kind: 'component',
     a11y: true,
     desc: 'Upload with progress, retry and error states.',

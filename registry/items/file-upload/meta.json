@@ -1,0 +1,38 @@
+{
+  "name": "file-upload",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "A drag-and-drop dropzone that uploads each file on its own and survives partial failure: per-file progress bars and a Retry button on the files that fail, instead of sinking the whole batch.",
+  "states": ["loading", "error"],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "The dropzone is a keyboard-operable button — Enter / Space open the file picker",
+      "Each file exposes a role=progressbar with aria-valuenow",
+      "Upload success and failure are announced via a polite live region",
+      "Each file row carries a labelled Remove (and, on failure, Retry) control",
+      "A failed upload shows an inline alert, scoped to that file"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "a drag-and-drop file upload with progress and retry",
+      "upload files with a progress bar and per-file error handling",
+      "an attachment dropzone that retries failed files"
+    ],
+    "examples": [
+      "<FileUpload upload={(file, onProgress) => api.upload(file, onProgress)} accept=\"image/*\" />"
+    ]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "from": "files/file-upload.tsx",
+      "path": "components/file-upload.tsx",
+      "type": "component"
+    }
+  ]
+}
