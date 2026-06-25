@@ -230,10 +230,10 @@ const homeComponents: HC[] = [
   {
     name: 'infinite-list',
     layer: 5,
-    status: 'planned',
+    status: 'done',
     kind: 'component',
     a11y: true,
-    desc: 'Windowed infinite scroll with a loading sentinel.',
+    desc: 'Infinite scroll with an IntersectionObserver sentinel.',
     states: ['loading', 'empty', 'error', 'success'],
   },
   {

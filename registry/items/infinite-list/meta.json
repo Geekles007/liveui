@@ -1,0 +1,38 @@
+{
+  "name": "infinite-list",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "A list that loads the next page on its own as you scroll: the first load runs through StateBoundary (skeletons, empty, error + retry, count announcement), then an off-screen IntersectionObserver sentinel triggers onLoadMore with an announced loading-more footer.",
+  "states": ["loading", "empty", "error"],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "Renders a labelled role=list with role=listitem rows",
+      "The list is marked aria-busy while a next page is loading",
+      "The loading-more footer is a polite live region",
+      "The scroll sentinel is aria-hidden so it isn't read as content",
+      "First-load states and the result-count announcement come from StateBoundary"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "an infinite-scroll list that loads more as you reach the bottom",
+      "auto-load the next page when a sentinel scrolls into view",
+      "a feed that appends pages with a loading-more indicator"
+    ],
+    "examples": [
+      "<InfiniteList state={feed} label=\"Posts\" getKey={(p) => p.id} onLoadMore={fetchNext} hasMore={cursor != null} loadingMore={loading}>{(post) => <PostRow post={post} />}</InfiniteList>"
+    ]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": ["state-boundary", "skeleton"],
+  "files": [
+    {
+      "from": "files/infinite-list.tsx",
+      "path": "components/infinite-list.tsx",
+      "type": "component"
+    }
+  ]
+}

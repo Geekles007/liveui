@@ -32,6 +32,7 @@ export default defineConfig({
       '@/components/confirm-dialog': itemFile('confirm-dialog/files/confirm-dialog.tsx'),
       '@/components/sheet': itemFile('sheet/files/sheet.tsx'),
       '@/components/pagination': itemFile('pagination/files/pagination.tsx'),
+      '@/components/infinite-list': itemFile('infinite-list/files/infinite-list.tsx'),
     },
   },
   esbuild: { jsx: 'automatic' },

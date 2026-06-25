@@ -44,7 +44,7 @@ export const components: Comp[] = [
   { name: 'confirm-dialog', layer: 4, status: 'done', kind: 'component', a11y: true },
   { name: 'sheet', layer: 4, status: 'done', kind: 'component', a11y: true },
   { name: 'pagination', layer: 5, status: 'done', kind: 'component', a11y: true },
-  { name: 'infinite-list', layer: 5, status: 'planned', kind: 'component', a11y: true },
+  { name: 'infinite-list', layer: 5, status: 'done', kind: 'component', a11y: true },
   { name: 'tabs', layer: 5, status: 'planned', kind: 'component', a11y: true },
 ];
 
@@ -1472,9 +1472,60 @@ export const docs: Record<string, Doc> = {
   },
   'infinite-list': {
     intro:
-      'Windowed infinite scroll with a loading sentinel and an announced "loading more" state.',
-    apiFile: 'infinite-list.tsx',
-    api: '<InfiniteList\n  state={pages}\n  onLoadMore={fetchNext}\n>{(item) => <Row item={item} />}</InfiniteList>',
+      'A list that loads the next page on its own as you scroll. The first load runs through the StateBoundary primitive (skeletons, empty slot, error + retry, result-count announcement); after that an off-screen IntersectionObserver sentinel triggers onLoadMore before you hit the bottom, with an announced "loading more" footer.',
+    apiFile: 'components/infinite-list.tsx',
+    api: '<InfiniteList\n  state={feed}\n  label="Posts"\n  getKey={(p) => p.id}\n  onLoadMore={fetchNext}\n  hasMore={cursor != null}\n  loadingMore={loading}\n>\n  {(post) => <PostRow post={post} />}\n</InfiniteList>',
+    tutorialIntro:
+      'You accumulate the pages — so state.data is the full list so far — and InfiniteList owns when to ask for the next one and how to present it.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Pulls in infinite-list plus its state-boundary and skeleton dependencies, which the CLI adds for you.',
+        file: 'terminal',
+        code: '$ npx ibirdui add infinite-list\n+ also adding dependencies: state-boundary, skeleton\n✓ wrote components/infinite-list.tsx',
+      },
+      {
+        title: 'Accumulate the pages',
+        body: 'Keep appending each page to one list and feed it in as an AsyncState. The first load shows skeletons; success renders the rows.',
+        file: 'feed.tsx',
+        code: 'const [items, setItems] = useState<Post[]>([]);\nconst [cursor, setCursor] = useState<string | null>(null);\nconst [loadingMore, setLoadingMore] = useState(false);',
+      },
+      {
+        title: 'Wire onLoadMore',
+        body: 'The sentinel calls onLoadMore before you reach the bottom. Guard it with loadingMore so a fast scroll fires it once; flip hasMore off when the cursor runs out.',
+        file: 'feed.tsx',
+        code: 'async function fetchNext() {\n  if (loadingMore) return;\n  setLoadingMore(true);\n  const page = await api.feed({ cursor });\n  setItems((prev) => [...prev, ...page.items]);\n  setCursor(page.nextCursor);\n  setLoadingMore(false);\n}',
+      },
+      {
+        title: 'Render it',
+        body: 'Pass the list, the load callback, and the hasMore / loadingMore flags. The footer and the end message are handled for you.',
+        file: 'feed.tsx',
+        code: '<InfiniteList\n  state={success(items)}\n  label="Posts"\n  getKey={(p) => p.id}\n  onLoadMore={fetchNext}\n  hasMore={cursor != null}\n  loadingMore={loadingMore}\n  endMessage="You’re all caught up"\n>\n  {(post) => <PostRow post={post} />}\n</InfiniteList>',
+      },
+    ],
+    propsTitle: 'Props',
+    propsIntro: 'InfiniteList<T> extends the DataList contract with scroll-driven loading.',
+    col0: 'Prop',
+    props: [
+      { name: 'state', type: 'AsyncState<T[]>', desc: 'The accumulated items. The first load drives loading / empty / error.' },
+      { name: 'children', type: '(item: T, index: number) => ReactNode', desc: 'Render a single row.' },
+      { name: 'getKey', type: '(item: T, index: number) => Key', desc: 'Stable key for each row.' },
+      { name: 'label', type: 'string', desc: 'Accessible name for the list; also drives the empty message.' },
+      { name: 'onLoadMore', type: '() => void', desc: 'Load the next page. Fired when the sentinel scrolls into view.' },
+      { name: 'hasMore', type: 'boolean', desc: 'Whether another page exists. When false, the sentinel is removed. Default true.' },
+      { name: 'loadingMore', type: 'boolean', desc: 'Whether a next page is loading — shows the footer and announces it.' },
+      { name: 'rootMargin', type: 'string', desc: 'How far ahead of the viewport to start loading. Default "200px".' },
+      { name: 'endMessage', type: 'ReactNode', desc: 'Shown once everything is loaded (hasMore is false).' },
+    ],
+    a11y: true,
+    a11yList: [
+      'Renders a labelled role=list with role=listitem rows.',
+      'The list is marked aria-busy while a next page is loading.',
+      'The loading-more footer is a polite live region.',
+      'The scroll sentinel is aria-hidden so it isn’t read as content.',
+      'First-load states and the result-count announcement come from StateBoundary.',
+      'Verified by a shipped axe-core test across the first load and success states.',
+    ],
   },
   tabs: {
     intro: 'Tabs where each panel can hold its own async content, lazily loaded on first view.',
