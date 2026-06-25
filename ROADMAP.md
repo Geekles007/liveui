@@ -58,7 +58,7 @@ Légende : ✅ fait · 🔜 prochain · ⬜ à venir
 | --- | --- | --- |
 | `toast` | Les petites bulles de message dans un coin ; peut afficher "enregistrement… / enregistré !" tout seul. | ⬜ |
 | `confirm-dialog` | Le pop-up "Êtes-vous sûr ?" qui attend pendant l'action et montre l'erreur dedans si ça rate. | ⬜ |
-| `sheet` / `drawer` | Un panneau qui glisse depuis le côté de l'écran. | ⬜ |
+| `sheet` / `drawer` | Un panneau qui glisse depuis le côté de l'écran. | ✅ |
 
 ## Couche 5 — Navigation (se déplacer dans les contenus)
 

@@ -212,11 +212,11 @@ const homeComponents: HC[] = [
   {
     name: 'sheet',
     layer: 4,
-    status: 'planned',
+    status: 'done',
     kind: 'component',
     a11y: true,
     desc: 'Slide-over panel for detail and forms.',
-    states: ['loading', 'success'],
+    states: [],
   },
   {
     name: 'pagination',

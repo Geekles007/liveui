@@ -30,6 +30,7 @@ export default defineConfig({
       '@/components/file-upload': itemFile('file-upload/files/file-upload.tsx'),
       '@/components/toast': itemFile('toast/files/toast.tsx'),
       '@/components/confirm-dialog': itemFile('confirm-dialog/files/confirm-dialog.tsx'),
+      '@/components/sheet': itemFile('sheet/files/sheet.tsx'),
     },
   },
   esbuild: { jsx: 'automatic' },

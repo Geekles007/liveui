@@ -1,0 +1,38 @@
+{
+  "name": "sheet",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "A slide-over panel anchored to any edge of the screen for detail views, forms and filters — a modal dialog with focus trapping, focus restore, Escape and backdrop dismissal and body scroll lock built in.",
+  "states": [],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "role=dialog with aria-modal, labelled by its title (or an aria-label fallback)",
+      "Focus moves into the panel on open and is restored to the trigger on close",
+      "Focus is trapped while open; Tab and Shift+Tab wrap inside the panel",
+      "Escape and a backdrop click request close via onOpenChange",
+      "The body is scroll-locked while open; the slide is disabled under prefers-reduced-motion"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "a slide-over / drawer panel from the side of the screen",
+      "a modal side panel for a detail view, form or filters",
+      "an accessible drawer with focus trap and scroll lock"
+    ],
+    "examples": [
+      "<Sheet open={open} onOpenChange={setOpen} title=\"Edit profile\"><ProfileForm /></Sheet>"
+    ]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "from": "files/sheet.tsx",
+      "path": "components/sheet.tsx",
+      "type": "component"
+    }
+  ]
+}
