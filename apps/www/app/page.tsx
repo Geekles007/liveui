@@ -676,8 +676,8 @@ export default function Home() {
               'font-size:19px;line-height:1.6;color:var(--muted);max-width:540px;margin:0 0 34px',
             )}
           >
-            Own the code like shadcn — but with every state, verified accessibility, and an upgrade
-            path that survives your edits.
+            Copy-paste ownership, inspired by shadcn — extended with every state, verified
+            accessibility, and an upgrade path that survives your edits.
           </p>
           <div style={s('display:flex;flex-wrap:wrap;gap:12px;align-items:center')}>
             <button
@@ -951,16 +951,18 @@ export default function Home() {
               'font-size:34px;line-height:1.18;letter-spacing:-.02em;font-weight:600;margin:0 0 18px;max-width:760px',
             )}
           >
-            shadcn gave you ownership. It also handed you a pile of unfinished UI.
+            Copy-paste ownership changed everything. It still leaves the hard parts to you.
           </h2>
           <p
             style={s(
               'font-size:17px;line-height:1.65;color:var(--muted);max-width:720px;margin:0 0 40px',
             )}
           >
-            You copy a component, then re-implement loading, empty and error states in every
-            project. Accessibility is asserted, never checked. And once you edit the code, you can
-            never upgrade what you copied. ibirdui adds back the two things ownership cost you —{' '}
+            shadcn made copy-paste ownership the norm, and ibirdui is built on that same idea — you
+            own every line. But owning the code still means re-implementing loading, empty and error
+            states in every project; accessibility gets asserted, never checked; and once you edit a
+            copied file, you can never upgrade it. ibirdui picks up where that pattern leaves off,
+            adding the two things ownership usually costs you —{' '}
             <strong style={s('color:var(--foreground);font-weight:600')}>completeness</strong> and{' '}
             <strong style={s('color:var(--foreground);font-weight:600')}>maintainability</strong>.
           </p>
@@ -1484,7 +1486,7 @@ export default function Home() {
                 'display:flex;align-items:center;gap:9px;padding:10px 14px;border-radius:11px;background:var(--surface);border:1px solid var(--border)',
               )}
             >
-              <span style={s('color:var(--accent-fg)')}>
+              <span style={s('color:var(--accent-fg); display:flex;align-items:center')}>
                 <svg
                   width="18"
                   height="18"
@@ -1872,15 +1874,23 @@ export default function Home() {
         )}
       >
         <div style={s('max-width:1180px;margin:0 auto;padding:84px 24px')}>
-          <div style={s(eyebrow)}>Comparison</div>
+          <div style={s(eyebrow)}>Building on shadcn</div>
           <h2
             id="cmp-h"
             style={s(
-              'font-size:34px;line-height:1.16;letter-spacing:-.02em;font-weight:600;margin:0 0 32px',
+              'font-size:34px;line-height:1.16;letter-spacing:-.02em;font-weight:600;margin:0 0 18px',
             )}
           >
-            Where ibirdui sits.
+            The shadcn model, with the gaps filled in.
           </h2>
+          <p
+            style={s(
+              'font-size:17px;line-height:1.65;color:var(--muted);max-width:720px;margin:0 0 32px',
+            )}
+          >
+            ibirdui stands on shadcn&apos;s shoulders — the same copy-paste ownership you already
+            know, nothing relearned. Here&apos;s what it adds on top for production.
+          </p>
           <div
             style={s(
               'overflow-x:auto;border:1px solid var(--border);border-radius:16px;background:var(--background)',

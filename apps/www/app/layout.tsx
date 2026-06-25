@@ -5,7 +5,7 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'ibirdui — state-complete, accessible, upgradeable React components',
   description:
-    'Registry-as-code React components. Own the code like shadcn — but with every async state, verified accessibility, and an upgrade path that survives your edits.',
+    "Registry-as-code React components. Inspired by shadcn's copy-paste ownership and built on it — adding every async state, verified accessibility, and an upgrade path that survives your edits.",
   openGraph: {
     title: 'ibirdui',
     description:
