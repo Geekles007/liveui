@@ -1,0 +1,27 @@
+{
+  "name": "use-optimistic-list",
+  "type": "hook",
+  "version": "1.0.0",
+  "description": "Mutate a list optimistically — add, remove and update show on screen instantly and roll back automatically if the commit rejects. Overlays settle once the source list catches up.",
+  "states": ["optimistic"],
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": ["async-state"],
+  "manifest": {
+    "intents": [
+      "optimistically add or remove from a list and roll back on error",
+      "show a list change instantly before the server confirms",
+      "optimistic UI for create / delete / update on a collection"
+    ],
+    "examples": [
+      "const [items, mutate] = useOptimisticList(todos.state);\nmutate.add(draft, () => api.todos.create(draft));\nmutate.remove(id, () => api.todos.delete(id));"
+    ]
+  },
+  "files": [
+    {
+      "from": "files/use-optimistic-list.ts",
+      "path": "hooks/use-optimistic-list.ts",
+      "type": "hook"
+    }
+  ]
+}

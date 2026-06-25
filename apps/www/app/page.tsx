@@ -59,7 +59,7 @@ const homeComponents: HC[] = [
   {
     name: 'use-optimistic-list',
     layer: 0,
-    status: 'planned',
+    status: 'done',
     kind: 'hook',
     a11y: false,
     desc: 'Mutate a list optimistically and roll back on error.',

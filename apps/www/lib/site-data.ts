@@ -25,7 +25,7 @@ export const components: Comp[] = [
   { name: 'async-state', layer: 0, status: 'done', kind: 'lib', a11y: false },
   { name: 'theme', layer: 0, status: 'done', kind: 'tokens', a11y: false },
   { name: 'use-async', layer: 0, status: 'done', kind: 'hook', a11y: false },
-  { name: 'use-optimistic-list', layer: 0, status: 'planned', kind: 'hook', a11y: false },
+  { name: 'use-optimistic-list', layer: 0, status: 'done', kind: 'hook', a11y: false },
   { name: 'use-online', layer: 0, status: 'done', kind: 'hook', a11y: false },
   { name: 'skeleton', layer: 0, status: 'done', kind: 'component', a11y: true },
   { name: 'state-boundary', layer: 1, status: 'done', kind: 'component', a11y: true },
@@ -505,9 +505,68 @@ export const docs: Record<string, Doc> = {
   },
   'use-optimistic-list': {
     intro:
-      'Mutate a list optimistically and roll the change back automatically if the request fails.',
-    apiFile: 'use-optimistic-list.ts',
-    api: 'const [items, mutate] = useOptimisticList(state);\nmutate.add(newItem);   // shows instantly\nmutate.remove(id);     // reverts on error',
+      'A hook that mutates a list optimistically: add, remove and update show on screen the instant you call them, and roll back automatically — re-throwing — if the commit rejects. Overlays settle on their own once the source list refetches, so the server stays the source of truth.',
+    apiFile: 'hooks/use-optimistic-list.ts',
+    api: 'const [items, mutate] = useOptimisticList(todos.state);\n\nmutate.add(draft, () => api.todos.create(draft));   // shows instantly\nmutate.remove(id, () => api.todos.delete(id));      // reverts on error',
+    tutorialIntro:
+      'Hand it the same AsyncState you give a DataList, then call mutators with a commit function. The UI updates first; the rollback is automatic.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Copies the hook and its async-state dependency, which the CLI adds for you.',
+        file: 'terminal',
+        code: '$ npx ibirdui add use-optimistic-list\n+ also adding dependency: async-state\n✓ wrote hooks/use-optimistic-list.ts',
+      },
+      {
+        title: 'Wrap your list state',
+        body: 'Pass an AsyncState<T[]> (or a plain array). You get back the items to render plus a mutators object.',
+        file: 'todos.tsx',
+        code: 'const todos = useAsync(() => api.todos.list(), []);\nconst [items, mutate] = useOptimisticList(todos.state);\n\n<DataList state={success(items)} label="Todos" getKey={(t) => t.id}>\n  {(t) => <TodoRow todo={t} />}\n</DataList>',
+      },
+      {
+        title: 'Add and remove instantly',
+        body: 'Give each mutator a commit that talks to your API. The change shows immediately; if the commit rejects, it is rolled back and the promise re-throws so you can toast the error.',
+        file: 'todos.tsx',
+        code: 'await mutate.add(draft, () => api.todos.create(draft));\nawait mutate.remove(id, () => api.todos.delete(id));\nawait mutate.update(id, { done: true }, () => api.todos.toggle(id));',
+      },
+      {
+        title: 'Let the server settle it',
+        body: 'After a commit succeeds, refetch the list. When the source reflects the change, the optimistic overlay drops itself — no duplicates, no stale rows.',
+        file: 'todos.tsx',
+        code: 'await mutate.add(draft, () => api.todos.create(draft));\ntodos.refetch(); // overlay clears once the source catches up',
+      },
+    ],
+    propsTitle: 'Signature',
+    propsIntro: 'useOptimisticList(source, options?) → [items, mutate].',
+    col0: 'argument',
+    props: [
+      {
+        name: 'source',
+        type: 'AsyncState<T[]> | T[]',
+        desc: 'The list to overlay. Reads the success data of an AsyncState, or a plain array.',
+      },
+      {
+        name: 'options.getKey',
+        type: '(item: T) => string | number',
+        desc: 'Stable identity for an item. Defaults to item.id.',
+      },
+      { name: '→ items', type: 'T[]', desc: 'The list with all pending overlays applied — render this.' },
+      {
+        name: '→ mutate.add',
+        type: '(item, commit?) => Promise<void>',
+        desc: 'Append immediately; await commit and revert on rejection.',
+      },
+      {
+        name: '→ mutate.remove',
+        type: '(key, commit?) => Promise<void>',
+        desc: 'Remove immediately; await commit and restore on rejection.',
+      },
+      {
+        name: '→ mutate.update',
+        type: '(key, patch, commit?) => Promise<void>',
+        desc: 'Patch immediately; await commit and roll back on rejection.',
+      },
+    ],
   },
   'use-online': {
     intro:

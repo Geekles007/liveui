@@ -21,7 +21,7 @@ Légende : ✅ fait · 🔜 prochain · ⬜ à venir
 | `async-state` | Le "feu tricolore" commun : dit si les données chargent, manquent, ont planté, ou sont prêtes. | ✅ |
 | `theme` | La palette de couleurs et les règles de style, pour que toutes les briques aient un air de famille. | 🔜 |
 | `use-async` | Un assistant qui transforme "va chercher ces données" en états du feu tricolore, automatiquement. | ⬜ |
-| `use-optimistic-list` | Met l'écran à jour tout de suite quand on ajoute/supprime, puis corrige si le serveur refuse. | ⬜ |
+| `use-optimistic-list` | Met l'écran à jour tout de suite quand on ajoute/supprime, puis corrige si le serveur refuse. | ✅ |
 | `use-online` | Sait quand l'utilisateur perd internet, pour que les briques réagissent. | ✅ |
 | `skeleton` | Les rectangles gris qui "clignotent" pendant que le vrai contenu arrive. | ✅ |
 
