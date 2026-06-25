@@ -68,6 +68,38 @@ Légende : ✅ fait · 🔜 prochain · ⬜ à venir
 | `infinite-list` | Une liste qui charge la suite automatiquement quand on descend. | ✅ |
 | `tabs` | Des onglets qui ne chargent leur contenu qu'à l'ouverture. | ✅ |
 
+## Couche 6 — Formulaires (saisir et envoyer des données)
+
+> Le plus gros manque actuel : aucune brique de saisie. C'est pourtant là que
+> l'async brille le plus (validation serveur, envoi occupé, erreur replacée sur
+> le bon champ).
+
+| Brique | En clair | Statut |
+| --- | --- | --- |
+| `use-form` | Le "feu tricolore" d'un formulaire : il suit les valeurs, les erreurs, et l'envoi en cours / raté. | ⬜ |
+| `field` | Un champ complet : libellé, saisie, message d'erreur et aide, déjà reliés pour le clavier et les lecteurs d'écran. | ⬜ |
+| `async-form` | Quand le serveur refuse, il replace l'erreur sur le bon champ, garde le focus et l'annonce. | ⬜ |
+| `async-validator` | Vérifie à la frappe contre le serveur ("ce pseudo est déjà pris"), avec attente et erreur. | ⬜ |
+| `multi-select` | Un menu pour choisir plusieurs options, avec les mêmes états intégrés. | ⬜ |
+| `tag-input` | Un champ où on ajoute des étiquettes (mots-clés) une par une. | ⬜ |
+| `date-picker` | Un calendrier pour choisir une date, accessible au clavier. | ⬜ |
+
+## Couche 7 — Temps réel & optimiste (les données qui bougent toutes seules)
+
+| Brique | En clair | Statut |
+| --- | --- | --- |
+| `use-stream` | Reçoit des données en continu (flux serveur / WebSocket) et les transforme en états du feu tricolore. | ⬜ |
+| `streaming-list` | Une liste qui se remplit en direct à mesure que les données arrivent. | ⬜ |
+| `presence` | Montre qui est en ligne en ce moment. | ⬜ |
+| `offline-banner` | Un bandeau "tu es hors ligne" qui apparaît tout seul (donne enfin un usage à `use-online`). | ⬜ |
+| `optimistic-toggle` | Un bouton like/favori qui change tout de suite, puis se corrige si le serveur refuse (vitrine de `use-optimistic-list`). | ⬜ |
+
+## Idées à explorer (non encore planifiées)
+
+- **Overlays & menus :** `dropdown-menu` (motif ARIA menu), `popover`, `tooltip`, `accordion` (panneaux chargés à l'ouverture, comme `tabs`), `stepper` / `wizard` (étapes à validation async), `progress` autonome.
+- **Petits hooks (Couche 0) :** `use-debounce`, `use-intersection` (à extraire d'`infinite-list`), `use-clipboard` (état "copié !"), `use-media-query`, `use-poll`.
+- **DX / IA :** un **serveur MCP** exposant le registry aux assistants, `ibirdui doctor` / `ibirdui upgrade` (diff via les hashes déjà calculés au build), un playground dark-mode dans le site.
+
 ---
 
 ## Ordre de construction
@@ -82,4 +114,9 @@ Légende : ✅ fait · 🔜 prochain · ⬜ à venir
 Chaque brique livrée embarque un **test d'accessibilité** (axe) et une **fiche
 lisible par l'IA** (pour `ibirdui gen`).
 
-**Total : 24 briques — toutes faites.** 🎉
+**Prochaines priorités :** Couche 6 (Formulaires) d'abord — le manque structurel
+le plus évident ; puis `offline-banner` + `optimistic-toggle`, rapides et qui
+valorisent du code déjà écrit ; puis la Couche 7 (Temps réel) comme prochain
+différenciateur fort.
+
+**Total : 24 briques livrées 🎉 · 12 nouvelles planifiées (Couches 6–7).**
