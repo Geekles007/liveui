@@ -1,0 +1,27 @@
+{
+  "name": "use-form",
+  "type": "hook",
+  "version": "1.0.0",
+  "description": "The traffic light of a form: tracks values, errors and the submit lifecycle (pending, form-level error, server errors mapped back onto fields) so you never wire submit state by hand.",
+  "states": ["loading", "error"],
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "manifest": {
+    "intents": [
+      "manage form values, validation and submit state",
+      "handle an async form submit with pending and error states",
+      "map server validation errors back onto form fields"
+    ],
+    "examples": [
+      "const form = useForm({ initialValues: { email: '' }, validate: (v) => (v.email ? {} : { email: 'Required' }), onSubmit: (v) => api.signup(v) });"
+    ]
+  },
+  "files": [
+    {
+      "from": "files/use-form.ts",
+      "path": "hooks/use-form.ts",
+      "type": "hook"
+    }
+  ]
+}

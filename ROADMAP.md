@@ -76,10 +76,10 @@ Légende : ✅ fait · 🔜 prochain · ⬜ à venir
 
 | Brique | En clair | Statut |
 | --- | --- | --- |
-| `use-form` | Le "feu tricolore" d'un formulaire : il suit les valeurs, les erreurs, et l'envoi en cours / raté. | ⬜ |
-| `field` | Un champ complet : libellé, saisie, message d'erreur et aide, déjà reliés pour le clavier et les lecteurs d'écran. | ⬜ |
-| `async-form` | Quand le serveur refuse, il replace l'erreur sur le bon champ, garde le focus et l'annonce. | ⬜ |
-| `async-validator` | Vérifie à la frappe contre le serveur ("ce pseudo est déjà pris"), avec attente et erreur. | ⬜ |
+| `use-form` | Le "feu tricolore" d'un formulaire : il suit les valeurs, les erreurs, et l'envoi en cours / raté. | ✅ |
+| `field` | Un champ complet : libellé, saisie, message d'erreur et aide, déjà reliés pour le clavier et les lecteurs d'écran. | ✅ |
+| `async-form` | Quand le serveur refuse, il replace l'erreur sur le bon champ, garde le focus et l'annonce. | ✅ |
+| `async-validator` | Vérifie à la frappe contre le serveur ("ce pseudo est déjà pris"), avec attente et erreur. | ✅ |
 | `multi-select` | Un menu pour choisir plusieurs options, avec les mêmes états intégrés. | ⬜ |
 | `tag-input` | Un champ où on ajoute des étiquettes (mots-clés) une par une. | ⬜ |
 | `date-picker` | Un calendrier pour choisir une date, accessible au clavier. | ⬜ |

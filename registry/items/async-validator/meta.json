@@ -1,0 +1,27 @@
+{
+  "name": "async-validator",
+  "type": "hook",
+  "version": "1.0.0",
+  "description": "Validate a value against the server as the user types — debounced, with checking / valid / invalid / error states and out-of-order protection.",
+  "states": ["loading", "error"],
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "manifest": {
+    "intents": [
+      "check a value against the server while typing (e.g. is this username taken)",
+      "debounced async field validation with loading and error states",
+      "live availability check for a form field"
+    ],
+    "examples": [
+      "const check = useAsyncValidator(username, async (v) => (await api.usernameTaken(v)) ? 'That username is taken' : null);"
+    ]
+  },
+  "files": [
+    {
+      "from": "files/async-validator.ts",
+      "path": "hooks/async-validator.ts",
+      "type": "hook"
+    }
+  ]
+}

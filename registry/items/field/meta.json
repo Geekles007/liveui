@@ -1,0 +1,38 @@
+{
+  "name": "field",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "Wires a label, control, description and error into one accessible block — htmlFor/id, aria-describedby, aria-invalid and aria-required all handled, with the error announced as a polite alert.",
+  "states": ["error"],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "The label is tied to the control via htmlFor / id (clicking it focuses the control)",
+      "aria-describedby points at the description and the error message",
+      "aria-invalid is set while there's an error; aria-required when required",
+      "The error is a role=alert, announced when it appears",
+      "The required marker is decorative (aria-hidden) — state is conveyed via aria-required"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "an accessible form field with a label, error and helper text",
+      "wire a label, description and error message to an input",
+      "label + input + error block with correct ARIA"
+    ],
+    "examples": [
+      "<Field label=\"Email\" error={form.errors.email} description=\"Work address\"><input {...form.register('email')} /></Field>"
+    ]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "from": "files/field.tsx",
+      "path": "components/field.tsx",
+      "type": "component"
+    }
+  ]
+}

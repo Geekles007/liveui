@@ -19,6 +19,7 @@ export const layerNames: Record<number, string> = {
   3: 'Fetching inputs',
   4: 'Feedback & overlays',
   5: 'Navigation',
+  6: 'Forms',
 };
 
 export const components: Comp[] = [
@@ -46,6 +47,13 @@ export const components: Comp[] = [
   { name: 'pagination', layer: 5, status: 'done', kind: 'component', a11y: true },
   { name: 'infinite-list', layer: 5, status: 'done', kind: 'component', a11y: true },
   { name: 'tabs', layer: 5, status: 'done', kind: 'component', a11y: true },
+  { name: 'use-form', layer: 6, status: 'done', kind: 'hook', a11y: false },
+  { name: 'field', layer: 6, status: 'done', kind: 'component', a11y: true },
+  { name: 'async-form', layer: 6, status: 'done', kind: 'component', a11y: true },
+  { name: 'async-validator', layer: 6, status: 'done', kind: 'hook', a11y: false },
+  { name: 'multi-select', layer: 6, status: 'planned', kind: 'component', a11y: true },
+  { name: 'tag-input', layer: 6, status: 'planned', kind: 'component', a11y: true },
+  { name: 'date-picker', layer: 6, status: 'planned', kind: 'component', a11y: true },
 ];
 
 /** Guaranteed first component, used as a safe fallback when a selection misses. */
@@ -1775,6 +1783,227 @@ export const docs: Record<string, Doc> = {
       "Disabled tabs are skipped by the keyboard and can't be selected.",
       'Inactive panels are hidden, so only the active panel is in the accessibility tree.',
       'Verified by a shipped axe-core test covering the tablist, panels and keyboard model.',
+    ],
+  },
+  'use-form': {
+    intro:
+      'The traffic light of a form: a hook that tracks values, errors and the submit lifecycle — pending, a form-level error, and server errors mapped back onto the matching fields — so you never wire submit state by hand.',
+    apiFile: 'hooks/use-form.ts',
+    api: 'const form = useForm({\n  initialValues: { email: "" },\n  validate: (v) => (v.email ? {} : { email: "Required" }),\n  onSubmit: (v) => api.signup(v),\n});',
+    tutorialIntro:
+      'Give it initial values, optional validation and a submit handler. It returns everything you spread onto fields and a button.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Copies the hook into your repo. No dependencies beyond React.',
+        file: 'terminal',
+        code: '$ npx ibirdui add use-form\n✓ wrote hooks/use-form.ts',
+      },
+      {
+        title: 'Register fields',
+        body: 'register(name) returns the value + onChange + onBlur to spread onto a control; errors[name] is the message to show.',
+        file: 'signup.tsx',
+        code: 'const form = useForm({\n  initialValues: { email: "" },\n  validate: (v) => (v.email ? {} : { email: "Email is required" }),\n  onSubmit: (v) => api.signup(v),\n});\n\n<Field label="Email" error={form.errors.email}>\n  <input {...form.register("email")} />\n</Field>',
+      },
+      {
+        title: 'Submit owns its state',
+        body: 'handleSubmit validates, then awaits onSubmit. submitting is true while it runs — wire it to your button.',
+        file: 'signup.tsx',
+        code: '<form onSubmit={form.handleSubmit}>\n  …\n  <AsyncButton type="submit" disabled={form.submitting}>Sign up</AsyncButton>\n</form>',
+      },
+      {
+        title: 'Server errors map to fields',
+        body: 'Reject onSubmit with { fields } to drop messages onto the matching fields; anything else becomes form.submitError.',
+        file: 'api.ts',
+        code: '// throws { fields: { email: "Already taken" } }\n// → form.errors.email is set automatically',
+      },
+    ],
+    propsTitle: 'Signature',
+    propsIntro: 'useForm({ initialValues, validate?, onSubmit }) → form.',
+    col0: 'member',
+    props: [
+      { name: 'values', type: 'T', desc: 'The current field values.' },
+      {
+        name: 'errors',
+        type: 'Partial<Record<keyof T, string>>',
+        desc: 'Per-field error messages.',
+      },
+      { name: 'submitting', type: 'boolean', desc: 'True while onSubmit is in flight.' },
+      {
+        name: 'submitError',
+        type: 'string | null',
+        desc: 'Form-level error from a rejected submit.',
+      },
+      {
+        name: 'register',
+        type: '(name) => binding',
+        desc: 'Spread onto a control: value, onChange, onBlur, name.',
+      },
+      {
+        name: 'handleSubmit',
+        type: '(e?) => Promise<void>',
+        desc: 'Validate then submit; maps server errors back.',
+      },
+      {
+        name: 'setValue / setErrors / reset',
+        type: '…',
+        desc: 'Imperative escape hatches when you need them.',
+      },
+    ],
+  },
+  field: {
+    intro:
+      'Wires a label, a control, an optional description and an error into one accessible block — the boilerplate every form field needs but most skip: htmlFor/id, aria-describedby, aria-invalid and aria-required, with the error announced as a polite alert.',
+    apiFile: 'components/field.tsx',
+    api: '<Field label="Email" error={form.errors.email} description="Work address">\n  <input {...form.register("email")} />\n</Field>',
+    tutorialIntro:
+      'Pass exactly one control as the child. Field injects the wiring onto it and renders the label, description and error around it.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Copies the component plus its axe test into your repo. No dependencies beyond React.',
+        file: 'terminal',
+        code: '$ npx ibirdui add field\n✓ wrote components/field.tsx\n✓ wrote components/field.test.tsx',
+      },
+      {
+        title: 'Wrap any control',
+        body: 'It works with an input, textarea, select or any custom control — Field clones the child to add the id and ARIA attributes.',
+        file: 'form.tsx',
+        code: '<Field label="Bio" description="A short intro">\n  <textarea {...form.register("bio")} />\n</Field>',
+      },
+      {
+        title: 'Show errors accessibly',
+        body: 'Pass error to mark the control invalid (aria-invalid), describe it with the message, and announce it as an alert.',
+        file: 'form.tsx',
+        code: '<Field label="Email" error={form.errors.email} required>\n  <input {...form.register("email")} />\n</Field>',
+      },
+    ],
+    propsTitle: 'Props',
+    propsIntro: 'Field takes a single control child plus:',
+    col0: 'Prop',
+    props: [
+      {
+        name: 'label',
+        type: 'ReactNode',
+        desc: 'Visible label, linked to the control via htmlFor.',
+      },
+      {
+        name: 'error',
+        type: 'string',
+        desc: 'When set, marks the control invalid and announces the message.',
+      },
+      { name: 'description', type: 'ReactNode', desc: 'Helper text, linked via aria-describedby.' },
+      {
+        name: 'required',
+        type: 'boolean',
+        desc: 'Sets aria-required and shows a marker on the label.',
+      },
+    ],
+    a11y: true,
+    a11yList: [
+      'The label is tied to the control via htmlFor / id — clicking it focuses the control.',
+      'aria-describedby points at the description and the error message.',
+      'aria-invalid is set while there is an error; aria-required when required.',
+      'The error is a role="alert", announced when it appears.',
+      'The required marker is decorative (aria-hidden); state is conveyed via aria-required.',
+      'Verified by a shipped axe-core test, with and without an error.',
+    ],
+  },
+  'async-form': {
+    intro:
+      'The <form> companion to use-form. It submits through the form, surfaces the form-level error as a role="alert", and — the part most forms skip — moves focus to the first invalid field after a failed submit, so keyboard and screen-reader users land on what needs fixing.',
+    apiFile: 'components/async-form.tsx',
+    api: '<AsyncForm form={form} aria-label="Sign up">\n  <Field label="Email" error={form.errors.email}>\n    <input {...form.register("email")} />\n  </Field>\n  <AsyncButton type="submit" disabled={form.submitting}>Sign up</AsyncButton>\n</AsyncForm>',
+    tutorialIntro:
+      'Hand it the form from useForm and your fields as children. It owns the <form>, the form-level error and the focus move.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Pulls in async-form and its use-form dependency, which the CLI adds for you.',
+        file: 'terminal',
+        code: '$ npx ibirdui add async-form\n+ also adding dependency: use-form\n✓ wrote components/async-form.tsx',
+      },
+      {
+        title: 'Wrap your fields',
+        body: 'Give it the form and an aria-label. It renders a <form noValidate> and submits through form.handleSubmit.',
+        file: 'signup.tsx',
+        code: '<AsyncForm form={form} aria-label="Sign up">\n  <Field label="Email" error={form.errors.email}>\n    <input {...form.register("email")} />\n  </Field>\n  <AsyncButton type="submit" disabled={form.submitting}>Sign up</AsyncButton>\n</AsyncForm>',
+      },
+      {
+        title: 'Failures are handled',
+        body: 'On a failed submit it shows form.submitError as an alert and focuses the first invalid field — no extra wiring from you.',
+        file: '—',
+        code: '// validation error → focus the first invalid input\n// server error → announce + focus the form-level alert',
+      },
+    ],
+    propsTitle: 'Props',
+    propsIntro: 'AsyncForm forwards every native <form> attribute. The extra:',
+    col0: 'Prop',
+    props: [
+      { name: 'form', type: 'UseFormReturn<T>', desc: 'A form returned by useForm.' },
+      {
+        name: '…formProps',
+        type: 'FormHTMLAttributes',
+        desc: 'aria-label, className and any other <form> attribute.',
+      },
+    ],
+    a11y: true,
+    a11yList: [
+      'The form-level submit error is a role="alert", announced when it appears.',
+      'After a failed submit, focus moves to the first invalid field (or the form error).',
+      'Native browser validation is disabled (noValidate) so the custom announcements own it.',
+      'Verified by a shipped axe-core test covering validation and server-error focus.',
+    ],
+  },
+  'async-validator': {
+    intro:
+      'Validate a value against the server as the user types — debounced, with the checking / valid / invalid / error states the UI needs, and out-of-order protection so a fast edit never gets overwritten by a slow earlier check.',
+    apiFile: 'hooks/async-validator.ts',
+    api: 'const check = useAsyncValidator(username, async (v) =>\n  (await api.usernameTaken(v)) ? "That username is taken" : null,\n);\n// check.status: "checking" → "invalid" (check.message) | "valid"',
+    tutorialIntro:
+      'Give it the current value and an async check. It returns a status you can map onto a hint next to the field.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Copies the hook into your repo. No dependencies beyond React.',
+        file: 'terminal',
+        code: '$ npx ibirdui add async-validator\n✓ wrote hooks/async-validator.ts',
+      },
+      {
+        title: 'Check as they type',
+        body: 'Resolve null when the value is fine, or a message when it is not. Rejection becomes the error status.',
+        file: 'signup.tsx',
+        code: 'const check = useAsyncValidator(form.values.username, async (v) =>\n  (await api.usernameTaken(v)) ? "That username is taken" : null,\n);',
+      },
+      {
+        title: 'Show the state',
+        body: 'Map the status to a small hint — a spinner while checking, a tick when valid, the message when invalid.',
+        file: 'signup.tsx',
+        code: '{check.status === "checking" && <Spinner />}\n{check.status === "invalid" && <Hint error>{check.message}</Hint>}\n{check.status === "valid" && <Hint ok>Available</Hint>}',
+      },
+    ],
+    propsTitle: 'Signature',
+    propsIntro: 'useAsyncValidator(value, validate, options?) → { status, message }.',
+    col0: 'argument',
+    props: [
+      { name: 'value', type: 'string', desc: 'The value to check. An empty value sits at "idle".' },
+      {
+        name: 'validate',
+        type: '(value) => Promise<string | null>',
+        desc: 'Resolve null when valid, a message when not.',
+      },
+      {
+        name: 'options.debounceMs',
+        type: 'number',
+        desc: 'Debounce before hitting the server. Default 400.',
+      },
+      { name: 'options.enabled', type: 'boolean', desc: 'Pause checking. Default true.' },
+      {
+        name: '→ status',
+        type: "'idle' | 'checking' | 'valid' | 'invalid' | 'error'",
+        desc: 'The current validation state.',
+      },
+      { name: '→ message', type: 'string | null', desc: 'The message for invalid / error.' },
     ],
   },
 };

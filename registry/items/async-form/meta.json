@@ -1,0 +1,36 @@
+{
+  "name": "async-form",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "The <form> companion to use-form: submits through the form, surfaces the form-level error as a role=alert, and moves focus to the first invalid field after a failed submit.",
+  "states": ["error"],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "The form-level submit error is a role=alert, announced when it appears",
+      "After a failed submit, focus moves to the first invalid field (or the form error)",
+      "Native browser validation is disabled (noValidate) so the custom announcements own it"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "an accessible form that focuses the first invalid field on submit",
+      "wire a useForm to a <form> with a form-level error alert",
+      "submit a form with pending and error handling"
+    ],
+    "examples": [
+      "<AsyncForm form={form} aria-label=\"Sign up\"><Field label=\"Email\" error={form.errors.email}><input {...form.register('email')} /></Field><AsyncButton type=\"submit\" disabled={form.submitting}>Sign up</AsyncButton></AsyncForm>"
+    ]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": ["use-form"],
+  "files": [
+    {
+      "from": "files/async-form.tsx",
+      "path": "components/async-form.tsx",
+      "type": "component"
+    }
+  ]
+}
