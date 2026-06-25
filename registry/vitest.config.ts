@@ -26,6 +26,7 @@ export default defineConfig({
       '@/components/card-collection': itemFile('card-collection/files/card-collection.tsx'),
       '@/components/detail-view': itemFile('detail-view/files/detail-view.tsx'),
       '@/components/async-combobox': itemFile('async-combobox/files/async-combobox.tsx'),
+      '@/components/command-palette': itemFile('command-palette/files/command-palette.tsx'),
       '@/components/toast': itemFile('toast/files/toast.tsx'),
       '@/components/confirm-dialog': itemFile('confirm-dialog/files/confirm-dialog.tsx'),
     },

@@ -176,11 +176,11 @@ const homeComponents: HC[] = [
   {
     name: 'command-palette',
     layer: 3,
-    status: 'planned',
+    status: 'done',
     kind: 'component',
     a11y: true,
-    desc: 'A ⌘K palette over async sources — previewed on this very page.',
-    states: ['loading', 'empty', 'success'],
+    desc: 'A ⌘K command palette with full keyboard navigation.',
+    states: ['empty'],
   },
   {
     name: 'file-upload',

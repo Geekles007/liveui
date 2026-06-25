@@ -1,0 +1,38 @@
+{
+  "name": "command-palette",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "A ⌘K command palette: a modal combobox over a list of commands, filtered as you type. Full ARIA combobox-in-dialog pattern, keyboard navigation, focus restoration and a result-count announcement.",
+  "states": ["empty"],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "role=dialog with aria-modal, containing a role=combobox input wired to a role=listbox",
+      "The highlighted command is tracked via aria-activedescendant — focus stays in the input",
+      "⌘K toggles, ↓/↑ move, Enter runs, Esc closes; Tab is kept inside the palette",
+      "Focus is restored to the previously focused element when the palette closes",
+      "The result count is announced via a polite live region"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "a Cmd+K / Ctrl+K command palette to navigate or run actions quickly",
+      "a searchable command menu like Slack or VSCode",
+      "a quick launcher modal filtered as you type"
+    ],
+    "examples": [
+      "<CommandPalette commands={[{ id: 'home', label: 'Go home', onSelect: () => router.push('/') }]} />"
+    ]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "from": "files/command-palette.tsx",
+      "path": "components/command-palette.tsx",
+      "type": "component"
+    }
+  ]
+}
