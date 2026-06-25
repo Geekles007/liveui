@@ -13,9 +13,7 @@
       "render an offline banner or disable actions when the network drops",
       "react to the browser online and offline events"
     ],
-    "examples": [
-      "const online = useOnline();\nif (!online) return <OfflineBanner />;"
-    ]
+    "examples": ["const online = useOnline();\nif (!online) return <OfflineBanner />;"]
   },
   "files": [
     {

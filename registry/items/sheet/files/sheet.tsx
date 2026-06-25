@@ -13,7 +13,10 @@ type Side = 'right' | 'left' | 'top' | 'bottom';
 
 /** Where the panel anchors, and the transform it sits at while hidden. */
 const SIDE: Record<Side, { anchor: string; hidden: string }> = {
-  right: { anchor: 'inset-y-0 right-0 h-full w-full max-w-sm border-l', hidden: 'translate-x-full' },
+  right: {
+    anchor: 'inset-y-0 right-0 h-full w-full max-w-sm border-l',
+    hidden: 'translate-x-full',
+  },
   left: { anchor: 'inset-y-0 left-0 h-full w-full max-w-sm border-r', hidden: '-translate-x-full' },
   top: { anchor: 'inset-x-0 top-0 w-full max-h-[85vh] border-b', hidden: '-translate-y-full' },
   bottom: { anchor: 'inset-x-0 bottom-0 w-full max-h-[85vh] border-t', hidden: 'translate-y-full' },

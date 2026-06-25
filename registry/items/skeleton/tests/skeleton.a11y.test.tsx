@@ -36,7 +36,9 @@ describe('Skeleton accessibility', () => {
   });
 
   it('forwards className and arbitrary div props', () => {
-    const { container } = render(<Skeleton className="h-10 w-10 rounded-full" data-testid="avatar" />);
+    const { container } = render(
+      <Skeleton className="h-10 w-10 rounded-full" data-testid="avatar" />,
+    );
     const el = container.firstElementChild as HTMLElement;
     expect(el.className).toContain('h-10');
     expect(el.getAttribute('data-testid')).toBe('avatar');

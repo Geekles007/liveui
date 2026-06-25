@@ -16,13 +16,7 @@ const navItems = [
 /** Brand mark — the ibirdui bird on the rounded lime tile (matches the favicon). */
 function BirdMark({ size = 24 }: { size?: number }) {
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 260 257"
-      role="img"
-      aria-hidden="true"
-    >
+    <svg width={size} height={size} viewBox="0 0 260 257" role="img" aria-hidden="true">
       <g transform="translate(-177,-372.078727)">
         <g transform="translate(1,0.078727)">
           <g transform="matrix(1.069959,0,0,1.053183,-22.012346,-26.024589)">

@@ -1,6 +1,6 @@
 'use client';
 
-import * as React from 'react';
+import type * as React from 'react';
 
 /** Minimal className joiner so the item carries no extra dependency. */
 function cn(...parts: Array<string | false | null | undefined>): string {

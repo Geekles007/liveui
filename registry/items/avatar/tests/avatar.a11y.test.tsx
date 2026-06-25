@@ -52,7 +52,9 @@ describe('Avatar accessibility & behaviour', () => {
   });
 
   it('prefers an explicit alt over the name for the image', () => {
-    const { container } = render(<Avatar src="/a.png" name="Grace Hopper" alt="Rear Admiral Hopper" />);
+    const { container } = render(
+      <Avatar src="/a.png" name="Grace Hopper" alt="Rear Admiral Hopper" />,
+    );
     expect(container.querySelector('img')?.getAttribute('alt')).toBe('Rear Admiral Hopper');
   });
 

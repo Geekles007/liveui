@@ -45,7 +45,16 @@ export interface AvatarProps extends Omit<React.HTMLAttributes<HTMLSpanElement>,
  * person is announced either way. With no `name` and no `src` it's purely
  * decorative and hidden from assistive tech.
  */
-export function Avatar({ src, name, alt, size = 40, fallback, className, style, ...rest }: AvatarProps) {
+export function Avatar({
+  src,
+  name,
+  alt,
+  size = 40,
+  fallback,
+  className,
+  style,
+  ...rest
+}: AvatarProps) {
   const [status, setStatus] = React.useState<Status>(src ? 'loading' : 'error');
 
   // Reset the load lifecycle whenever the source changes.

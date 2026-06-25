@@ -141,8 +141,6 @@ export function Tabs({ children, defaultIndex = 0, label, onChange, className }:
             id={panelId(i)}
             aria-labelledby={tabId(i)}
             hidden={!isSelected}
-            tabIndex={0}
-            className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             {content}
           </div>

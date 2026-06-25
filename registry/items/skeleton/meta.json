@@ -19,10 +19,7 @@
       "skeleton screen shaped like the real content",
       "grey pulsing placeholder for text, avatars or cards"
     ],
-    "examples": [
-      "<Skeleton className=\"h-4 w-32\" />",
-      "<SkeletonText lines={3} />"
-    ]
+    "examples": ["<Skeleton className=\"h-4 w-32\" />", "<SkeletonText lines={3} />"]
   },
   "dependencies": ["react"],
   "devDependencies": [],

@@ -8,7 +8,13 @@ afterEach(cleanup);
 function makeCommands(onSelect = vi.fn()): Command[] {
   return [
     { id: 'home', label: 'Go to Home', group: 'Navigation', onSelect },
-    { id: 'settings', label: 'Open Settings', keywords: 'preferences', group: 'Navigation', onSelect },
+    {
+      id: 'settings',
+      label: 'Open Settings',
+      keywords: 'preferences',
+      group: 'Navigation',
+      onSelect,
+    },
     { id: 'new', label: 'New file', shortcut: '⌘N', group: 'Actions', onSelect },
   ];
 }
@@ -21,7 +27,9 @@ async function expectNoViolations(container: HTMLElement) {
 /** Dispatch a real keydown on window (the global shortcut listener). */
 function pressGlobal(key: string, init: KeyboardEventInit = {}) {
   act(() => {
-    window.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true, ...init }));
+    window.dispatchEvent(
+      new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true, ...init }),
+    );
   });
 }
 

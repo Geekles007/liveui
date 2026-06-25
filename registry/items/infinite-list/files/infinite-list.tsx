@@ -81,7 +81,11 @@ export function InfiniteList<T>({
     >
       {(items) => (
         <div className={cn('flex flex-col', className)}>
-          <ul aria-label={label} aria-busy={loadingMore || undefined} className="divide-y rounded-md border">
+          <ul
+            aria-label={label}
+            aria-busy={loadingMore || undefined}
+            className="divide-y rounded-md border"
+          >
             {items.map((item, index) => (
               <li key={getKey(item, index)} className="px-4 py-3">
                 {children(item, index)}
@@ -107,8 +111,20 @@ export function InfiniteList<T>({
                 fill="none"
                 className="motion-safe:animate-spin"
               >
-                <circle cx="12" cy="12" r="9" stroke="currentColor" strokeOpacity="0.25" strokeWidth="3" />
-                <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="9"
+                  stroke="currentColor"
+                  strokeOpacity="0.25"
+                  strokeWidth="3"
+                />
+                <path
+                  d="M21 12a9 9 0 0 0-9-9"
+                  stroke="currentColor"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                />
               </svg>
               Loading more…
             </div>

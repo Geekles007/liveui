@@ -1,6 +1,6 @@
 'use client';
 
-import * as React from 'react';
+import type * as React from 'react';
 
 /** Minimal className joiner so the item carries no extra dependency. */
 function cn(...parts: Array<string | false | null | undefined>): string {
@@ -69,6 +69,7 @@ export function EmptyState({
 function DefaultIcon() {
   return (
     <svg
+      aria-hidden="true"
       width="32"
       height="32"
       viewBox="0 0 24 24"

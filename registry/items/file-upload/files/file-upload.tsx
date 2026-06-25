@@ -93,22 +93,24 @@ export function FileUpload({
   const start = React.useCallback(
     (id: string, file: File) => {
       patch(id, { status: 'uploading', progress: 0, error: undefined, canRetry: true });
-      uploadRef.current(file, (pct) => {
-        patch(id, { progress: Math.max(0, Math.min(100, Math.round(pct))) });
-      }).then(
-        (result) => {
-          patch(id, { status: 'success', progress: 100 });
-          if (mounted.current) setAnnounce(`${file.name} uploaded`);
-          onCompleteRef.current?.(file, result);
-        },
-        (err: unknown) => {
-          patch(id, {
-            status: 'error',
-            error: err instanceof Error ? err.message : 'Upload failed',
-          });
-          if (mounted.current) setAnnounce(`${file.name} failed to upload`);
-        },
-      );
+      uploadRef
+        .current(file, (pct) => {
+          patch(id, { progress: Math.max(0, Math.min(100, Math.round(pct))) });
+        })
+        .then(
+          (result) => {
+            patch(id, { status: 'success', progress: 100 });
+            if (mounted.current) setAnnounce(`${file.name} uploaded`);
+            onCompleteRef.current?.(file, result);
+          },
+          (err: unknown) => {
+            patch(id, {
+              status: 'error',
+              error: err instanceof Error ? err.message : 'Upload failed',
+            });
+            if (mounted.current) setAnnounce(`${file.name} failed to upload`);
+          },
+        );
     },
     [patch],
   );
@@ -224,10 +226,7 @@ export function FileUpload({
       {items.length > 0 && (
         <ul className="flex flex-col gap-2">
           {items.map((it) => (
-            <li
-              key={it.id}
-              className="flex items-center gap-3 rounded-md border px-3 py-2 text-sm"
-            >
+            <li key={it.id} className="flex items-center gap-3 rounded-md border px-3 py-2 text-sm">
               <div className="min-w-0 flex-1">
                 <div className="flex items-center justify-between gap-2">
                   <span className="truncate font-medium text-foreground">{it.file.name}</span>
@@ -243,11 +242,14 @@ export function FileUpload({
                 ) : (
                   <div
                     role="progressbar"
+                    tabIndex={-1}
                     aria-valuemin={0}
                     aria-valuemax={100}
                     aria-valuenow={it.progress}
                     aria-label={
-                      it.status === 'success' ? `${it.file.name} uploaded` : `Uploading ${it.file.name}`
+                      it.status === 'success'
+                        ? `${it.file.name} uploaded`
+                        : `Uploading ${it.file.name}`
                     }
                     className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-muted"
                   >

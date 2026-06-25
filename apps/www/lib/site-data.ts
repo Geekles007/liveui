@@ -550,7 +550,11 @@ export const docs: Record<string, Doc> = {
         type: '(item: T) => string | number',
         desc: 'Stable identity for an item. Defaults to item.id.',
       },
-      { name: '→ items', type: 'T[]', desc: 'The list with all pending overlays applied — render this.' },
+      {
+        name: '→ items',
+        type: 'T[]',
+        desc: 'The list with all pending overlays applied — render this.',
+      },
       {
         name: '→ mutate.add',
         type: '(item, commit?) => Promise<void>',
@@ -586,7 +590,7 @@ export const docs: Record<string, Doc> = {
         title: 'Read connectivity anywhere',
         body: 'Call it in any client component. It returns true while the browser reports a connection and flips to false the instant it drops.',
         file: 'app.tsx',
-        code: "const online = useOnline();\nif (!online) return <OfflineBanner />;",
+        code: 'const online = useOnline();\nif (!online) return <OfflineBanner />;',
       },
       {
         title: 'Pause work while offline',
@@ -649,19 +653,27 @@ export const docs: Record<string, Doc> = {
     propsIntro: 'Forwards every native <div> attribute. The extras:',
     col0: 'Prop',
     props: [
-      { name: 'title', type: 'ReactNode', desc: 'Required. The headline — what is missing, in plain words.' },
+      {
+        name: 'title',
+        type: 'ReactNode',
+        desc: 'Required. The headline — what is missing, in plain words.',
+      },
       { name: 'description', type: 'ReactNode', desc: 'Optional supporting line under the title.' },
       {
         name: 'icon',
         type: 'ReactNode',
         desc: 'Decorative glyph above the title. Defaults to a tray icon; pass null to hide it.',
       },
-      { name: 'action', type: 'ReactNode', desc: 'Primary action — e.g. a button that creates the first item.' },
+      {
+        name: 'action',
+        type: 'ReactNode',
+        desc: 'Primary action — e.g. a button that creates the first item.',
+      },
     ],
     a11y: true,
     a11yList: [
       'The icon is decorative (aria-hidden), so screen readers get the message, not the glyph.',
-      "Imposes no role or live region — the surrounding state-boundary owns the empty announcement.",
+      'Imposes no role or live region — the surrounding state-boundary owns the empty announcement.',
       'The action is whatever focusable control you pass in, keeping native button / link semantics.',
       'Verified by a shipped axe-core test covering the panel with an action.',
     ],
@@ -708,9 +720,21 @@ export const docs: Record<string, Doc> = {
         type: 'Error | string',
         desc: 'Required. A string is shown as-is; an Error shows its message and exposes its stack in the details disclosure.',
       },
-      { name: 'onRetry', type: '() => void', desc: 'When provided, renders a focusable retry button wired to this callback.' },
-      { name: 'title', type: 'ReactNode', desc: 'Headline above the message. Default “Something went wrong”.' },
-      { name: 'retryLabel', type: 'string', desc: 'Label for the retry button. Default “Try again”.' },
+      {
+        name: 'onRetry',
+        type: '() => void',
+        desc: 'When provided, renders a focusable retry button wired to this callback.',
+      },
+      {
+        name: 'title',
+        type: 'ReactNode',
+        desc: 'Headline above the message. Default “Something went wrong”.',
+      },
+      {
+        name: 'retryLabel',
+        type: 'string',
+        desc: 'Label for the retry button. Default “Try again”.',
+      },
       {
         name: 'autoFocus',
         type: 'boolean',
@@ -904,13 +928,37 @@ export const docs: Record<string, Doc> = {
     propsIntro: 'CardCollection<T> mirrors DataList, laying its items out as a grid.',
     col0: 'Prop',
     props: [
-      { name: 'state', type: 'AsyncState<T[]>', desc: 'The grid data as an async state — wire it straight from your fetcher.' },
-      { name: 'children', type: '(item: T, index: number) => ReactNode', desc: 'Render a single card. Only called in the success state.' },
-      { name: 'getKey', type: '(item: T, index: number) => Key', desc: 'Stable key for each card.' },
-      { name: 'label', type: 'string', desc: 'Accessible name for the collection; also drives the empty message.' },
+      {
+        name: 'state',
+        type: 'AsyncState<T[]>',
+        desc: 'The grid data as an async state — wire it straight from your fetcher.',
+      },
+      {
+        name: 'children',
+        type: '(item: T, index: number) => ReactNode',
+        desc: 'Render a single card. Only called in the success state.',
+      },
+      {
+        name: 'getKey',
+        type: '(item: T, index: number) => Key',
+        desc: 'Stable key for each card.',
+      },
+      {
+        name: 'label',
+        type: 'string',
+        desc: 'Accessible name for the collection; also drives the empty message.',
+      },
       { name: 'columns', type: 'number', desc: 'Number of columns. Default 3.' },
-      { name: 'skeletonCount', type: 'number', desc: 'Number of skeleton cards shown while loading. Default 6.' },
-      { name: 'empty', type: 'ReactNode', desc: 'Custom empty-state content. Defaults to the boundary’s empty panel.' },
+      {
+        name: 'skeletonCount',
+        type: 'number',
+        desc: 'Number of skeleton cards shown while loading. Default 6.',
+      },
+      {
+        name: 'empty',
+        type: 'ReactNode',
+        desc: 'Custom empty-state content. Defaults to the boundary’s empty panel.',
+      },
     ],
     a11y: true,
     a11yList: [
@@ -923,7 +971,7 @@ export const docs: Record<string, Doc> = {
   },
   'detail-view': {
     intro:
-      "A single-record view that is state-complete by construction: a skeleton while it loads, a not-found panel when the record is missing, error + retry, and screen-reader announcements — all via the StateBoundary primitive. You only ever write the resolved record.",
+      'A single-record view that is state-complete by construction: a skeleton while it loads, a not-found panel when the record is missing, error + retry, and screen-reader announcements — all via the StateBoundary primitive. You only ever write the resolved record.',
     apiFile: 'components/detail-view.tsx',
     api: '<DetailView state={order} label="Order">\n  {(o) => <OrderSummary order={o} />}\n</DetailView>',
     tutorialIntro:
@@ -963,10 +1011,26 @@ export const docs: Record<string, Doc> = {
         type: 'AsyncState<T>',
         desc: 'The record as an async state. The empty status reads as "not found".',
       },
-      { name: 'children', type: '(data: T) => ReactNode', desc: 'Render the resolved record. Only called on success.' },
-      { name: 'label', type: 'string', desc: 'Accessible name for the region, and the noun used in announcements.' },
-      { name: 'loading', type: 'ReactNode', desc: 'Custom loading content. Defaults to a title + paragraph skeleton.' },
-      { name: 'notFound', type: 'ReactNode', desc: 'Custom not-found content for the empty status.' },
+      {
+        name: 'children',
+        type: '(data: T) => ReactNode',
+        desc: 'Render the resolved record. Only called on success.',
+      },
+      {
+        name: 'label',
+        type: 'string',
+        desc: 'Accessible name for the region, and the noun used in announcements.',
+      },
+      {
+        name: 'loading',
+        type: 'ReactNode',
+        desc: 'Custom loading content. Defaults to a title + paragraph skeleton.',
+      },
+      {
+        name: 'notFound',
+        type: 'ReactNode',
+        desc: 'Custom not-found content for the empty status.',
+      },
     ],
     a11y: true,
     a11yList: [
@@ -1014,10 +1078,22 @@ export const docs: Record<string, Doc> = {
     propsIntro: 'Forwards every native <span> attribute. The extras:',
     col0: 'Prop',
     props: [
-      { name: 'src', type: 'string', desc: 'Image URL. When absent or it fails to load, the fallback is shown.' },
-      { name: 'name', type: 'string', desc: "The person's name — drives the initials and the accessible label." },
+      {
+        name: 'src',
+        type: 'string',
+        desc: 'Image URL. When absent or it fails to load, the fallback is shown.',
+      },
+      {
+        name: 'name',
+        type: 'string',
+        desc: "The person's name — drives the initials and the accessible label.",
+      },
       { name: 'alt', type: 'string', desc: 'Accessible name for the image. Defaults to name.' },
-      { name: 'size', type: 'number', desc: 'Diameter in pixels. Default 40. The initials scale with it.' },
+      {
+        name: 'size',
+        type: 'number',
+        desc: 'Diameter in pixels. Default 40. The initials scale with it.',
+      },
       {
         name: 'fallback',
         type: 'ReactNode',
@@ -1131,13 +1207,41 @@ export const docs: Record<string, Doc> = {
     propsIntro: 'A command is { id, label, onSelect, keywords?, group?, shortcut?, icon? }.',
     col0: 'Prop',
     props: [
-      { name: 'commands', type: 'Command[]', desc: 'The commands to search. Filtered client-side as the user types.' },
-      { name: 'open', type: 'boolean', desc: 'Controlled open state. Omit to let the palette manage its own.' },
-      { name: 'onOpenChange', type: '(open: boolean) => void', desc: 'Notified whenever the palette wants to open or close.' },
-      { name: 'shortcut', type: 'boolean', desc: 'Enable the global ⌘K / Ctrl+K toggle. Default true.' },
-      { name: 'label', type: 'string', desc: 'Accessible name for the dialog and listbox. Default “Command palette”.' },
-      { name: 'placeholder', type: 'string', desc: 'Input placeholder. Default “Type a command or search…”.' },
-      { name: 'emptyMessage', type: 'string', desc: 'Shown when nothing matches. Default “No results”.' },
+      {
+        name: 'commands',
+        type: 'Command[]',
+        desc: 'The commands to search. Filtered client-side as the user types.',
+      },
+      {
+        name: 'open',
+        type: 'boolean',
+        desc: 'Controlled open state. Omit to let the palette manage its own.',
+      },
+      {
+        name: 'onOpenChange',
+        type: '(open: boolean) => void',
+        desc: 'Notified whenever the palette wants to open or close.',
+      },
+      {
+        name: 'shortcut',
+        type: 'boolean',
+        desc: 'Enable the global ⌘K / Ctrl+K toggle. Default true.',
+      },
+      {
+        name: 'label',
+        type: 'string',
+        desc: 'Accessible name for the dialog and listbox. Default “Command palette”.',
+      },
+      {
+        name: 'placeholder',
+        type: 'string',
+        desc: 'Input placeholder. Default “Type a command or search…”.',
+      },
+      {
+        name: 'emptyMessage',
+        type: 'string',
+        desc: 'Shown when nothing matches. Default “No results”.',
+      },
     ],
     a11y: true,
     a11yList: [
@@ -1193,8 +1297,16 @@ export const docs: Record<string, Doc> = {
       },
       { name: 'accept', type: 'string', desc: 'Restrict the file picker, e.g. "image/*".' },
       { name: 'multiple', type: 'boolean', desc: 'Allow more than one file. Default true.' },
-      { name: 'maxSize', type: 'number', desc: 'Reject files larger than this many bytes before uploading.' },
-      { name: 'label', type: 'string', desc: 'Instruction text and accessible name for the dropzone.' },
+      {
+        name: 'maxSize',
+        type: 'number',
+        desc: 'Reject files larger than this many bytes before uploading.',
+      },
+      {
+        name: 'label',
+        type: 'string',
+        desc: 'Instruction text and accessible name for the dropzone.',
+      },
       {
         name: 'onComplete',
         type: '(file, result) => void',
@@ -1399,10 +1511,22 @@ export const docs: Record<string, Doc> = {
         type: '(open: boolean) => void',
         desc: 'Called with false when the user asks to dismiss: Escape, backdrop click or close button.',
       },
-      { name: 'side', type: '"right" | "left" | "top" | "bottom"', desc: 'Which edge the panel slides from. Default "right".' },
+      {
+        name: 'side',
+        type: '"right" | "left" | "top" | "bottom"',
+        desc: 'Which edge the panel slides from. Default "right".',
+      },
       { name: 'title', type: 'ReactNode', desc: 'Visible heading; also labels the dialog.' },
-      { name: 'description', type: 'ReactNode', desc: 'Supporting line under the title; describes the dialog.' },
-      { name: 'label', type: 'string', desc: 'Accessible name when there is no visible title. Default “Panel”.' },
+      {
+        name: 'description',
+        type: 'ReactNode',
+        desc: 'Supporting line under the title; describes the dialog.',
+      },
+      {
+        name: 'label',
+        type: 'string',
+        desc: 'Accessible name when there is no visible title. Default “Panel”.',
+      },
     ],
     a11y: true,
     a11yList: [
@@ -1452,13 +1576,37 @@ export const docs: Record<string, Doc> = {
     col0: 'Prop',
     props: [
       { name: 'page', type: 'number', desc: 'Pagination. Current page, 1-based.' },
-      { name: 'pageCount', type: 'number', desc: 'Pagination. Total number of pages; the pager hides itself when ≤ 1.' },
-      { name: 'onPageChange', type: '(page: number) => void', desc: 'Pagination. Requested a new page, already clamped to range.' },
-      { name: 'siblingCount', type: 'number', desc: 'Pagination. Neighbours shown either side of the current page. Default 1.' },
-      { name: 'disabled', type: 'boolean', desc: 'Pagination. Disable every control, e.g. while the next page loads.' },
+      {
+        name: 'pageCount',
+        type: 'number',
+        desc: 'Pagination. Total number of pages; the pager hides itself when ≤ 1.',
+      },
+      {
+        name: 'onPageChange',
+        type: '(page: number) => void',
+        desc: 'Pagination. Requested a new page, already clamped to range.',
+      },
+      {
+        name: 'siblingCount',
+        type: 'number',
+        desc: 'Pagination. Neighbours shown either side of the current page. Default 1.',
+      },
+      {
+        name: 'disabled',
+        type: 'boolean',
+        desc: 'Pagination. Disable every control, e.g. while the next page loads.',
+      },
       { name: 'onLoadMore', type: '() => void', desc: 'LoadMore. Load the next batch.' },
-      { name: 'loading', type: 'boolean', desc: 'LoadMore. A load is in flight — disables the button and shows a spinner.' },
-      { name: 'hasMore', type: 'boolean', desc: 'LoadMore. Whether there’s another batch. When false, nothing renders.' },
+      {
+        name: 'loading',
+        type: 'boolean',
+        desc: 'LoadMore. A load is in flight — disables the button and shows a spinner.',
+      },
+      {
+        name: 'hasMore',
+        type: 'boolean',
+        desc: 'LoadMore. Whether there’s another batch. When false, nothing renders.',
+      },
     ],
     a11y: true,
     a11yList: [
@@ -1507,15 +1655,47 @@ export const docs: Record<string, Doc> = {
     propsIntro: 'InfiniteList<T> extends the DataList contract with scroll-driven loading.',
     col0: 'Prop',
     props: [
-      { name: 'state', type: 'AsyncState<T[]>', desc: 'The accumulated items. The first load drives loading / empty / error.' },
-      { name: 'children', type: '(item: T, index: number) => ReactNode', desc: 'Render a single row.' },
+      {
+        name: 'state',
+        type: 'AsyncState<T[]>',
+        desc: 'The accumulated items. The first load drives loading / empty / error.',
+      },
+      {
+        name: 'children',
+        type: '(item: T, index: number) => ReactNode',
+        desc: 'Render a single row.',
+      },
       { name: 'getKey', type: '(item: T, index: number) => Key', desc: 'Stable key for each row.' },
-      { name: 'label', type: 'string', desc: 'Accessible name for the list; also drives the empty message.' },
-      { name: 'onLoadMore', type: '() => void', desc: 'Load the next page. Fired when the sentinel scrolls into view.' },
-      { name: 'hasMore', type: 'boolean', desc: 'Whether another page exists. When false, the sentinel is removed. Default true.' },
-      { name: 'loadingMore', type: 'boolean', desc: 'Whether a next page is loading — shows the footer and announces it.' },
-      { name: 'rootMargin', type: 'string', desc: 'How far ahead of the viewport to start loading. Default "200px".' },
-      { name: 'endMessage', type: 'ReactNode', desc: 'Shown once everything is loaded (hasMore is false).' },
+      {
+        name: 'label',
+        type: 'string',
+        desc: 'Accessible name for the list; also drives the empty message.',
+      },
+      {
+        name: 'onLoadMore',
+        type: '() => void',
+        desc: 'Load the next page. Fired when the sentinel scrolls into view.',
+      },
+      {
+        name: 'hasMore',
+        type: 'boolean',
+        desc: 'Whether another page exists. When false, the sentinel is removed. Default true.',
+      },
+      {
+        name: 'loadingMore',
+        type: 'boolean',
+        desc: 'Whether a next page is loading — shows the footer and announces it.',
+      },
+      {
+        name: 'rootMargin',
+        type: 'string',
+        desc: 'How far ahead of the viewport to start loading. Default "200px".',
+      },
+      {
+        name: 'endMessage',
+        type: 'ReactNode',
+        desc: 'Shown once everything is loaded (hasMore is false).',
+      },
     ],
     a11y: true,
     a11yList: [
@@ -1557,7 +1737,7 @@ export const docs: Record<string, Doc> = {
         title: 'Keyboard comes for free',
         body: 'Arrow keys move between tabs (wrapping), Home/End jump to the ends, and only the active tab is in the tab order. Disabled tabs are skipped.',
         file: '—',
-        code: '// ←/→ move and select · Home/End jump · Tab enters the panel\n<Tab title="Archived" disabled>{/* skipped */}</Tab>',
+        code: '// ←/→ move and select · Home/End jump · Tab moves into the panel content\n<Tab title="Archived" disabled>{/* skipped */}</Tab>',
       },
     ],
     propsTitle: 'Props',
@@ -1565,15 +1745,27 @@ export const docs: Record<string, Doc> = {
     col0: 'Prop',
     props: [
       { name: 'label', type: 'string', desc: 'Tabs. Accessible name for the tablist.' },
-      { name: 'defaultIndex', type: 'number', desc: 'Tabs. Tab selected on first render, by index. Default 0.' },
-      { name: 'onChange', type: '(index: number) => void', desc: 'Tabs. Notified when the active tab changes.' },
+      {
+        name: 'defaultIndex',
+        type: 'number',
+        desc: 'Tabs. Tab selected on first render, by index. Default 0.',
+      },
+      {
+        name: 'onChange',
+        type: '(index: number) => void',
+        desc: 'Tabs. Notified when the active tab changes.',
+      },
       { name: 'title', type: 'ReactNode', desc: "Tab. The tab's label in the tablist." },
       {
         name: 'children',
         type: 'ReactNode | (() => ReactNode)',
         desc: 'Tab. Panel content. Pass a function to defer creating it until first open.',
       },
-      { name: 'disabled', type: 'boolean', desc: 'Tab. Skip this tab — not selectable, skipped by the keyboard.' },
+      {
+        name: 'disabled',
+        type: 'boolean',
+        desc: 'Tab. Skip this tab — not selectable, skipped by the keyboard.',
+      },
     ],
     a11y: true,
     a11yList: [

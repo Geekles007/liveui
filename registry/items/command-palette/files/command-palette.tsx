@@ -128,12 +128,11 @@ export function CommandPalette({
   }, [filtered.length]);
 
   // Keep the highlighted option scrolled into view.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: optionId is derived from the stable baseId; active/isOpen are the real triggers.
   React.useEffect(() => {
     if (!isOpen) return;
     const el = listRef.current?.querySelector(`#${CSS.escape(optionId(active))}`);
     if (el && typeof el.scrollIntoView === 'function') el.scrollIntoView({ block: 'nearest' });
-    // optionId is derived from baseId (stable); active/isOpen are the real triggers.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active, isOpen]);
 
   if (!isOpen) return null;
@@ -214,10 +213,13 @@ export function CommandPalette({
           ref={listRef}
           role="listbox"
           aria-label={label}
+          tabIndex={-1}
           className="max-h-[50vh] overflow-auto p-1"
         >
           {filtered.length === 0 ? (
-            <div className="px-3 py-6 text-center text-sm text-muted-foreground">{emptyMessage}</div>
+            <div className="px-3 py-6 text-center text-sm text-muted-foreground">
+              {emptyMessage}
+            </div>
           ) : (
             filtered.map((command, i) => {
               const header =
@@ -240,6 +242,7 @@ export function CommandPalette({
                     id={optionId(i)}
                     role="option"
                     aria-selected={i === active}
+                    tabIndex={-1}
                     onMouseDown={(e) => e.preventDefault()}
                     onMouseEnter={() => setActive(i)}
                     onClick={() => choose(command)}
