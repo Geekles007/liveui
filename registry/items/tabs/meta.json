@@ -1,0 +1,38 @@
+{
+  "name": "tabs",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "An accessible tabs widget with lazily-loaded panels: each panel's content mounts only when its tab is first opened, then stays alive — so an in-panel fetch runs once, on view. Full ARIA tabs keyboard pattern.",
+  "states": [],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "role=tablist of role=tab buttons wired to their role=tabpanel via aria-controls / aria-labelledby",
+      "Roving tabindex: only the active tab is in the tab order; ←/→ move, Home/End jump",
+      "Automatic activation — arrowing to a tab selects it and moves focus",
+      "Disabled tabs are skipped by the keyboard and can't be selected",
+      "Inactive panels are hidden, so only the active panel is in the accessibility tree"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "tabs whose panel content loads only when first opened",
+      "an accessible tabbed interface with keyboard navigation",
+      "lazy-loaded tab panels for async content"
+    ],
+    "examples": [
+      "<Tabs label=\"Profile\"><Tab title=\"Overview\"><Overview /></Tab><Tab title=\"Activity\">{() => <Activity />}</Tab></Tabs>"
+    ]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "from": "files/tabs.tsx",
+      "path": "components/tabs.tsx",
+      "type": "component"
+    }
+  ]
+}

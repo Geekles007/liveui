@@ -239,11 +239,11 @@ const homeComponents: HC[] = [
   {
     name: 'tabs',
     layer: 5,
-    status: 'planned',
+    status: 'done',
     kind: 'component',
     a11y: true,
-    desc: 'Tabs with per-panel async content.',
-    states: ['loading', 'success'],
+    desc: 'Tabs with lazily-loaded panels.',
+    states: [],
   },
 ];
 

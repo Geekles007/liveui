@@ -33,6 +33,7 @@ export default defineConfig({
       '@/components/sheet': itemFile('sheet/files/sheet.tsx'),
       '@/components/pagination': itemFile('pagination/files/pagination.tsx'),
       '@/components/infinite-list': itemFile('infinite-list/files/infinite-list.tsx'),
+      '@/components/tabs': itemFile('tabs/files/tabs.tsx'),
     },
   },
   esbuild: { jsx: 'automatic' },

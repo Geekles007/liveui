@@ -45,7 +45,7 @@ export const components: Comp[] = [
   { name: 'sheet', layer: 4, status: 'done', kind: 'component', a11y: true },
   { name: 'pagination', layer: 5, status: 'done', kind: 'component', a11y: true },
   { name: 'infinite-list', layer: 5, status: 'done', kind: 'component', a11y: true },
-  { name: 'tabs', layer: 5, status: 'planned', kind: 'component', a11y: true },
+  { name: 'tabs', layer: 5, status: 'done', kind: 'component', a11y: true },
 ];
 
 /** Guaranteed first component, used as a safe fallback when a selection misses. */
@@ -1528,9 +1528,62 @@ export const docs: Record<string, Doc> = {
     ],
   },
   tabs: {
-    intro: 'Tabs where each panel can hold its own async content, lazily loaded on first view.',
-    apiFile: 'tabs.tsx',
-    api: '<Tabs>\n  <Tab title="Activity">{(/* AsyncState */) => …}</Tab>\n</Tabs>',
+    intro:
+      "An accessible tabs widget with lazily-loaded panels. Each panel's content mounts only when its tab is first opened, then stays alive — so switching back is instant and an in-panel fetch runs once, on view. Full ARIA tabs keyboard pattern out of the box.",
+    apiFile: 'components/tabs.tsx',
+    api: '<Tabs label="Profile">\n  <Tab title="Overview"><Overview /></Tab>\n  <Tab title="Activity">{() => <Activity />}</Tab>\n</Tabs>',
+    tutorialIntro:
+      'Compose Tabs from Tab children. Give each a title and its content; reach for the function form when the content should only run on view.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Copies the component (Tabs + Tab) plus its axe test into your repo. No dependencies beyond React.',
+        file: 'terminal',
+        code: '$ npx ibirdui add tabs\n✓ wrote components/tabs.tsx\n✓ wrote components/tabs.test.tsx',
+      },
+      {
+        title: 'Declare your tabs',
+        body: 'Each Tab takes a title and children. The tablist needs a label for assistive tech. The first tab is selected by default.',
+        file: 'profile.tsx',
+        code: '<Tabs label="Profile sections">\n  <Tab title="Overview"><Overview /></Tab>\n  <Tab title="Settings"><Settings /></Tab>\n</Tabs>',
+      },
+      {
+        title: 'Defer the expensive panel',
+        body: 'Pass a function as the children to defer it. The panel — and any fetch inside — mounts only when the tab is first opened, then stays alive so it never refetches on the way back.',
+        file: 'profile.tsx',
+        code: '<Tab title="Activity">\n  {() => {\n    const activity = useAsync(() => api.activity.list(), []);\n    return <DataList state={activity.state} label="Activity" getKey={(a) => a.id}>{(a) => <Row a={a} />}</DataList>;\n  }}\n</Tab>',
+      },
+      {
+        title: 'Keyboard comes for free',
+        body: 'Arrow keys move between tabs (wrapping), Home/End jump to the ends, and only the active tab is in the tab order. Disabled tabs are skipped.',
+        file: '—',
+        code: '// ←/→ move and select · Home/End jump · Tab enters the panel\n<Tab title="Archived" disabled>{/* skipped */}</Tab>',
+      },
+    ],
+    propsTitle: 'Props',
+    propsIntro: 'Tabs wraps Tab children; the markers carry the per-tab props.',
+    col0: 'Prop',
+    props: [
+      { name: 'label', type: 'string', desc: 'Tabs. Accessible name for the tablist.' },
+      { name: 'defaultIndex', type: 'number', desc: 'Tabs. Tab selected on first render, by index. Default 0.' },
+      { name: 'onChange', type: '(index: number) => void', desc: 'Tabs. Notified when the active tab changes.' },
+      { name: 'title', type: 'ReactNode', desc: "Tab. The tab's label in the tablist." },
+      {
+        name: 'children',
+        type: 'ReactNode | (() => ReactNode)',
+        desc: 'Tab. Panel content. Pass a function to defer creating it until first open.',
+      },
+      { name: 'disabled', type: 'boolean', desc: 'Tab. Skip this tab — not selectable, skipped by the keyboard.' },
+    ],
+    a11y: true,
+    a11yList: [
+      'role="tablist" of role="tab" buttons wired to their role="tabpanel" via aria-controls / aria-labelledby.',
+      'Roving tabindex: only the active tab is in the tab order; ←/→ move, Home/End jump.',
+      'Automatic activation — arrowing to a tab selects it and moves focus.',
+      "Disabled tabs are skipped by the keyboard and can't be selected.",
+      'Inactive panels are hidden, so only the active panel is in the accessibility tree.',
+      'Verified by a shipped axe-core test covering the tablist, panels and keyboard model.',
+    ],
   },
 };
 

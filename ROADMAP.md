@@ -19,8 +19,8 @@ Légende : ✅ fait · 🔜 prochain · ⬜ à venir
 | Brique | En clair | Statut |
 | --- | --- | --- |
 | `async-state` | Le "feu tricolore" commun : dit si les données chargent, manquent, ont planté, ou sont prêtes. | ✅ |
-| `theme` | La palette de couleurs et les règles de style, pour que toutes les briques aient un air de famille. | 🔜 |
-| `use-async` | Un assistant qui transforme "va chercher ces données" en états du feu tricolore, automatiquement. | ⬜ |
+| `theme` | La palette de couleurs et les règles de style, pour que toutes les briques aient un air de famille. | ✅ |
+| `use-async` | Un assistant qui transforme "va chercher ces données" en états du feu tricolore, automatiquement. | ✅ |
 | `use-optimistic-list` | Met l'écran à jour tout de suite quand on ajoute/supprime, puis corrige si le serveur refuse. | ✅ |
 | `use-online` | Sait quand l'utilisateur perd internet, pour que les briques réagissent. | ✅ |
 | `skeleton` | Les rectangles gris qui "clignotent" pendant que le vrai contenu arrive. | ✅ |
@@ -32,14 +32,14 @@ Légende : ✅ fait · 🔜 prochain · ⬜ à venir
 | `state-boundary` | Affiche la bonne chose selon le feu tricolore (spinner, "rien ici", erreur + réessayer, ou le contenu). | ✅ |
 | `empty-state` | Un panneau sympa "il n'y a rien pour l'instant", avec un bouton pour agir. | ✅ |
 | `error-state` | Un panneau clair "quelque chose a planté" avec un bouton _Réessayer_. | ✅ |
-| `async-button` | Un bouton qui se sait occupé : il montre un spinner, bloque les double-clics, et dit si ça a marché. | ⬜ |
+| `async-button` | Un bouton qui se sait occupé : il montre un spinner, bloque les double-clics, et dit si ça a marché. | ✅ |
 
 ## Couche 2 — Affichage de données (montrer des contenus)
 
 | Brique | En clair | Statut |
 | --- | --- | --- |
 | `data-list` | Une liste simple qui gère chargement/vide/erreur ; tu ne décris qu'une ligne. | ✅ |
-| `data-table` | Un tableau type tableur, avec colonnes triables, qui gère aussi tous les états. | ⬜ |
+| `data-table` | Un tableau type tableur, avec colonnes triables, qui gère aussi tous les états. | ✅ |
 | `card-collection` | Une grille de cartes (comme une galerie) avec les mêmes états intégrés. | ✅ |
 | `detail-view` | Une page qui montre le détail d'un seul élément (gère "ça charge" et "introuvable"). | ✅ |
 | `avatar` | Une photo de profil qui affiche les initiales si l'image ne charge pas. | ✅ |
@@ -56,8 +56,8 @@ Légende : ✅ fait · 🔜 prochain · ⬜ à venir
 
 | Brique | En clair | Statut |
 | --- | --- | --- |
-| `toast` | Les petites bulles de message dans un coin ; peut afficher "enregistrement… / enregistré !" tout seul. | ⬜ |
-| `confirm-dialog` | Le pop-up "Êtes-vous sûr ?" qui attend pendant l'action et montre l'erreur dedans si ça rate. | ⬜ |
+| `toast` | Les petites bulles de message dans un coin ; peut afficher "enregistrement… / enregistré !" tout seul. | ✅ |
+| `confirm-dialog` | Le pop-up "Êtes-vous sûr ?" qui attend pendant l'action et montre l'erreur dedans si ça rate. | ✅ |
 | `sheet` / `drawer` | Un panneau qui glisse depuis le côté de l'écran. | ✅ |
 
 ## Couche 5 — Navigation (se déplacer dans les contenus)
@@ -66,7 +66,7 @@ Légende : ✅ fait · 🔜 prochain · ⬜ à venir
 | --- | --- | --- |
 | `pagination` / `load-more` | Des boutons pour charger la page suivante ou "voir plus" de résultats. | ✅ |
 | `infinite-list` | Une liste qui charge la suite automatiquement quand on descend. | ✅ |
-| `tabs` | Des onglets qui ne chargent leur contenu qu'à l'ouverture. | ⬜ |
+| `tabs` | Des onglets qui ne chargent leur contenu qu'à l'ouverture. | ✅ |
 
 ---
 
@@ -82,4 +82,4 @@ Légende : ✅ fait · 🔜 prochain · ⬜ à venir
 Chaque brique livrée embarque un **test d'accessibilité** (axe) et une **fiche
 lisible par l'IA** (pour `ibirdui gen`).
 
-**Total : ~24 briques** — 3 faites, 21 à venir.
+**Total : 24 briques — toutes faites.** 🎉
