@@ -1,0 +1,37 @@
+{
+  "name": "skeleton",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "A decorative loading placeholder shaped like the content it stands in for. Pulses while content loads, is hidden from screen readers, and respects prefers-reduced-motion. Ships a Skeleton block plus a SkeletonText line stack.",
+  "states": ["loading"],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "Decorative: aria-hidden so screen readers skip it — the surrounding region owns the loading announcement",
+      "The pulse animation is disabled under prefers-reduced-motion",
+      "Carries no role or text content, so it never pollutes the accessibility tree"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "a loading placeholder / shimmer block while content loads",
+      "skeleton screen shaped like the real content",
+      "grey pulsing placeholder for text, avatars or cards"
+    ],
+    "examples": [
+      "<Skeleton className=\"h-4 w-32\" />",
+      "<SkeletonText lines={3} />"
+    ]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "from": "files/skeleton.tsx",
+      "path": "components/skeleton.tsx",
+      "type": "component"
+    }
+  ]
+}

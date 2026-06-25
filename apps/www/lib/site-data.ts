@@ -27,7 +27,7 @@ export const components: Comp[] = [
   { name: 'use-async', layer: 0, status: 'done', kind: 'hook', a11y: false },
   { name: 'use-optimistic-list', layer: 0, status: 'planned', kind: 'hook', a11y: false },
   { name: 'use-online', layer: 0, status: 'planned', kind: 'hook', a11y: false },
-  { name: 'skeleton', layer: 0, status: 'planned', kind: 'component', a11y: true },
+  { name: 'skeleton', layer: 0, status: 'done', kind: 'component', a11y: true },
   { name: 'state-boundary', layer: 1, status: 'done', kind: 'component', a11y: true },
   { name: 'empty-state', layer: 1, status: 'planned', kind: 'component', a11y: true },
   { name: 'error-state', layer: 1, status: 'planned', kind: 'component', a11y: true },
@@ -146,6 +146,68 @@ export const docs: Record<string, Doc> = {
       },
     ],
     a11y: false,
+  },
+  skeleton: {
+    intro:
+      'A decorative placeholder shaped like the content that is loading. Hidden from screen readers, it pulses while you wait and goes still under prefers-reduced-motion — so it improves perceived speed without ever lying to assistive tech.',
+    apiFile: 'components/skeleton.tsx',
+    api: '<Skeleton className="h-4 w-32" />\n<Skeleton className="h-10 w-10 rounded-full" />\n\n<SkeletonText lines={3} />',
+    tutorialIntro:
+      'Skeleton is a styled div. Size it with utility classes to mirror the real content, or reach for SkeletonText when you just need a few lines.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Copies the component plus its axe test into your repo. You own both.',
+        file: 'terminal',
+        code: '$ npx ibirdui add skeleton\n✓ wrote components/skeleton.tsx\n✓ wrote components/skeleton.test.tsx',
+      },
+      {
+        title: 'Shape it like the content',
+        body: 'Give it the height and width of whatever it stands in for. It is just a div, so any Tailwind utility works.',
+        file: 'card.tsx',
+        code: '<div className="flex items-center gap-3">\n  <Skeleton className="h-10 w-10 rounded-full" />\n  <Skeleton className="h-4 w-32" />\n</div>',
+      },
+      {
+        title: 'Reach for SkeletonText for prose',
+        body: 'A stack of line-shaped skeletons whose last line is shorter, so it reads like a real paragraph.',
+        file: 'article.tsx',
+        code: '<SkeletonText lines={4} />',
+      },
+      {
+        title: 'Pair it with a boundary',
+        body: 'Hand a skeleton to any loading slot. The boundary owns the announcement; the skeleton stays decorative.',
+        file: 'profile.tsx',
+        code: '<StateBoundary state={profile} loading={<SkeletonText lines={3} />}>\n  {(data) => <Profile user={data} />}\n</StateBoundary>',
+      },
+    ],
+    propsTitle: 'Props',
+    propsIntro: 'Both components forward every native <div> attribute. The extras:',
+    col0: 'Prop',
+    props: [
+      {
+        name: 'className',
+        type: 'string',
+        desc: 'Size and shape the placeholder — height, width, radius. Merged with the base pulse styles.',
+      },
+      {
+        name: '…divProps',
+        type: 'HTMLAttributes<HTMLDivElement>',
+        desc: 'Any other div attribute (style, data-*, id) is forwarded as-is.',
+      },
+      {
+        name: 'lines',
+        type: 'number',
+        desc: 'SkeletonText only. Number of placeholder lines. Clamped to a minimum of 1. Default 3.',
+      },
+    ],
+    a11y: true,
+    a11yList: [
+      'Marked aria-hidden, so screen readers skip it entirely — the surrounding region owns the loading announcement.',
+      'Carries no role and no text content, so it never pollutes the accessibility tree.',
+      'The pulse animation is disabled under prefers-reduced-motion (motion-reduce:animate-none).',
+      'SkeletonText hides the whole line stack as one group rather than each line individually.',
+      'Verified by a shipped axe-core test covering the block and the text variant.',
+    ],
   },
   'state-boundary': {
     intro:
@@ -452,12 +514,6 @@ export const docs: Record<string, Doc> = {
       'Track connectivity so components can render offline states and pause requests when the network drops.',
     apiFile: 'use-online.ts',
     api: 'const online = useOnline();\nif (!online) return <OfflineBanner />;',
-  },
-  skeleton: {
-    intro:
-      'A composable loading-placeholder primitive — the shimmer block every loading slot is built from.',
-    apiFile: 'skeleton.tsx',
-    api: '<Skeleton className="h-4 w-32" />\n<Skeleton.Circle size={32} />',
   },
   'empty-state': {
     intro:

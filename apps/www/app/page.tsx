@@ -77,10 +77,10 @@ const homeComponents: HC[] = [
   {
     name: 'skeleton',
     layer: 0,
-    status: 'planned',
+    status: 'done',
     kind: 'component',
     a11y: true,
-    desc: 'Composable loading placeholder primitive.',
+    desc: 'Decorative loading placeholder — pulses, aria-hidden, respects reduced motion.',
     states: ['loading'],
   },
   {

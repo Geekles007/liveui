@@ -23,7 +23,7 @@ Légende : ✅ fait · 🔜 prochain · ⬜ à venir
 | `use-async` | Un assistant qui transforme "va chercher ces données" en états du feu tricolore, automatiquement. | ⬜ |
 | `use-optimistic-list` | Met l'écran à jour tout de suite quand on ajoute/supprime, puis corrige si le serveur refuse. | ⬜ |
 | `use-online` | Sait quand l'utilisateur perd internet, pour que les briques réagissent. | ⬜ |
-| `skeleton` | Les rectangles gris qui "clignotent" pendant que le vrai contenu arrive. | ⬜ |
+| `skeleton` | Les rectangles gris qui "clignotent" pendant que le vrai contenu arrive. | ✅ |
 
 ## Couche 1 — Les briques d'état (ce qui rend ibirdui différent)
 
