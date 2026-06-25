@@ -1,0 +1,35 @@
+{
+  "name": "tag-input",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "Build a list of tags one at a time — Enter or comma to add, Backspace or ✕ to remove. Duplicates and blanks are ignored, additions and removals are announced.",
+  "states": [],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "The tags are a labelled list, each with a 'Remove {tag}' button",
+      "Additions and removals are announced via a polite live region",
+      "Keeps a native text input; Backspace on an empty input removes the last tag",
+      "The remove icons are decorative (aria-hidden)"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "a tag / chip input for keywords or labels",
+      "add and remove tags one at a time",
+      "a multi-value text field with removable chips"
+    ],
+    "examples": ["<TagInput value={tags} onChange={setTags} label=\"Tags\" />"]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "from": "files/tag-input.tsx",
+      "path": "components/tag-input.tsx",
+      "type": "component"
+    }
+  ]
+}

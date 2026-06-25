@@ -51,9 +51,9 @@ export const components: Comp[] = [
   { name: 'field', layer: 6, status: 'done', kind: 'component', a11y: true },
   { name: 'async-form', layer: 6, status: 'done', kind: 'component', a11y: true },
   { name: 'async-validator', layer: 6, status: 'done', kind: 'hook', a11y: false },
-  { name: 'multi-select', layer: 6, status: 'planned', kind: 'component', a11y: true },
-  { name: 'tag-input', layer: 6, status: 'planned', kind: 'component', a11y: true },
-  { name: 'date-picker', layer: 6, status: 'planned', kind: 'component', a11y: true },
+  { name: 'multi-select', layer: 6, status: 'done', kind: 'component', a11y: true },
+  { name: 'tag-input', layer: 6, status: 'done', kind: 'component', a11y: true },
+  { name: 'date-picker', layer: 6, status: 'done', kind: 'component', a11y: true },
 ];
 
 /** Guaranteed first component, used as a safe fallback when a selection misses. */
@@ -2004,6 +2004,155 @@ export const docs: Record<string, Doc> = {
         desc: 'The current validation state.',
       },
       { name: '→ message', type: 'string | null', desc: 'The message for invalid / error.' },
+    ],
+  },
+  'multi-select': {
+    intro:
+      'Choose several options from a popover of native checkboxes in a labelled group, with a trigger that summarises the selection. Multi-selection is conveyed correctly to assistive tech — no custom listbox to get wrong.',
+    apiFile: 'components/multi-select.tsx',
+    api: '<MultiSelect options={tags} value={selected} onChange={setSelected} label="Tags" />',
+    tutorialIntro:
+      'Controlled: you own the array of selected values. The trigger opens a checkbox group and summarises what is chosen.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Copies the component plus its axe test into your repo. No dependencies beyond React.',
+        file: 'terminal',
+        code: '$ npx ibirdui add multi-select\n✓ wrote components/multi-select.tsx\n✓ wrote components/multi-select.test.tsx',
+      },
+      {
+        title: 'Wire it up',
+        body: 'Give it options and the selected values. onChange fires with the next array whenever a box is toggled.',
+        file: 'filters.tsx',
+        code: 'const [selected, setSelected] = useState<string[]>([]);\n\n<MultiSelect\n  options={[{ value: "r", label: "React" }, { value: "v", label: "Vue" }]}\n  value={selected}\n  onChange={setSelected}\n  label="Frameworks"\n/>',
+      },
+      {
+        title: 'Drop it in a Field',
+        body: 'It is a labelled control, so it nests in Field like any input — label, description and error included.',
+        file: 'filters.tsx',
+        code: '<Field label="Frameworks" description="Pick any that apply">\n  <MultiSelect options={options} value={selected} onChange={setSelected} label="Frameworks" />\n</Field>',
+      },
+    ],
+    propsTitle: 'Props',
+    propsIntro: 'MultiSelect is controlled.',
+    col0: 'Prop',
+    props: [
+      { name: 'options', type: '{ value, label }[]', desc: 'The choices.' },
+      { name: 'value', type: 'string[]', desc: 'The selected values (controlled).' },
+      {
+        name: 'onChange',
+        type: '(values: string[]) => void',
+        desc: 'Called with the next selection.',
+      },
+      { name: 'label', type: 'string', desc: 'Accessible name and trigger label.' },
+      {
+        name: 'placeholder',
+        type: 'string',
+        desc: 'Shown on the trigger when nothing is selected.',
+      },
+    ],
+    a11y: true,
+    a11yList: [
+      'Native checkboxes in a role="group", so multi-selection is conveyed correctly.',
+      'The trigger carries aria-haspopup and aria-expanded and summarises the selection.',
+      'Escape closes and returns focus to the trigger; a click outside dismisses.',
+      'The chevron is decorative (aria-hidden).',
+      'Verified by a shipped axe-core test of the open popover.',
+    ],
+  },
+  'tag-input': {
+    intro:
+      'Build a list of tags one at a time: type and press Enter (or comma) to add, Backspace on an empty input to remove the last, or the ✕ on any tag. Duplicates and blanks are ignored, and every change is announced.',
+    apiFile: 'components/tag-input.tsx',
+    api: '<TagInput value={tags} onChange={setTags} label="Tags" />',
+    tutorialIntro:
+      'Controlled: you own the string array. The component manages the draft text and the add/remove keys.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Copies the component plus its axe test into your repo. No dependencies beyond React.',
+        file: 'terminal',
+        code: '$ npx ibirdui add tag-input\n✓ wrote components/tag-input.tsx\n✓ wrote components/tag-input.test.tsx',
+      },
+      {
+        title: 'Add and remove',
+        body: 'Enter or comma adds the typed tag; Backspace on an empty input removes the last; each tag has a Remove button.',
+        file: 'post.tsx',
+        code: 'const [tags, setTags] = useState<string[]>([]);\n\n<TagInput value={tags} onChange={setTags} label="Tags" placeholder="Add a tag" />',
+      },
+      {
+        title: 'Cap the count',
+        body: 'Pass max to stop accepting input once the limit is reached.',
+        file: 'post.tsx',
+        code: '<TagInput value={tags} onChange={setTags} label="Tags" max={5} />',
+      },
+    ],
+    propsTitle: 'Props',
+    propsIntro: 'TagInput is controlled.',
+    col0: 'Prop',
+    props: [
+      { name: 'value', type: 'string[]', desc: 'The current tags (controlled).' },
+      {
+        name: 'onChange',
+        type: '(tags: string[]) => void',
+        desc: 'Called when a tag is added or removed.',
+      },
+      { name: 'label', type: 'string', desc: 'Accessible name for the text input.' },
+      { name: 'max', type: 'number', desc: 'Maximum number of tags.' },
+    ],
+    a11y: true,
+    a11yList: [
+      'The tags are a labelled list, each with a "Remove {tag}" button.',
+      'Additions and removals are announced via a polite live region.',
+      'Keeps a native text input; Backspace on an empty input removes the last tag.',
+      'The remove icons are decorative (aria-hidden).',
+      'Verified by a shipped axe-core test.',
+    ],
+  },
+  'date-picker': {
+    intro:
+      'A keyboard-accessible date picker: a trigger opens a calendar dialog with a role="grid" of days. It implements the ARIA calendar pattern — roving tabindex, arrow keys move by day, Home/End jump to the week edges, PageUp/PageDown change month, Enter selects and Escape closes.',
+    apiFile: 'components/date-picker.tsx',
+    api: '<DatePicker value={date} onChange={setDate} label="Due date" />',
+    tutorialIntro:
+      'Controlled: you hold the Date (or null). The calendar owns month navigation and the full keyboard model.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Copies the component plus its axe test into your repo. No dependencies beyond React.',
+        file: 'terminal',
+        code: '$ npx ibirdui add date-picker\n✓ wrote components/date-picker.tsx\n✓ wrote components/date-picker.test.tsx',
+      },
+      {
+        title: 'Pick a date',
+        body: 'The trigger shows the selected date or a placeholder; opening focuses the selected day so the keyboard is ready.',
+        file: 'task.tsx',
+        code: 'const [date, setDate] = useState<Date | null>(null);\n\n<DatePicker value={date} onChange={setDate} label="Due date" />',
+      },
+      {
+        title: 'Bound the range',
+        body: 'Pass min and/or max to disable days outside the allowed window — they stay visible but can’t be chosen.',
+        file: 'task.tsx',
+        code: '<DatePicker value={date} onChange={setDate} label="Due date" min={new Date()} />',
+      },
+    ],
+    propsTitle: 'Props',
+    propsIntro: 'DatePicker is controlled.',
+    col0: 'Prop',
+    props: [
+      { name: 'value', type: 'Date | null', desc: 'The selected date (controlled).' },
+      { name: 'onChange', type: '(date: Date) => void', desc: 'Called when a day is chosen.' },
+      { name: 'label', type: 'string', desc: 'Accessible name and trigger label.' },
+      { name: 'min / max', type: 'Date', desc: 'Disable days outside this range.' },
+    ],
+    a11y: true,
+    a11yList: [
+      'Implements the ARIA calendar grid: role="grid" with gridcells and roving tabindex.',
+      'Arrow keys move by day, Home/End jump to the week edges, PageUp/PageDown change month.',
+      'Enter/Space select; Escape closes and returns focus to the trigger.',
+      'Each day button is labelled with its full date; today carries aria-current="date".',
+      'The selected day’s gridcell has aria-selected; out-of-range days are disabled.',
+      'Verified by a shipped axe-core test of the open calendar.',
     ],
   },
 };

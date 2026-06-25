@@ -1,0 +1,37 @@
+{
+  "name": "multi-select",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "Choose several options from a popover of native checkboxes in a labelled group, with a trigger that summarises the selection. Multi-selection conveyed correctly without a custom listbox.",
+  "states": [],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "Native checkboxes in a role=group, so multi-selection is conveyed correctly",
+      "The trigger has aria-haspopup and aria-expanded and summarises the selection",
+      "Escape closes and returns focus to the trigger; a click outside dismisses",
+      "The chevron is decorative (aria-hidden)"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "select multiple options from a dropdown",
+      "a multi-select with checkboxes",
+      "pick several values with a summary on the trigger"
+    ],
+    "examples": [
+      "<MultiSelect options={tags} value={selected} onChange={setSelected} label=\"Tags\" />"
+    ]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "from": "files/multi-select.tsx",
+      "path": "components/multi-select.tsx",
+      "type": "component"
+    }
+  ]
+}

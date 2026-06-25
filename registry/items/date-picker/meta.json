@@ -1,0 +1,36 @@
+{
+  "name": "date-picker",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "A keyboard-accessible date picker: a trigger opens a calendar dialog with a role=grid of days, roving tabindex, arrow/Home/End/PageUp/PageDown navigation, Enter to select and Escape to close.",
+  "states": [],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "Implements the ARIA calendar grid: role=grid with gridcells and roving tabindex",
+      "Arrow keys move by day, Home/End jump to the week edges, PageUp/PageDown change month",
+      "Enter/Space select; Escape closes and returns focus to the trigger",
+      "Each day button is labelled with its full date; today carries aria-current=date",
+      "The selected day's gridcell has aria-selected; out-of-range days are disabled"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "a date picker with an accessible calendar",
+      "pick a date from a keyboard-navigable calendar grid",
+      "a date field with month navigation and min/max"
+    ],
+    "examples": ["<DatePicker value={date} onChange={setDate} label=\"Due date\" />"]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "from": "files/date-picker.tsx",
+      "path": "components/date-picker.tsx",
+      "type": "component"
+    }
+  ]
+}

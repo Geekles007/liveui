@@ -285,7 +285,7 @@ const homeComponents: HC[] = [
   {
     name: 'multi-select',
     layer: 6,
-    status: 'planned',
+    status: 'done',
     kind: 'component',
     a11y: true,
     desc: 'Choose several options, with the states built in.',
@@ -294,7 +294,7 @@ const homeComponents: HC[] = [
   {
     name: 'tag-input',
     layer: 6,
-    status: 'planned',
+    status: 'done',
     kind: 'component',
     a11y: true,
     desc: 'Add keyword tags one by one.',
@@ -303,7 +303,7 @@ const homeComponents: HC[] = [
   {
     name: 'date-picker',
     layer: 6,
-    status: 'planned',
+    status: 'done',
     kind: 'component',
     a11y: true,
     desc: 'Keyboard-accessible calendar date picker.',

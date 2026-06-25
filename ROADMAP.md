@@ -80,9 +80,9 @@ Légende : ✅ fait · 🔜 prochain · ⬜ à venir
 | `field` | Un champ complet : libellé, saisie, message d'erreur et aide, déjà reliés pour le clavier et les lecteurs d'écran. | ✅ |
 | `async-form` | Quand le serveur refuse, il replace l'erreur sur le bon champ, garde le focus et l'annonce. | ✅ |
 | `async-validator` | Vérifie à la frappe contre le serveur ("ce pseudo est déjà pris"), avec attente et erreur. | ✅ |
-| `multi-select` | Un menu pour choisir plusieurs options, avec les mêmes états intégrés. | ⬜ |
-| `tag-input` | Un champ où on ajoute des étiquettes (mots-clés) une par une. | ⬜ |
-| `date-picker` | Un calendrier pour choisir une date, accessible au clavier. | ⬜ |
+| `multi-select` | Un menu pour choisir plusieurs options, avec les mêmes états intégrés. | ✅ |
+| `tag-input` | Un champ où on ajoute des étiquettes (mots-clés) une par une. | ✅ |
+| `date-picker` | Un calendrier pour choisir une date, accessible au clavier. | ✅ |
 
 ## Couche 7 — Temps réel & optimiste (les données qui bougent toutes seules)
 
@@ -114,9 +114,8 @@ Légende : ✅ fait · 🔜 prochain · ⬜ à venir
 Chaque brique livrée embarque un **test d'accessibilité** (axe) et une **fiche
 lisible par l'IA** (pour `ibirdui gen`).
 
-**Prochaines priorités :** Couche 6 (Formulaires) d'abord — le manque structurel
-le plus évident ; puis `offline-banner` + `optimistic-toggle`, rapides et qui
-valorisent du code déjà écrit ; puis la Couche 7 (Temps réel) comme prochain
-différenciateur fort.
+**Prochaines priorités :** Couche 6 (Formulaires) ✅ livrée. Ensuite
+`offline-banner` + `optimistic-toggle`, rapides et qui valorisent du code déjà
+écrit ; puis la Couche 7 (Temps réel) comme prochain différenciateur fort.
 
-**Total : 24 briques livrées 🎉 · 12 nouvelles planifiées (Couches 6–7).**
+**Total : 31 briques livrées 🎉 · Couche 7 (5 briques) à venir.**
