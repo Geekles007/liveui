@@ -254,7 +254,8 @@ export default function ComponentsPage() {
 
   // ---- derived: sidebar ----
   const q = sideQuery.toLowerCase();
-  const sideGroups = [0, 1, 2, 3, 4, 5]
+  const sideGroups = [...new Set(components.map((c) => c.layer))]
+    .sort((a, b) => a - b)
     .map((L) => ({
       layer: L,
       name: layerNames[L],

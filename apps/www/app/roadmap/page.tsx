@@ -53,7 +53,8 @@ export default function RoadmapPage() {
   const next = components.filter((c) => c.status === 'next').length;
   const pct = Math.round((done / total) * 100);
 
-  const layers = [0, 1, 2, 3, 4, 5].map((L) => ({
+  const layerIds = [...new Set(components.map((c) => c.layer))].sort((a, b) => a - b);
+  const layers = layerIds.map((L) => ({
     layer: L,
     name: layerNames[L],
     items: components.filter((c) => c.layer === L),
@@ -81,8 +82,8 @@ export default function RoadmapPage() {
             'font-size:18px;line-height:1.6;color:var(--muted);max-width:640px;margin:0 0 32px',
           )}
         >
-          24 components across 6 layers. Each ships state-complete, with an axe test and an AI
-          manifest. Shipped ones link into the docs.
+          {total} components across {layerIds.length} layers. Each ships state-complete, with an axe
+          test and an AI manifest. Shipped ones link into the docs.
         </p>
 
         {/* progress */}

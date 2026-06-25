@@ -566,16 +566,18 @@ export default function Home() {
     next: 'var(--warning)',
     planned: 'var(--border-strong)',
   };
-  const layerCards = [0, 1, 2, 3, 4, 5].map((L) => {
-    const its = homeComponents.filter((c) => c.layer === L);
-    const d = its.filter((c) => c.status === 'done').length;
-    return {
-      layer: L,
-      name: layerNames[L],
-      summary: d > 0 ? `${d}/${its.length}` : `${its.length} planned`,
-      dots: its.map((c) => ({ name: c.name, color: dotColor[c.status] })),
-    };
-  });
+  const layerCards = [...new Set(homeComponents.map((c) => c.layer))]
+    .sort((a, b) => a - b)
+    .map((L) => {
+      const its = homeComponents.filter((c) => c.layer === L);
+      const d = its.filter((c) => c.status === 'done').length;
+      return {
+        layer: L,
+        name: layerNames[L],
+        summary: d > 0 ? `${d}/${its.length}` : `${its.length} planned`,
+        dots: its.map((c) => ({ name: c.name, color: dotColor[c.status] })),
+      };
+    });
 
   const qsList = `${runner[pkg]} ibirdui list`;
   const qsAdd = `${runner[pkg]} ibirdui add data-list`;
@@ -1641,7 +1643,7 @@ export default function Home() {
                 'display:inline-flex;align-items:center;gap:9px;padding:12px 18px;border-radius:11px;border:1px solid var(--border-strong);background:var(--background);font-size:14.5px;font-weight:500;white-space:nowrap',
               )}
             >
-              Browse all 24 components
+              Browse all {homeComponents.length} components
               <Arrow />
             </Link>
           </div>
@@ -2149,7 +2151,7 @@ export default function Home() {
               'font-size:16px;line-height:1.6;color:var(--muted);max-width:600px;margin:0 0 32px',
             )}
           >
-            24 components, each layer composing the one beneath it.{' '}
+            {homeComponents.length} components, each layer composing the one beneath it.{' '}
             <strong style={s('color:var(--foreground);font-weight:600')}>
               {doneCount} shipped
             </strong>
