@@ -221,11 +221,11 @@ const homeComponents: HC[] = [
   {
     name: 'pagination',
     layer: 5,
-    status: 'planned',
+    status: 'done',
     kind: 'component',
     a11y: true,
-    desc: 'Paged or load-more over an AsyncState.',
-    states: ['loading', 'empty', 'error', 'success'],
+    desc: 'Numbered pager and load-more, with announced changes.',
+    states: ['loading'],
   },
   {
     name: 'infinite-list',

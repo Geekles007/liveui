@@ -43,7 +43,7 @@ export const components: Comp[] = [
   { name: 'toast', layer: 4, status: 'done', kind: 'component', a11y: true },
   { name: 'confirm-dialog', layer: 4, status: 'done', kind: 'component', a11y: true },
   { name: 'sheet', layer: 4, status: 'done', kind: 'component', a11y: true },
-  { name: 'pagination', layer: 5, status: 'planned', kind: 'component', a11y: true },
+  { name: 'pagination', layer: 5, status: 'done', kind: 'component', a11y: true },
   { name: 'infinite-list', layer: 5, status: 'planned', kind: 'component', a11y: true },
   { name: 'tabs', layer: 5, status: 'planned', kind: 'component', a11y: true },
 ];
@@ -1415,9 +1415,60 @@ export const docs: Record<string, Doc> = {
     ],
   },
   pagination: {
-    intro: 'Paged or load-more navigation over an AsyncState, with an announced page change.',
-    apiFile: 'pagination.tsx',
-    api: '<Pagination state={page} onPage={setPage} />',
+    intro:
+      'Two ways to page through results. Pagination is a numbered pager — Previous / Next plus page buttons with ellipses — rendered as a labelled nav with an announced page change. LoadMore is the append-style companion: one button that owns its busy state. Pick whichever fits your list.',
+    apiFile: 'components/pagination.tsx',
+    api: '<Pagination page={page} pageCount={pages} onPageChange={setPage} />\n\n<LoadMore onLoadMore={fetchNext} loading={loading} hasMore={hasMore} />',
+    tutorialIntro:
+      'Both are controlled and stateless — you own the page (or the list), and they render the controls with the accessibility handled.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Copies the component (Pagination + LoadMore) plus its axe test into your repo. No dependencies beyond React.',
+        file: 'terminal',
+        code: '$ npx ibirdui add pagination\n✓ wrote components/pagination.tsx\n✓ wrote components/pagination.test.tsx',
+      },
+      {
+        title: 'Number the pages',
+        body: 'Give it the current page, the total page count and a change handler. It clamps to range, disables Previous/Next at the bounds, and announces "Page X of Y".',
+        file: 'list.tsx',
+        code: 'const [page, setPage] = useState(1);\nconst data = useAsync(() => api.list({ page }), [page]);\n\n<Pagination page={page} pageCount={data.pageCount} onPageChange={setPage} />',
+      },
+      {
+        title: 'Disable while loading',
+        body: 'Pass disabled to freeze the controls while the next page is in flight, so a fast clicker can’t outrun the fetch.',
+        file: 'list.tsx',
+        code: '<Pagination\n  page={page}\n  pageCount={data.pageCount}\n  onPageChange={setPage}\n  disabled={data.state.status === "loading"}\n/>',
+      },
+      {
+        title: 'Or load more',
+        body: 'For append-style lists, reach for LoadMore instead. It owns its spinner and aria-busy, and renders nothing once hasMore is false.',
+        file: 'feed.tsx',
+        code: '<LoadMore onLoadMore={fetchNext} loading={loadingMore} hasMore={cursor != null} />',
+      },
+    ],
+    propsTitle: 'Props',
+    propsIntro: 'Pagination is numbered; LoadMore is the append-style button.',
+    col0: 'Prop',
+    props: [
+      { name: 'page', type: 'number', desc: 'Pagination. Current page, 1-based.' },
+      { name: 'pageCount', type: 'number', desc: 'Pagination. Total number of pages; the pager hides itself when ≤ 1.' },
+      { name: 'onPageChange', type: '(page: number) => void', desc: 'Pagination. Requested a new page, already clamped to range.' },
+      { name: 'siblingCount', type: 'number', desc: 'Pagination. Neighbours shown either side of the current page. Default 1.' },
+      { name: 'disabled', type: 'boolean', desc: 'Pagination. Disable every control, e.g. while the next page loads.' },
+      { name: 'onLoadMore', type: '() => void', desc: 'LoadMore. Load the next batch.' },
+      { name: 'loading', type: 'boolean', desc: 'LoadMore. A load is in flight — disables the button and shows a spinner.' },
+      { name: 'hasMore', type: 'boolean', desc: 'LoadMore. Whether there’s another batch. When false, nothing renders.' },
+    ],
+    a11y: true,
+    a11yList: [
+      'Pagination is a labelled <nav>; the current page carries aria-current="page".',
+      'Previous / Next are labelled and disabled at the bounds.',
+      'The page change is announced via a polite live region ("Page X of Y").',
+      'LoadMore disables itself and sets aria-busy while loading, announcing progress.',
+      'Ellipsis gaps are aria-hidden so they aren’t read as content.',
+      'Verified by a shipped axe-core test across both Pagination and LoadMore.',
+    ],
   },
   'infinite-list': {
     intro:

@@ -1,0 +1,39 @@
+{
+  "name": "pagination",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "Paged or load-more navigation: a numbered Pagination pager with ellipses and an announced page change, plus a LoadMore button that owns its busy state for append-style lists.",
+  "states": ["loading"],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "Pagination is a labelled <nav>; the current page carries aria-current=page",
+      "Previous / Next are labelled and disabled at the bounds",
+      "The page change is announced via a polite live region",
+      "LoadMore disables itself and sets aria-busy while loading, announcing progress",
+      "Ellipsis gaps are aria-hidden so they aren't read as content"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "numbered pagination over a known page count",
+      "previous / next page controls with ellipses",
+      "a load more button for append-style infinite lists"
+    ],
+    "examples": [
+      "<Pagination page={page} pageCount={pages} onPageChange={setPage} />",
+      "<LoadMore onLoadMore={fetchNext} loading={loading} hasMore={hasMore} />"
+    ]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "from": "files/pagination.tsx",
+      "path": "components/pagination.tsx",
+      "type": "component"
+    }
+  ]
+}

@@ -64,7 +64,7 @@ Légende : ✅ fait · 🔜 prochain · ⬜ à venir
 
 | Brique | En clair | Statut |
 | --- | --- | --- |
-| `pagination` / `load-more` | Des boutons pour charger la page suivante ou "voir plus" de résultats. | ⬜ |
+| `pagination` / `load-more` | Des boutons pour charger la page suivante ou "voir plus" de résultats. | ✅ |
 | `infinite-list` | Une liste qui charge la suite automatiquement quand on descend. | ⬜ |
 | `tabs` | Des onglets qui ne chargent leur contenu qu'à l'ouverture. | ⬜ |
 
