@@ -140,10 +140,10 @@ const homeComponents: HC[] = [
   {
     name: 'card-collection',
     layer: 2,
-    status: 'planned',
+    status: 'done',
     kind: 'component',
     a11y: true,
-    desc: 'Responsive card grid over an AsyncState.',
+    desc: 'State-complete card grid over an AsyncState.',
     states: ['loading', 'empty', 'success'],
   },
   {

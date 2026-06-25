@@ -40,7 +40,7 @@ Légende : ✅ fait · 🔜 prochain · ⬜ à venir
 | --- | --- | --- |
 | `data-list` | Une liste simple qui gère chargement/vide/erreur ; tu ne décris qu'une ligne. | ✅ |
 | `data-table` | Un tableau type tableur, avec colonnes triables, qui gère aussi tous les états. | ⬜ |
-| `card-collection` | Une grille de cartes (comme une galerie) avec les mêmes états intégrés. | ⬜ |
+| `card-collection` | Une grille de cartes (comme une galerie) avec les mêmes états intégrés. | ✅ |
 | `detail-view` | Une page qui montre le détail d'un seul élément (gère "ça charge" et "introuvable"). | ⬜ |
 | `avatar` | Une photo de profil qui affiche les initiales si l'image ne charge pas. | ✅ |
 

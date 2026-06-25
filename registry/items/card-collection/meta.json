@@ -1,0 +1,36 @@
+{
+  "name": "card-collection",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "A gallery of cards that is state-complete by construction: card-shaped skeletons, an empty slot, error + retry and a result-count announcement. You only write the card.",
+  "states": ["loading", "empty", "error"],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "Renders a labelled role=list with role=listitem cards",
+      "Announces the result count via the StateBoundary live region",
+      "Loading skeleton cards are aria-hidden and aria-busy"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "render a grid or gallery of fetched items with loading and empty states",
+      "card grid with skeletons and retry",
+      "photo or product gallery that handles all async states"
+    ],
+    "examples": [
+      "<CardCollection state={photos} label=\"Photos\" getKey={(p) => p.id}>{(p) => <PhotoCard photo={p} />}</CardCollection>"
+    ]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": ["state-boundary", "skeleton"],
+  "files": [
+    {
+      "from": "files/card-collection.tsx",
+      "path": "components/card-collection.tsx",
+      "type": "component"
+    }
+  ]
+}
