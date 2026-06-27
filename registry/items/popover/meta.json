@@ -1,0 +1,37 @@
+{
+  "name": "popover",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "A floating panel anchored to a trigger for rich content shown on click. Non-modal but accessible: moves focus in on open, restores it on close, and dismisses on Escape or an outside click.",
+  "states": [],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "The panel is a role=dialog labelled by its title or ariaLabel",
+      "The trigger advertises aria-haspopup=dialog and aria-expanded",
+      "Focus moves into the panel on open and is restored to the trigger on close",
+      "Escape and a click outside dismiss it"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "a floating panel anchored to a button for rich content",
+      "a click-triggered popover with a form or details",
+      "show contextual content in an accessible popover"
+    ],
+    "examples": [
+      "<Popover label=\"Filters\" title=\"Filter results\">\n  <FilterForm />\n</Popover>"
+    ]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "from": "files/popover.tsx",
+      "path": "components/popover.tsx",
+      "type": "component"
+    }
+  ]
+}

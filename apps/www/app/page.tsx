@@ -28,6 +28,7 @@ const layerNames: Record<number, string> = {
   5: 'Navigation',
   6: 'Forms',
   7: 'Realtime',
+  8: 'Overlays & menus',
 };
 
 const homeComponents: HC[] = [
@@ -354,6 +355,51 @@ const homeComponents: HC[] = [
     a11y: true,
     desc: 'Like / favourite that flips instantly, rolls back.',
     states: ['optimistic', 'error'],
+  },
+  {
+    name: 'dropdown-menu',
+    layer: 8,
+    status: 'done',
+    kind: 'component',
+    a11y: true,
+    desc: 'Actions menu under a button (ARIA menu pattern).',
+    states: [],
+  },
+  {
+    name: 'popover',
+    layer: 8,
+    status: 'done',
+    kind: 'component',
+    a11y: true,
+    desc: 'Floating panel anchored to a trigger, shown on click.',
+    states: [],
+  },
+  {
+    name: 'tooltip',
+    layer: 8,
+    status: 'done',
+    kind: 'component',
+    a11y: true,
+    desc: 'Hint on hover and focus, wired via aria-describedby.',
+    states: [],
+  },
+  {
+    name: 'accordion',
+    layer: 8,
+    status: 'done',
+    kind: 'component',
+    a11y: true,
+    desc: 'Disclosure panels; content loads on first open.',
+    states: ['loading'],
+  },
+  {
+    name: 'stepper',
+    layer: 8,
+    status: 'done',
+    kind: 'component',
+    a11y: true,
+    desc: 'Multi-step wizard with async validation between steps.',
+    states: ['loading', 'error'],
   },
 ];
 

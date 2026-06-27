@@ -1,0 +1,37 @@
+{
+  "name": "dropdown-menu",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "An actions menu that opens under a button — the ARIA menu pattern with roving tabindex, full keyboard support, outside-click dismiss and focus restored to the trigger.",
+  "states": [],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "Trigger exposes aria-haspopup=menu and aria-expanded, labelling the role=menu via aria-labelledby",
+      "Items are role=menuitem with roving tabindex; disabled items carry aria-disabled and are skipped",
+      "Arrow keys move, Home/End jump, Enter/Space select, Escape and Tab close and restore focus to the trigger",
+      "A click outside the trigger or menu dismisses it"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "an actions menu that opens under a button",
+      "a keyboard-accessible dropdown of commands",
+      "an ARIA menu with menu items and separators"
+    ],
+    "examples": [
+      "<DropdownMenu label=\"Actions\">\n  <MenuItem onSelect={() => edit()}>Edit</MenuItem>\n  <MenuSeparator />\n  <MenuItem onSelect={() => remove()} disabled>Delete</MenuItem>\n</DropdownMenu>"
+    ]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "from": "files/dropdown-menu.tsx",
+      "path": "components/dropdown-menu.tsx",
+      "type": "component"
+    }
+  ]
+}

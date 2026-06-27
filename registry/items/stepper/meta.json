@@ -1,0 +1,37 @@
+{
+  "name": "stepper",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "A multi-step wizard with async validation between steps: the Next button shows busy while a step's onNext resolves, a rejection keeps you on the step and surfaces the error, and all panels stay mounted so input is never lost.",
+  "states": ["loading", "error"],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "The header is an ordered list with aria-current=step on the active step",
+      "Panels are role=group labelled by their step and hidden when inactive, so form input survives navigation",
+      "The Next button sets aria-busy while a step's onNext validates",
+      "A validation failure is exposed as role=alert; a polite live region announces each move"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "a multi-step wizard with validation between steps",
+      "a stepper that validates each step against the server before advancing",
+      "a checkout or onboarding flow with back and next"
+    ],
+    "examples": [
+      "<Stepper onComplete={submit}>\n  <Step title=\"Account\" onNext={() => api.checkEmail(email)}><AccountFields /></Step>\n  <Step title=\"Profile\"><ProfileFields /></Step>\n  <Step title=\"Review\"><Review /></Step>\n</Stepper>"
+    ]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "from": "files/stepper.tsx",
+      "path": "components/stepper.tsx",
+      "type": "component"
+    }
+  ]
+}

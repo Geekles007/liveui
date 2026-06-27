@@ -94,11 +94,40 @@ Légende : ✅ fait · 🔜 prochain · ⬜ à venir
 | `offline-banner` | Un bandeau "tu es hors ligne" qui apparaît tout seul (donne enfin un usage à `use-online`). | ✅ |
 | `optimistic-toggle` | Un bouton like/favori qui change tout de suite, puis se corrige si le serveur refuse (vitrine de `use-optimistic-list`). | ✅ |
 
+---
+
+# Nouvelle roadmap (Couches 0→7 ✅ — la suite)
+
+## Couche 8 — Overlays & menus (les motifs ARIA qui flottent au-dessus)
+
+| Brique | En clair | Statut |
+| --- | --- | --- |
+| `dropdown-menu` | Un menu d'actions qui s'ouvre sous un bouton (motif ARIA menu), entièrement navigable au clavier. | ✅ |
+| `popover` | Une bulle flottante ancrée à un élément, pour afficher du contenu riche au clic. | ✅ |
+| `tooltip` | Une infobulle au survol / focus, accessible et temporisée. | ✅ |
+| `accordion` | Des panneaux qui se déplient ; le contenu ne se charge qu'à l'ouverture (comme `tabs`). | ✅ |
+| `stepper` / `wizard` | Un assistant multi-étapes avec validation async entre chaque étape. | ✅ |
+
+## Couche 9 — Hooks utilitaires (les petits outils invisibles, suite de la Couche 0)
+
+| Brique | En clair | Statut |
+| --- | --- | --- |
+| `use-debounce` | Retarde une valeur qui change trop vite (recherche, saisie) avant d'agir. | 🔜 |
+| `use-intersection` | Sait quand un élément entre dans l'écran (à extraire d'`infinite-list`). | ⬜ |
+| `use-clipboard` | Copie dans le presse-papier avec l'état "copié !" temporaire. | ⬜ |
+| `use-media-query` | Réagit à une media query (mobile/desktop, `prefers-reduced-motion`). | ⬜ |
+| `use-poll` | Relance un fetch à intervalle régulier, en respectant le feu tricolore. | ⬜ |
+
+## Axe DX & IA (transversal — pas une couche de composants)
+
+- **Serveur MCP** exposant le registry aux assistants (le `manifest.json` `intents` + `examples` devient un outil que les LLM interrogent pour assembler une UI à partir de vrais composants).
+- **`ibirdui doctor` / `ibirdui upgrade`** : diff via les hashes déjà calculés au build, pour détecter les briques modifiées localement et proposer la mise à jour.
+- **Playground dark-mode** dans le site, pour essayer chaque brique en direct.
+
 ## Idées à explorer (non encore planifiées)
 
-- **Overlays & menus :** `dropdown-menu` (motif ARIA menu), `popover`, `tooltip`, `accordion` (panneaux chargés à l'ouverture, comme `tabs`), `stepper` / `wizard` (étapes à validation async), `progress` autonome.
-- **Petits hooks (Couche 0) :** `use-debounce`, `use-intersection` (à extraire d'`infinite-list`), `use-clipboard` (état "copié !"), `use-media-query`, `use-poll`.
-- **DX / IA :** un **serveur MCP** exposant le registry aux assistants, `ibirdui doctor` / `ibirdui upgrade` (diff via les hashes déjà calculés au build), un playground dark-mode dans le site.
+- `progress` autonome (barre / cercle de progression réutilisable).
+- Tests visuels, docs i18n, exemples d'applications complètes.
 
 ---
 
@@ -114,10 +143,9 @@ Légende : ✅ fait · 🔜 prochain · ⬜ à venir
 Chaque brique livrée embarque un **test d'accessibilité** (axe) et une **fiche
 lisible par l'IA** (pour `ibirdui gen`).
 
-**Prochaines priorités :** Couches 6 (Formulaires) et 7 (Temps réel) ✅
-livrées — la roadmap initiale est complète. Ensuite, piocher dans les
-**Idées à explorer** ci-dessus : overlays & menus (`dropdown-menu`, `popover`,
-`tooltip`, `accordion`), petits hooks de Couche 0, et le côté DX/IA (serveur MCP,
-`ibirdui doctor` / `upgrade`).
+**Prochaines priorités :** Couche 8 (Overlays & menus) ✅ livrée. Prochain
+chantier : **Couche 9 — Hooks utilitaires** (quick wins), en commençant par
+`use-debounce` ; puis l'axe DX & IA (serveur MCP, `ibirdui doctor` / `upgrade`).
 
-**Total : 36 briques livrées 🎉 · roadmap initiale (Couches 0→7) complète.**
+**Total : 41 briques livrées 🎉 · Couche 8 complète · prochaine cible :
+Couche 9 (5 briques) + axe DX/IA.**

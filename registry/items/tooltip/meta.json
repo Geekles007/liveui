@@ -1,0 +1,35 @@
+{
+  "name": "tooltip",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "An accessible tooltip shown on hover and on keyboard focus, wired to its trigger via aria-describedby so screen-reader users hear it too. Delayed on hover, instant on focus, hides on blur / leave / Escape.",
+  "states": [],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "The tip is a role=tooltip referenced by the trigger's aria-describedby",
+      "Shows on focus as well as hover, so it is reachable by keyboard",
+      "Hides on blur, mouse-leave and Escape",
+      "The tip is pointer-events-none so it never blocks the trigger"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "show a tooltip on hover and keyboard focus",
+      "an accessible hint attached to a button or icon",
+      "describe a control with an aria-describedby tooltip"
+    ],
+    "examples": ["<Tooltip content=\"Saved automatically\">\n  <button>Save</button>\n</Tooltip>"]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "from": "files/tooltip.tsx",
+      "path": "components/tooltip.tsx",
+      "type": "component"
+    }
+  ]
+}
