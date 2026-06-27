@@ -1,0 +1,37 @@
+{
+  "name": "accordion",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "An accordion of disclosure panels with lazily-loaded content — each panel mounts only when first opened, so an in-panel fetch runs once on expand. Single or multiple open, with full keyboard support.",
+  "states": ["loading"],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "Each header is a button with aria-expanded and aria-controls, wrapped in a heading",
+      "Panels are role=region labelled by their header and hidden when collapsed",
+      "Up/Down arrows move between headers, Home/End jump to the ends",
+      "Disabled sections carry aria-disabled and are skipped by keyboard navigation"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "an accordion of collapsible sections",
+      "disclosure panels whose content loads on first open",
+      "a FAQ or settings accordion with keyboard navigation"
+    ],
+    "examples": [
+      "<Accordion>\n  <AccordionItem title=\"Shipping\"><Shipping /></AccordionItem>\n  <AccordionItem title=\"Returns\">{() => <Returns />}</AccordionItem>\n</Accordion>"
+    ]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "from": "files/accordion.tsx",
+      "path": "components/accordion.tsx",
+      "type": "component"
+    }
+  ]
+}

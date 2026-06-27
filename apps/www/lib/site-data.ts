@@ -21,6 +21,7 @@ export const layerNames: Record<number, string> = {
   5: 'Navigation',
   6: 'Forms',
   7: 'Realtime',
+  8: 'Overlays & menus',
 };
 
 export const components: Comp[] = [
@@ -60,6 +61,11 @@ export const components: Comp[] = [
   { name: 'presence', layer: 7, status: 'done', kind: 'component', a11y: true },
   { name: 'offline-banner', layer: 7, status: 'done', kind: 'component', a11y: true },
   { name: 'optimistic-toggle', layer: 7, status: 'done', kind: 'component', a11y: true },
+  { name: 'dropdown-menu', layer: 8, status: 'done', kind: 'component', a11y: true },
+  { name: 'popover', layer: 8, status: 'done', kind: 'component', a11y: true },
+  { name: 'tooltip', layer: 8, status: 'done', kind: 'component', a11y: true },
+  { name: 'accordion', layer: 8, status: 'done', kind: 'component', a11y: true },
+  { name: 'stepper', layer: 8, status: 'done', kind: 'component', a11y: true },
 ];
 
 /** Guaranteed first component, used as a safe fallback when a selection misses. */
@@ -2495,6 +2501,324 @@ export const docs: Record<string, Doc> = {
       'aria-busy is set while the commit is in flight.',
       'A polite live region announces a rollback when the commit fails.',
       'The heart icon is decorative; the action is named via aria-label. Verified by a shipped axe-core test.',
+    ],
+  },
+  'dropdown-menu': {
+    intro:
+      'An actions menu that opens under a button — the ARIA menu pattern, done right. The trigger advertises aria-haspopup / aria-expanded; the list is a role=menu of role=menuitem buttons with roving tabindex. Keyboard-complete and self-dismissing, with no dependency beyond React.',
+    apiFile: 'components/dropdown-menu.tsx',
+    api: '<DropdownMenu label="Actions">\n  <MenuItem onSelect={() => edit()}>Edit</MenuItem>\n  <MenuSeparator />\n  <MenuItem onSelect={() => remove()} disabled>Delete</MenuItem>\n</DropdownMenu>',
+    tutorialIntro:
+      'dropdown-menu owns the menu mechanics — focus, keyboard, dismissal. You declare the trigger label and the items.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'A single self-contained file — no dependencies beyond React.',
+        file: 'terminal',
+        code: '$ npx ibirdui add dropdown-menu\n✓ wrote components/dropdown-menu.tsx',
+      },
+      {
+        title: 'Declare the trigger and items',
+        body: 'The label becomes the trigger button; each MenuItem is a command. onSelect runs and the menu closes.',
+        file: 'row-actions.tsx',
+        code: '<DropdownMenu label="Actions">\n  <MenuItem onSelect={() => edit(row)}>Edit</MenuItem>\n  <MenuItem onSelect={() => share(row)}>Share</MenuItem>\n</DropdownMenu>',
+      },
+      {
+        title: 'Group with separators, disable items',
+        body: 'MenuSeparator draws a divider; a disabled item is skipped by keyboard navigation and can’t be selected.',
+        file: 'row-actions.tsx',
+        code: '<MenuSeparator />\n<MenuItem onSelect={() => remove(row)} disabled>Delete</MenuItem>',
+      },
+      {
+        title: 'Keyboard comes built in',
+        body: 'Open with click, Enter, Space or ↓ (↑ opens on the last item); ↑/↓ move, Home/End jump, Escape and Tab close and restore focus to the trigger. A click outside dismisses.',
+        file: '—',
+        code: '// nothing to wire — the menu owns its focus and keys',
+      },
+    ],
+    propsTitle: 'Props',
+    propsIntro: 'DropdownMenu plus its child components MenuItem and MenuSeparator.',
+    col0: 'Prop',
+    props: [
+      { name: 'label', type: 'ReactNode', desc: 'Trigger button content.' },
+      {
+        name: 'align',
+        type: '"start" | "end"',
+        desc: 'Which edge of the trigger the menu aligns to. Default "start".',
+      },
+      { name: 'children', type: 'MenuItem | MenuSeparator', desc: 'The menu entries.' },
+      {
+        name: 'MenuItem.onSelect',
+        type: '() => void',
+        desc: 'Runs when the item is chosen; the menu then closes.',
+      },
+      {
+        name: 'MenuItem.disabled',
+        type: 'boolean',
+        desc: 'Skips the item in keyboard navigation and blocks selection.',
+      },
+    ],
+    a11y: true,
+    a11yList: [
+      'The trigger exposes aria-haspopup=menu and aria-expanded, labelling the role=menu via aria-labelledby.',
+      'Items are role=menuitem with roving tabindex; disabled items carry aria-disabled and are skipped.',
+      'Arrow keys move, Home/End jump, Enter/Space select, Escape and Tab close and restore focus to the trigger.',
+      'A click outside the trigger or menu dismisses it. Verified by a shipped axe-core test.',
+    ],
+  },
+  popover: {
+    intro:
+      'A floating panel anchored to a trigger for rich content shown on click — a form, a colour picker, a details card. Non-modal: it doesn’t trap focus or lock the page, but it moves focus into the panel on open, restores it to the trigger on close, and dismisses on Escape or an outside click.',
+    apiFile: 'components/popover.tsx',
+    api: '<Popover label="Filters" title="Filter results">\n  <FilterForm />\n</Popover>',
+    tutorialIntro:
+      'popover handles the open/close lifecycle and focus for you. You give it a trigger label and the panel content.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'A single self-contained file — no dependencies beyond React.',
+        file: 'terminal',
+        code: '$ npx ibirdui add popover\n✓ wrote components/popover.tsx',
+      },
+      {
+        title: 'Trigger and content',
+        body: 'The label renders the trigger button; the children render inside the floating panel on click.',
+        file: 'toolbar.tsx',
+        code: '<Popover label="Filters" title="Filter results">\n  <FilterForm />\n</Popover>',
+      },
+      {
+        title: 'Label it',
+        body: 'A visible title both heads the panel and labels it for assistive tech. With no title, pass ariaLabel so the dialog still has a name.',
+        file: 'toolbar.tsx',
+        code: '<Popover label="Info" ariaLabel="More info">\n  <p>…</p>\n</Popover>',
+      },
+      {
+        title: 'Focus & dismissal are handled',
+        body: 'On open, focus moves to the first focusable element inside; Escape or a click outside closes it and restores focus to the trigger.',
+        file: '—',
+        code: '// align="end" flips it to the trigger’s right edge',
+      },
+    ],
+    propsTitle: 'Props',
+    propsIntro: 'The component props:',
+    col0: 'Prop',
+    props: [
+      { name: 'label', type: 'ReactNode', desc: 'Trigger button content.' },
+      { name: 'children', type: 'ReactNode', desc: 'Floating panel content.' },
+      {
+        name: 'title',
+        type: 'ReactNode',
+        desc: 'Visible heading; also labels the panel for assistive tech.',
+      },
+      {
+        name: 'ariaLabel',
+        type: 'string',
+        desc: 'Accessible name when there is no visible title. Default "Popover".',
+      },
+      {
+        name: 'align',
+        type: '"start" | "end"',
+        desc: 'Which edge of the trigger the panel aligns to. Default "start".',
+      },
+    ],
+    a11y: true,
+    a11yList: [
+      'The panel is a role=dialog labelled by its title or ariaLabel.',
+      'The trigger advertises aria-haspopup=dialog and aria-expanded.',
+      'Focus moves into the panel on open and is restored to the trigger on close.',
+      'Escape and a click outside dismiss it. Verified by a shipped axe-core test.',
+    ],
+  },
+  tooltip: {
+    intro:
+      'An accessible tooltip shown on hover and on keyboard focus. The tip is a role=tooltip wired to the trigger via aria-describedby, so screen-reader users hear it too — not just mouse users. It appears after a short delay on hover, instantly on focus, and hides on blur / mouse-leave / Escape.',
+    apiFile: 'components/tooltip.tsx',
+    api: '<Tooltip content="Saved automatically">\n  <button>Save</button>\n</Tooltip>',
+    tutorialIntro:
+      'tooltip wraps a single focusable element and attaches the tip to it. You give it the content and the trigger child.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'A single self-contained file — no dependencies beyond React.',
+        file: 'terminal',
+        code: '$ npx ibirdui add tooltip\n✓ wrote components/tooltip.tsx',
+      },
+      {
+        title: 'Wrap a focusable element',
+        body: 'children must be a single interactive element (a button, a link). The tip clones it to attach aria-describedby and the hover/focus handlers.',
+        file: 'toolbar.tsx',
+        code: '<Tooltip content="Saved automatically">\n  <button>Save</button>\n</Tooltip>',
+      },
+      {
+        title: 'Place and time it',
+        body: 'side picks the edge (top / bottom / left / right); delay sets the hover delay in ms (focus always shows instantly).',
+        file: 'toolbar.tsx',
+        code: '<Tooltip content="Delete" side="bottom" delay={150}>\n  <IconButton icon={<Trash />} />\n</Tooltip>',
+      },
+      {
+        title: 'Keyboard & screen readers included',
+        body: 'Because it shows on focus and links via aria-describedby, keyboard and screen-reader users get the hint — and Escape dismisses it.',
+        file: '—',
+        code: '// the tip is pointer-events-none, so it never blocks the trigger',
+      },
+    ],
+    propsTitle: 'Props',
+    propsIntro: 'The component props:',
+    col0: 'Prop',
+    props: [
+      { name: 'content', type: 'ReactNode', desc: 'The tip text/content.' },
+      {
+        name: 'children',
+        type: 'ReactElement',
+        desc: 'The single interactive element the tip describes.',
+      },
+      {
+        name: 'side',
+        type: '"top" | "bottom" | "left" | "right"',
+        desc: 'Which side to show on. Default "top".',
+      },
+      { name: 'delay', type: 'number', desc: 'Delay before showing on hover, in ms. Default 300.' },
+    ],
+    a11y: true,
+    a11yList: [
+      'The tip is a role=tooltip referenced by the trigger’s aria-describedby.',
+      'Shows on focus as well as hover, so it is reachable by keyboard.',
+      'Hides on blur, mouse-leave and Escape.',
+      'The tip is pointer-events-none so it never blocks the trigger. Verified by a shipped axe-core test.',
+    ],
+  },
+  accordion: {
+    intro:
+      'An accordion of disclosure panels with lazily-loaded content. Each panel mounts only when first opened, then is kept alive — so an in-panel fetch runs once, on expand. Single or multiple open, with full keyboard support.',
+    apiFile: 'components/accordion.tsx',
+    api: '<Accordion>\n  <AccordionItem title="Shipping"><Shipping /></AccordionItem>\n  <AccordionItem title="Returns">{() => <Returns />}</AccordionItem>\n</Accordion>',
+    tutorialIntro:
+      'accordion is the disclosure cousin of tabs: declare items, write only the panel, and defer expensive content with a function child.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'A single self-contained file — no dependencies beyond React.',
+        file: 'terminal',
+        code: '$ npx ibirdui add accordion\n✓ wrote components/accordion.tsx',
+      },
+      {
+        title: 'Declare items',
+        body: 'Each AccordionItem has a title and panel content. By default one panel is open at a time.',
+        file: 'faq.tsx',
+        code: '<Accordion>\n  <AccordionItem title="Shipping"><Shipping /></AccordionItem>\n  <AccordionItem title="Warranty"><Warranty /></AccordionItem>\n</Accordion>',
+      },
+      {
+        title: 'Defer heavy panels',
+        body: 'Pass a function as the child to build it only on first open — so a fetch inside runs on expand, not on mount. Use multiple to allow several open at once.',
+        file: 'faq.tsx',
+        code: '<AccordionItem title="Returns">{() => <Returns />}</AccordionItem>\n// <Accordion multiple> keeps several panels open',
+      },
+      {
+        title: 'Keyboard navigation',
+        body: 'Headers are buttons (Tab reaches them); ↑/↓ move between headers and Home/End jump to the ends. Disabled sections are skipped.',
+        file: '—',
+        code: '// each header is <button aria-expanded aria-controls> in a heading',
+      },
+    ],
+    propsTitle: 'Props',
+    propsIntro: 'Accordion plus its AccordionItem children.',
+    col0: 'Prop',
+    props: [
+      {
+        name: 'multiple',
+        type: 'boolean',
+        desc: 'Allow several panels open at once. Default false (one at a time).',
+      },
+      {
+        name: 'defaultOpen',
+        type: 'number[]',
+        desc: 'Panels open on first render, by index.',
+      },
+      { name: 'AccordionItem.title', type: 'ReactNode', desc: 'The header label.' },
+      {
+        name: 'AccordionItem.children',
+        type: 'ReactNode | (() => ReactNode)',
+        desc: 'Panel content; a function defers creation until first open.',
+      },
+      {
+        name: 'AccordionItem.disabled',
+        type: 'boolean',
+        desc: 'Disables the section and skips it in keyboard navigation.',
+      },
+    ],
+    a11y: true,
+    a11yList: [
+      'Each header is a button with aria-expanded and aria-controls, wrapped in a heading.',
+      'Panels are role=region labelled by their header and hidden when collapsed.',
+      'Up/Down arrows move between headers, Home/End jump to the ends.',
+      'Disabled sections carry aria-disabled and are skipped. Verified by a shipped axe-core test.',
+    ],
+  },
+  stepper: {
+    intro:
+      'A multi-step wizard with async validation between steps. Each step can supply an onNext that runs before advancing: the Next button shows busy while it resolves, and a rejection keeps you on the step and surfaces the error in a role=alert. All panels stay mounted (hidden when inactive) so form input is never lost moving back and forth.',
+    apiFile: 'components/stepper.tsx',
+    api: '<Stepper onComplete={submit}>\n  <Step title="Account" onNext={() => api.checkEmail(email)}><AccountFields /></Step>\n  <Step title="Profile"><ProfileFields /></Step>\n  <Step title="Review"><Review /></Step>\n</Stepper>',
+    tutorialIntro:
+      'stepper orchestrates the header, panels and navigation. You declare steps and, optionally, async validation between them.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'A single self-contained file — no dependencies beyond React.',
+        file: 'terminal',
+        code: '$ npx ibirdui add stepper\n✓ wrote components/stepper.tsx',
+      },
+      {
+        title: 'Declare steps',
+        body: 'Each Step has a title and content. The wizard renders the progress header, the current panel, and Back / Next.',
+        file: 'onboarding.tsx',
+        code: '<Stepper onComplete={submit}>\n  <Step title="Account"><AccountFields /></Step>\n  <Step title="Profile"><ProfileFields /></Step>\n  <Step title="Review"><Review /></Step>\n</Stepper>',
+      },
+      {
+        title: 'Validate before advancing',
+        body: 'Give a step an onNext returning a promise. The Next button shows busy while it resolves; if it rejects, the wizard stays put and shows the error.',
+        file: 'onboarding.tsx',
+        code: '<Step title="Account" onNext={() => api.checkEmail(email)}>\n  <AccountFields />\n</Step>',
+      },
+      {
+        title: 'Input is never lost',
+        body: 'Every panel stays mounted (hidden when inactive), so moving Back and Next preserves what the user typed. onComplete fires after the final step resolves.',
+        file: '—',
+        code: '// finishLabel renames the last button (e.g. "Submit")',
+      },
+    ],
+    propsTitle: 'Props',
+    propsIntro: 'Stepper plus its Step children.',
+    col0: 'Prop',
+    props: [
+      {
+        name: 'onComplete',
+        type: '() => void',
+        desc: 'Called after the final step’s onNext resolves.',
+      },
+      {
+        name: 'label',
+        type: 'string',
+        desc: 'Accessible name for the progress list. Default "Progress".',
+      },
+      {
+        name: 'finishLabel',
+        type: 'string',
+        desc: 'Label for the final advance button. Default "Finish".',
+      },
+      { name: 'Step.title', type: 'ReactNode', desc: 'The step’s label in the header.' },
+      {
+        name: 'Step.onNext',
+        type: '() => Promise<unknown> | unknown',
+        desc: 'Validate before advancing; reject to stay on the step and show the error.',
+      },
+    ],
+    a11y: true,
+    a11yList: [
+      'The header is an ordered list with aria-current=step on the active step.',
+      'Panels are role=group labelled by their step and hidden when inactive, so form input survives navigation.',
+      'The Next button sets aria-busy while a step’s onNext validates.',
+      'A validation failure is exposed as role=alert; a polite live region announces each move. Verified by a shipped axe-core test.',
     ],
   },
 };

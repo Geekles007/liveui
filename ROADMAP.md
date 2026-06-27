@@ -102,17 +102,17 @@ Légende : ✅ fait · 🔜 prochain · ⬜ à venir
 
 | Brique | En clair | Statut |
 | --- | --- | --- |
-| `dropdown-menu` | Un menu d'actions qui s'ouvre sous un bouton (motif ARIA menu), entièrement navigable au clavier. | 🔜 |
-| `popover` | Une bulle flottante ancrée à un élément, pour afficher du contenu riche au clic. | ⬜ |
-| `tooltip` | Une infobulle au survol / focus, accessible et temporisée. | ⬜ |
-| `accordion` | Des panneaux qui se déplient ; le contenu ne se charge qu'à l'ouverture (comme `tabs`). | ⬜ |
-| `stepper` / `wizard` | Un assistant multi-étapes avec validation async entre chaque étape. | ⬜ |
+| `dropdown-menu` | Un menu d'actions qui s'ouvre sous un bouton (motif ARIA menu), entièrement navigable au clavier. | ✅ |
+| `popover` | Une bulle flottante ancrée à un élément, pour afficher du contenu riche au clic. | ✅ |
+| `tooltip` | Une infobulle au survol / focus, accessible et temporisée. | ✅ |
+| `accordion` | Des panneaux qui se déplient ; le contenu ne se charge qu'à l'ouverture (comme `tabs`). | ✅ |
+| `stepper` / `wizard` | Un assistant multi-étapes avec validation async entre chaque étape. | ✅ |
 
 ## Couche 9 — Hooks utilitaires (les petits outils invisibles, suite de la Couche 0)
 
 | Brique | En clair | Statut |
 | --- | --- | --- |
-| `use-debounce` | Retarde une valeur qui change trop vite (recherche, saisie) avant d'agir. | ⬜ |
+| `use-debounce` | Retarde une valeur qui change trop vite (recherche, saisie) avant d'agir. | 🔜 |
 | `use-intersection` | Sait quand un élément entre dans l'écran (à extraire d'`infinite-list`). | ⬜ |
 | `use-clipboard` | Copie dans le presse-papier avec l'état "copié !" temporaire. | ⬜ |
 | `use-media-query` | Réagit à une media query (mobile/desktop, `prefers-reduced-motion`). | ⬜ |
@@ -143,11 +143,9 @@ Légende : ✅ fait · 🔜 prochain · ⬜ à venir
 Chaque brique livrée embarque un **test d'accessibilité** (axe) et une **fiche
 lisible par l'IA** (pour `ibirdui gen`).
 
-**Prochaines priorités :** la roadmap initiale (Couches 0→7) est ✅ complète.
-Prochain chantier décidé : **Couche 8 — Overlays & menus**, en commençant par
-`dropdown-menu` (le motif ARIA le plus attendu et le plus réutilisé). Ensuite le
-reste de la Couche 8, puis la Couche 9 (hooks utilitaires, quick wins) et l'axe
-DX & IA (serveur MCP, `ibirdui doctor` / `upgrade`).
+**Prochaines priorités :** Couche 8 (Overlays & menus) ✅ livrée. Prochain
+chantier : **Couche 9 — Hooks utilitaires** (quick wins), en commençant par
+`use-debounce` ; puis l'axe DX & IA (serveur MCP, `ibirdui doctor` / `upgrade`).
 
-**Total : 36 briques livrées 🎉 · prochaine cible : Couche 8 (5 briques),
-puis Couche 9 (5 briques) + axe DX/IA.**
+**Total : 41 briques livrées 🎉 · Couche 8 complète · prochaine cible :
+Couche 9 (5 briques) + axe DX/IA.**
