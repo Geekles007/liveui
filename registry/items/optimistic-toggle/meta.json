@@ -1,0 +1,38 @@
+{
+  "name": "optimistic-toggle",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "A like / favourite toggle that flips the instant you press it and rolls back if the server refuses — the single-value showcase of the optimistic pattern behind use-optimistic-list.",
+  "states": ["optimistic", "error"],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "A real toggle button with aria-pressed, so the state is announced",
+      "aria-busy is set while the commit is in flight",
+      "A polite live region announces a rollback when the commit fails",
+      "The heart icon is decorative (aria-hidden); the action is named via aria-label"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "a like or favourite button that updates instantly and rolls back on error",
+      "an optimistic toggle backed by a server commit",
+      "a pressed toggle button with optimistic UI"
+    ],
+    "examples": [
+      "<OptimisticToggle pressed={liked} onToggle={() => api.like(id)} label=\"Like\" />",
+      "<OptimisticToggle pressed={fav} onToggle={(next) => api.setFavourite(id, next)} label=\"Favourite\">{count}</OptimisticToggle>"
+    ]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "from": "files/optimistic-toggle.tsx",
+      "path": "components/optimistic-toggle.tsx",
+      "type": "component"
+    }
+  ]
+}

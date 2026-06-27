@@ -1,0 +1,37 @@
+{
+  "name": "streaming-list",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "A list that fills in live as values stream in — the same loading/empty/error states as data-list, but rows arrive over time and new arrivals are announced politely. Pairs with use-stream.",
+  "states": ["loading", "empty", "error"],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "Renders a labelled role=list with role=listitem rows",
+      "A polite live region announces new arrivals ('N new items') without stealing focus",
+      "The connecting skeleton is aria-hidden",
+      "Inherits the StateBoundary empty and error + retry slots"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "render a live feed that fills in as events stream in",
+      "an activity list backed by Server-Sent Events or a WebSocket",
+      "a streaming list with loading skeletons, empty and error states"
+    ],
+    "examples": [
+      "<StreamingList state={feed.state} label=\"Activity\" getKey={(e) => e.id}>{(event) => <EventRow event={event} />}</StreamingList>"
+    ]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": ["state-boundary"],
+  "files": [
+    {
+      "from": "files/streaming-list.tsx",
+      "path": "components/streaming-list.tsx",
+      "type": "component"
+    }
+  ]
+}

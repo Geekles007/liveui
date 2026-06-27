@@ -1,0 +1,27 @@
+{
+  "name": "use-stream",
+  "type": "hook",
+  "version": "1.0.0",
+  "description": "Subscribe to a stream of values (SSE, WebSocket, live query) and get a typed AsyncState<T[]> that fills in as events arrive — so a live feed gets the same loading / empty / error handling as a one-shot fetch.",
+  "states": ["loading", "empty", "error"],
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": ["async-state"],
+  "manifest": {
+    "intents": [
+      "turn a Server-Sent Events or WebSocket feed into a typed AsyncState",
+      "accumulate streamed values into a list with loading and error states",
+      "subscribe to a realtime channel and re-subscribe on retry"
+    ],
+    "examples": [
+      "const feed = useStream<Event>((s) => {\n  const es = new EventSource('/feed');\n  es.onmessage = (e) => s.emit(JSON.parse(e.data));\n  es.onerror = () => s.error(new Error('stream dropped'));\n  return () => es.close();\n});\n<StreamingList state={feed.state} label=\"Activity\" getKey={(e) => e.id}>{(e) => <EventRow event={e} />}</StreamingList>"
+    ]
+  },
+  "files": [
+    {
+      "from": "files/use-stream.ts",
+      "path": "hooks/use-stream.ts",
+      "type": "hook"
+    }
+  ]
+}

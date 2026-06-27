@@ -1,0 +1,35 @@
+{
+  "name": "presence",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "Show who is online right now as a row of overlapping avatars with a live count and a '+N' overflow chip. Feed it the current users from your realtime channel; it announces the count as people come and go.",
+  "states": [],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "Avatars sit in a labelled role=list and each is announced by name via avatar's role=img",
+      "The overflow chip carries an accessible '+N more' label",
+      "A polite live region re-announces the summary when the count changes",
+      "The visible count text is aria-hidden so it isn't read twice"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "show who is online right now over a realtime channel",
+      "a stack of avatars with an overflow count for active users",
+      "a presence indicator that announces who joins and leaves"
+    ],
+    "examples": ["<Presence users={online} />", "<Presence users={online} max={3} size={28} />"]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": ["avatar"],
+  "files": [
+    {
+      "from": "files/presence.tsx",
+      "path": "components/presence.tsx",
+      "type": "component"
+    }
+  ]
+}

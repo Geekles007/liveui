@@ -1,0 +1,38 @@
+{
+  "name": "offline-banner",
+  "type": "component",
+  "version": "1.0.0",
+  "description": "A banner that appears on its own the moment the browser goes offline and clears when the connection returns — the first real consumer of use-online. SSR-safe, renders nothing while connected.",
+  "states": [],
+  "a11y": {
+    "level": "AA",
+    "tested": true,
+    "notes": [
+      "The offline state is a role=alert, announced assertively the moment it appears",
+      "The reconnected note is a polite role=status so it doesn't interrupt",
+      "Icons are decorative (aria-hidden)",
+      "Renders nothing on the server (assumed online) so there's no hydration flash"
+    ]
+  },
+  "manifest": {
+    "intents": [
+      "show a banner when the user goes offline",
+      "warn that changes may not be saved while the network is down",
+      "an automatic offline / back-online notice"
+    ],
+    "examples": [
+      "<OfflineBanner />",
+      "<OfflineBanner className=\"sticky top-0 z-50\" message=\"No connection — retrying…\" />"
+    ]
+  },
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": ["use-online"],
+  "files": [
+    {
+      "from": "files/offline-banner.tsx",
+      "path": "components/offline-banner.tsx",
+      "type": "component"
+    }
+  ]
+}
