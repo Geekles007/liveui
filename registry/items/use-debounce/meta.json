@@ -1,0 +1,27 @@
+{
+  "name": "use-debounce",
+  "type": "hook",
+  "version": "1.0.0",
+  "description": "Debounce a fast-changing value — returns a copy that only updates once a delay has passed without a new change. Perfect for search inputs so you fetch on the settled value, not every keystroke.",
+  "states": [],
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "manifest": {
+    "intents": [
+      "debounce a value that changes too fast",
+      "wait until typing stops before searching or fetching",
+      "throttle a search input before calling the server"
+    ],
+    "examples": [
+      "const debounced = useDebounce(query, 300);\nconst results = useAsync(() => api.search(debounced), [debounced]);"
+    ]
+  },
+  "files": [
+    {
+      "from": "files/use-debounce.ts",
+      "path": "hooks/use-debounce.ts",
+      "type": "hook"
+    }
+  ]
+}

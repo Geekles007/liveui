@@ -112,11 +112,11 @@ Légende : ✅ fait · 🔜 prochain · ⬜ à venir
 
 | Brique | En clair | Statut |
 | --- | --- | --- |
-| `use-debounce` | Retarde une valeur qui change trop vite (recherche, saisie) avant d'agir. | 🔜 |
-| `use-intersection` | Sait quand un élément entre dans l'écran (à extraire d'`infinite-list`). | ⬜ |
-| `use-clipboard` | Copie dans le presse-papier avec l'état "copié !" temporaire. | ⬜ |
-| `use-media-query` | Réagit à une media query (mobile/desktop, `prefers-reduced-motion`). | ⬜ |
-| `use-poll` | Relance un fetch à intervalle régulier, en respectant le feu tricolore. | ⬜ |
+| `use-debounce` | Retarde une valeur qui change trop vite (recherche, saisie) avant d'agir. | ✅ |
+| `use-intersection` | Sait quand un élément entre dans l'écran (à extraire d'`infinite-list`). | ✅ |
+| `use-clipboard` | Copie dans le presse-papier avec l'état "copié !" temporaire. | ✅ |
+| `use-media-query` | Réagit à une media query (mobile/desktop, `prefers-reduced-motion`). | ✅ |
+| `use-poll` | Relance un fetch à intervalle régulier, en respectant le feu tricolore. | ✅ |
 
 ## Axe DX & IA (transversal — pas une couche de composants)
 
@@ -143,9 +143,9 @@ Légende : ✅ fait · 🔜 prochain · ⬜ à venir
 Chaque brique livrée embarque un **test d'accessibilité** (axe) et une **fiche
 lisible par l'IA** (pour `ibirdui gen`).
 
-**Prochaines priorités :** Couche 8 (Overlays & menus) ✅ livrée. Prochain
-chantier : **Couche 9 — Hooks utilitaires** (quick wins), en commençant par
-`use-debounce` ; puis l'axe DX & IA (serveur MCP, `ibirdui doctor` / `upgrade`).
+**Prochaines priorités :** Couches 8 (Overlays & menus) et 9 (Hooks utilitaires)
+✅ livrées — toutes les couches de composants (0→9) sont complètes. Prochain
+chantier : l'**axe DX & IA** (serveur MCP, `ibirdui doctor` / `upgrade`,
+playground dark-mode), qui ne produit pas de briques mais de l'outillage.
 
-**Total : 41 briques livrées 🎉 · Couche 8 complète · prochaine cible :
-Couche 9 (5 briques) + axe DX/IA.**
+**Total : 46 briques livrées 🎉 · Couches 0→9 complètes · reste l'axe DX/IA.**

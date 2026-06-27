@@ -22,6 +22,7 @@ export const layerNames: Record<number, string> = {
   6: 'Forms',
   7: 'Realtime',
   8: 'Overlays & menus',
+  9: 'Utility hooks',
 };
 
 export const components: Comp[] = [
@@ -66,6 +67,11 @@ export const components: Comp[] = [
   { name: 'tooltip', layer: 8, status: 'done', kind: 'component', a11y: true },
   { name: 'accordion', layer: 8, status: 'done', kind: 'component', a11y: true },
   { name: 'stepper', layer: 8, status: 'done', kind: 'component', a11y: true },
+  { name: 'use-debounce', layer: 9, status: 'done', kind: 'hook', a11y: false },
+  { name: 'use-intersection', layer: 9, status: 'done', kind: 'hook', a11y: false },
+  { name: 'use-clipboard', layer: 9, status: 'done', kind: 'hook', a11y: false },
+  { name: 'use-media-query', layer: 9, status: 'done', kind: 'hook', a11y: false },
+  { name: 'use-poll', layer: 9, status: 'done', kind: 'hook', a11y: false },
 ];
 
 /** Guaranteed first component, used as a safe fallback when a selection misses. */
@@ -2819,6 +2825,265 @@ export const docs: Record<string, Doc> = {
       'Panels are role=group labelled by their step and hidden when inactive, so form input survives navigation.',
       'The Next button sets aria-busy while a step’s onNext validates.',
       'A validation failure is exposed as role=alert; a polite live region announces each move. Verified by a shipped axe-core test.',
+    ],
+  },
+  'use-debounce': {
+    intro:
+      'Debounce a fast-changing value: returns a copy that only updates once a delay has passed without a new change. Ideal for search inputs, so you fetch on the settled value instead of on every keystroke. SSR-safe — the first render returns the initial value as-is.',
+    apiFile: 'hooks/use-debounce.ts',
+    api: 'const [query, setQuery] = useState("");\nconst debounced = useDebounce(query, 300);\nconst results = useAsync(() => api.search(debounced), [debounced]);',
+    tutorialIntro:
+      'use-debounce is a dependency-free one-liner. Feed it a value; read back a version that trails until changes stop.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Copies a single .ts file. No dependencies beyond React.',
+        file: 'terminal',
+        code: '$ npx ibirdui add use-debounce\n✓ wrote hooks/use-debounce.ts',
+      },
+      {
+        title: 'Debounce a value',
+        body: 'Pass the live value and a delay in ms. The returned value updates only once the delay elapses without another change.',
+        file: 'search.tsx',
+        code: 'const [query, setQuery] = useState("");\nconst debounced = useDebounce(query, 300);',
+      },
+      {
+        title: 'Fetch on the settled value',
+        body: 'Use the debounced value as a dependency so the request fires when typing stops — not on every keystroke.',
+        file: 'search.tsx',
+        code: 'const results = useAsync(() => api.search(debounced), [debounced]);',
+      },
+    ],
+    propsTitle: 'Signature',
+    propsIntro: 'useDebounce(value, delay?) → debounced value.',
+    col0: 'argument',
+    props: [
+      { name: 'value', type: 'T', desc: 'The fast-changing value to debounce.' },
+      { name: 'delay', type: 'number', desc: 'Quiet period before updating, in ms. Default 300.' },
+      { name: '→ (return)', type: 'T', desc: 'A copy of value that trails until changes stop.' },
+    ],
+  },
+  'use-intersection': {
+    intro:
+      'Know when an element enters the viewport, via IntersectionObserver — the engine behind lazy-loading, infinite scroll and reveal-on-scroll, extracted from infinite-list. Uses a callback ref so it attaches as soon as the node mounts, and is SSR-safe (no-ops where IntersectionObserver is absent).',
+    apiFile: 'hooks/use-intersection.ts',
+    api: 'const { ref, isIntersecting } = useIntersection({ rootMargin: "200px" });\nreturn <div ref={ref}>{isIntersecting && <HeavyChart />}</div>;',
+    tutorialIntro:
+      'use-intersection hands you a ref and a boolean. Attach the ref to whatever you want to watch.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Copies a single .ts file. No dependencies beyond React.',
+        file: 'terminal',
+        code: '$ npx ibirdui add use-intersection\n✓ wrote hooks/use-intersection.ts',
+      },
+      {
+        title: 'Watch an element',
+        body: 'Attach the returned ref; isIntersecting flips true while the element is in view. rootMargin lets you fire early.',
+        file: 'lazy.tsx',
+        code: 'const { ref, isIntersecting } = useIntersection({ rootMargin: "200px" });\nreturn <div ref={ref}>{isIntersecting && <HeavyChart />}</div>;',
+      },
+      {
+        title: 'Reveal once',
+        body: 'Pass once to disconnect after the first time it becomes visible — handy for animate-in or one-shot lazy loads.',
+        file: 'reveal.tsx',
+        code: 'const { ref, isIntersecting } = useIntersection({ once: true });',
+      },
+    ],
+    propsTitle: 'Signature',
+    propsIntro: 'useIntersection(options?) → { ref, isIntersecting, entry }.',
+    col0: 'argument',
+    props: [
+      {
+        name: 'options.rootMargin',
+        type: 'string',
+        desc: 'Margin around the root, e.g. "200px" to fire before it is on screen.',
+      },
+      {
+        name: 'options.threshold',
+        type: 'number | number[]',
+        desc: 'Visibility ratio(s) that trigger a callback. Default 0.',
+      },
+      {
+        name: 'options.root',
+        type: 'Element | null',
+        desc: 'Scroll container. Default the viewport.',
+      },
+      {
+        name: 'options.once',
+        type: 'boolean',
+        desc: 'Stop observing after the first reveal. Default false.',
+      },
+      {
+        name: '→ ref',
+        type: '(node) => void',
+        desc: 'Callback ref to attach to the watched element.',
+      },
+      {
+        name: '→ isIntersecting',
+        type: 'boolean',
+        desc: 'Whether the element is currently in view.',
+      },
+      { name: '→ entry', type: 'IntersectionObserverEntry | null', desc: 'The latest raw entry.' },
+    ],
+  },
+  'use-clipboard': {
+    intro:
+      'Copy text to the clipboard and get a self-resetting copied flag back — so a button can flash "Copied!" then return to normal, with no timer plumbing. Wraps the async Clipboard API: copy resolves to a boolean and never throws, exposing any failure via error.',
+    apiFile: 'hooks/use-clipboard.ts',
+    api: 'const { copy, copied } = useClipboard();\n<button onClick={() => copy(url)}>{copied ? "Copied!" : "Copy link"}</button>',
+    tutorialIntro:
+      'use-clipboard gives you a copy function and a copied flag that resets itself. Wire them to a button.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Copies a single .ts file. No dependencies beyond React.',
+        file: 'terminal',
+        code: '$ npx ibirdui add use-clipboard\n✓ wrote hooks/use-clipboard.ts',
+      },
+      {
+        title: 'Copy and confirm',
+        body: 'Call copy(text) on click; copied flips true for a moment so you can swap the label, then resets on its own.',
+        file: 'share.tsx',
+        code: 'const { copy, copied } = useClipboard();\n<button onClick={() => copy(url)}>{copied ? "Copied!" : "Copy link"}</button>',
+      },
+      {
+        title: 'Tune the window, handle failure',
+        body: 'timeout sets how long copied stays true; copy resolves to false and sets error if the write is blocked (e.g. no permission).',
+        file: 'share.tsx',
+        code: 'const { copy, copied, error } = useClipboard({ timeout: 1000 });\nconst ok = await copy(text);',
+      },
+    ],
+    propsTitle: 'Signature',
+    propsIntro: 'useClipboard(options?) → { copy, copied, error }.',
+    col0: 'argument',
+    props: [
+      {
+        name: 'options.timeout',
+        type: 'number',
+        desc: 'How long copied stays true after success, in ms. Default 2000.',
+      },
+      {
+        name: '→ copy',
+        type: '(text: string) => Promise<boolean>',
+        desc: 'Copy text; resolves true on success, false on failure. Never throws.',
+      },
+      { name: '→ copied', type: 'boolean', desc: 'True for timeout ms after a successful copy.' },
+      {
+        name: '→ error',
+        type: 'Error | null',
+        desc: 'The error from the last failed copy, or null.',
+      },
+    ],
+  },
+  'use-media-query': {
+    intro:
+      'Track whether a CSS media query currently matches, reactively — for responsive behaviour in JS (mobile vs desktop, prefers-reduced-motion, prefers-color-scheme). Backed by useSyncExternalStore, so it is SSR-safe (returns defaultState on the server) and free of tearing.',
+    apiFile: 'hooks/use-media-query.ts',
+    api: 'const isDesktop = useMediaQuery("(min-width: 768px)");\nconst reduceMotion = useMediaQuery("(prefers-reduced-motion: reduce)");',
+    tutorialIntro:
+      'use-media-query turns any media query into a reactive boolean. It re-renders only when the match flips.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Copies a single .ts file. No dependencies beyond React.',
+        file: 'terminal',
+        code: '$ npx ibirdui add use-media-query\n✓ wrote hooks/use-media-query.ts',
+      },
+      {
+        title: 'Read a breakpoint',
+        body: 'Pass any media-query string; get back whether it currently matches, updating live as the viewport changes.',
+        file: 'layout.tsx',
+        code: 'const isDesktop = useMediaQuery("(min-width: 768px)");\nreturn isDesktop ? <Sidebar /> : <Drawer />;',
+      },
+      {
+        title: 'Respect user preferences',
+        body: 'The same hook reads preference queries, so you can honour reduced-motion or colour-scheme in JS-driven UI.',
+        file: 'motion.tsx',
+        code: 'const reduceMotion = useMediaQuery("(prefers-reduced-motion: reduce)");',
+      },
+    ],
+    propsTitle: 'Signature',
+    propsIntro: 'useMediaQuery(query, options?) → boolean.',
+    col0: 'argument',
+    props: [
+      {
+        name: 'query',
+        type: 'string',
+        desc: 'A CSS media-query string, e.g. "(min-width: 768px)".',
+      },
+      {
+        name: 'options.defaultState',
+        type: 'boolean',
+        desc: 'Value during SSR and the first client render. Default false.',
+      },
+      { name: '→ (return)', type: 'boolean', desc: 'Whether the query currently matches.' },
+    ],
+  },
+  'use-poll': {
+    intro:
+      'Re-run an async fetcher on an interval and get a typed AsyncState<T> back — for dashboards, queues and statuses that should refresh on their own. Only the first load shows loading; later polls refresh in the background and swap data in without flashing a spinner.',
+    apiFile: 'hooks/use-poll.ts',
+    api: 'const jobs = usePoll(() => api.jobs.list(), [], { interval: 3000 });\n<DataList state={jobs.state} label="Jobs" getKey={(j) => j.id}>\n  {(j) => <JobRow job={j} />}\n</DataList>',
+    tutorialIntro:
+      'use-poll is use-async on a timer. It produces the same AsyncState, refreshed on an interval, with pause / resume.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Adds the hook and its dependency, async-state, in one go.',
+        file: 'terminal',
+        code: '$ npx ibirdui add use-poll\n+ also adding dependency: async-state\n✓ wrote hooks/use-poll.ts',
+      },
+      {
+        title: 'Poll a fetcher',
+        body: 'Pass a fetcher, a deps array, and an interval. The state starts at loading and refreshes every interval ms.',
+        file: 'dashboard.tsx',
+        code: 'const jobs = usePoll(() => api.jobs.list(), [], { interval: 3000 });',
+      },
+      {
+        title: 'Hand it to a component',
+        body: 'It speaks the AsyncState contract, so any ibirdui list renders it — and background polls swap data in without a loading flash.',
+        file: 'dashboard.tsx',
+        code: '<DataList state={jobs.state} label="Jobs" getKey={(j) => j.id}>\n  {(j) => <JobRow job={j} />}\n</DataList>',
+      },
+      {
+        title: 'Pause, resume, refetch',
+        body: 'Use stop() / start() to pause polling (e.g. when a tab is hidden) and refetch() to poll now, off-schedule.',
+        file: '—',
+        code: 'jobs.stop();    // pause\njobs.start();   // resume\njobs.refetch(); // poll immediately',
+      },
+    ],
+    propsTitle: 'Signature',
+    propsIntro: 'usePoll(fetcher, deps?, options?) → { state, refetch, stop, start }.',
+    col0: 'argument',
+    props: [
+      { name: 'fetcher', type: '() => Promise<T>', desc: 'Required. The async function to poll.' },
+      {
+        name: 'deps',
+        type: 'unknown[]',
+        desc: 'Re-runs the fetcher when any entry changes (like useEffect). Default [].',
+      },
+      {
+        name: 'options.interval',
+        type: 'number',
+        desc: 'Time between polls, in ms. Default 5000.',
+      },
+      {
+        name: 'options.enabled',
+        type: 'boolean',
+        desc: 'Poll while true; pause while false. Default true.',
+      },
+      {
+        name: 'options.immediate',
+        type: 'boolean',
+        desc: 'Run once immediately, then every interval. Default true.',
+      },
+      {
+        name: '→ state',
+        type: 'AsyncState<T>',
+        desc: 'The current state, for any ibirdui component.',
+      },
+      { name: '→ refetch / stop / start', type: '() => void', desc: 'Poll now, pause, or resume.' },
     ],
   },
 };

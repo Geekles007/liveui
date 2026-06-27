@@ -1,0 +1,27 @@
+{
+  "name": "use-poll",
+  "type": "hook",
+  "version": "1.0.0",
+  "description": "Re-run an async fetcher on an interval and get a typed AsyncState<T> back — for dashboards and statuses that refresh on their own. Only the first load shows loading; later polls refresh in the background without flashing a spinner.",
+  "states": ["loading", "empty", "error"],
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": ["async-state"],
+  "manifest": {
+    "intents": [
+      "poll an endpoint on an interval and keep the UI in sync",
+      "refresh a dashboard or queue automatically without a loading flash",
+      "re-fetch data every few seconds with pause and resume"
+    ],
+    "examples": [
+      "const jobs = usePoll(() => api.jobs.list(), [], { interval: 3000 });\n<DataList state={jobs.state} label=\"Jobs\" getKey={(j) => j.id}>{(j) => <JobRow job={j} />}</DataList>"
+    ]
+  },
+  "files": [
+    {
+      "from": "files/use-poll.ts",
+      "path": "hooks/use-poll.ts",
+      "type": "hook"
+    }
+  ]
+}

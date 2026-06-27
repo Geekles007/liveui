@@ -1,0 +1,27 @@
+{
+  "name": "use-media-query",
+  "type": "hook",
+  "version": "1.0.0",
+  "description": "Track whether a CSS media query matches, reactively — for responsive behaviour in JS (mobile vs desktop, prefers-reduced-motion, prefers-color-scheme). SSR-safe and tearing-free via useSyncExternalStore.",
+  "states": [],
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "manifest": {
+    "intents": [
+      "react to a media query in JavaScript",
+      "detect mobile vs desktop or prefers-reduced-motion",
+      "conditionally render based on a breakpoint"
+    ],
+    "examples": [
+      "const isDesktop = useMediaQuery('(min-width: 768px)');\nconst reduceMotion = useMediaQuery('(prefers-reduced-motion: reduce)');"
+    ]
+  },
+  "files": [
+    {
+      "from": "files/use-media-query.ts",
+      "path": "hooks/use-media-query.ts",
+      "type": "hook"
+    }
+  ]
+}

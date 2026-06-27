@@ -1,0 +1,27 @@
+{
+  "name": "use-clipboard",
+  "type": "hook",
+  "version": "1.0.0",
+  "description": "Copy text to the clipboard and get a self-resetting 'copied' flag back, so a button can flash 'Copied!' then return to normal. Wraps the async Clipboard API; copy never throws and surfaces failures via error.",
+  "states": [],
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "manifest": {
+    "intents": [
+      "copy text to the clipboard with a copied confirmation",
+      "a copy-to-clipboard button that flashes 'Copied!'",
+      "write to the clipboard and reset the state after a delay"
+    ],
+    "examples": [
+      "const { copy, copied } = useClipboard();\n<button onClick={() => copy(url)}>{copied ? 'Copied!' : 'Copy link'}</button>"
+    ]
+  },
+  "files": [
+    {
+      "from": "files/use-clipboard.ts",
+      "path": "hooks/use-clipboard.ts",
+      "type": "hook"
+    }
+  ]
+}

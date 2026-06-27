@@ -1,0 +1,27 @@
+{
+  "name": "use-intersection",
+  "type": "hook",
+  "version": "1.0.0",
+  "description": "Know when an element enters the viewport via IntersectionObserver — the engine behind lazy-loading, infinite scroll and reveal-on-scroll. Callback ref, SSR-safe, with an optional once mode.",
+  "states": [],
+  "dependencies": ["react"],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "manifest": {
+    "intents": [
+      "know when an element scrolls into view",
+      "lazy-load or reveal content when it becomes visible",
+      "build infinite scroll with an IntersectionObserver"
+    ],
+    "examples": [
+      "const { ref, isIntersecting } = useIntersection({ rootMargin: '200px' });\nreturn <div ref={ref}>{isIntersecting && <HeavyChart />}</div>;"
+    ]
+  },
+  "files": [
+    {
+      "from": "files/use-intersection.ts",
+      "path": "hooks/use-intersection.ts",
+      "type": "hook"
+    }
+  ]
+}
