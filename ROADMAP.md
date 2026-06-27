@@ -88,11 +88,11 @@ Légende : ✅ fait · 🔜 prochain · ⬜ à venir
 
 | Brique | En clair | Statut |
 | --- | --- | --- |
-| `use-stream` | Reçoit des données en continu (flux serveur / WebSocket) et les transforme en états du feu tricolore. | ⬜ |
-| `streaming-list` | Une liste qui se remplit en direct à mesure que les données arrivent. | ⬜ |
-| `presence` | Montre qui est en ligne en ce moment. | ⬜ |
-| `offline-banner` | Un bandeau "tu es hors ligne" qui apparaît tout seul (donne enfin un usage à `use-online`). | ⬜ |
-| `optimistic-toggle` | Un bouton like/favori qui change tout de suite, puis se corrige si le serveur refuse (vitrine de `use-optimistic-list`). | ⬜ |
+| `use-stream` | Reçoit des données en continu (flux serveur / WebSocket) et les transforme en états du feu tricolore. | ✅ |
+| `streaming-list` | Une liste qui se remplit en direct à mesure que les données arrivent. | ✅ |
+| `presence` | Montre qui est en ligne en ce moment. | ✅ |
+| `offline-banner` | Un bandeau "tu es hors ligne" qui apparaît tout seul (donne enfin un usage à `use-online`). | ✅ |
+| `optimistic-toggle` | Un bouton like/favori qui change tout de suite, puis se corrige si le serveur refuse (vitrine de `use-optimistic-list`). | ✅ |
 
 ## Idées à explorer (non encore planifiées)
 
@@ -114,8 +114,10 @@ Légende : ✅ fait · 🔜 prochain · ⬜ à venir
 Chaque brique livrée embarque un **test d'accessibilité** (axe) et une **fiche
 lisible par l'IA** (pour `ibirdui gen`).
 
-**Prochaines priorités :** Couche 6 (Formulaires) ✅ livrée. Ensuite
-`offline-banner` + `optimistic-toggle`, rapides et qui valorisent du code déjà
-écrit ; puis la Couche 7 (Temps réel) comme prochain différenciateur fort.
+**Prochaines priorités :** Couches 6 (Formulaires) et 7 (Temps réel) ✅
+livrées — la roadmap initiale est complète. Ensuite, piocher dans les
+**Idées à explorer** ci-dessus : overlays & menus (`dropdown-menu`, `popover`,
+`tooltip`, `accordion`), petits hooks de Couche 0, et le côté DX/IA (serveur MCP,
+`ibirdui doctor` / `upgrade`).
 
-**Total : 31 briques livrées 🎉 · Couche 7 (5 briques) à venir.**
+**Total : 36 briques livrées 🎉 · roadmap initiale (Couches 0→7) complète.**

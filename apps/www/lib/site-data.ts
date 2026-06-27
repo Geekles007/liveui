@@ -55,11 +55,11 @@ export const components: Comp[] = [
   { name: 'multi-select', layer: 6, status: 'done', kind: 'component', a11y: true },
   { name: 'tag-input', layer: 6, status: 'done', kind: 'component', a11y: true },
   { name: 'date-picker', layer: 6, status: 'done', kind: 'component', a11y: true },
-  { name: 'use-stream', layer: 7, status: 'planned', kind: 'hook', a11y: false },
-  { name: 'streaming-list', layer: 7, status: 'planned', kind: 'component', a11y: true },
-  { name: 'presence', layer: 7, status: 'planned', kind: 'component', a11y: true },
-  { name: 'offline-banner', layer: 7, status: 'planned', kind: 'component', a11y: true },
-  { name: 'optimistic-toggle', layer: 7, status: 'planned', kind: 'component', a11y: true },
+  { name: 'use-stream', layer: 7, status: 'done', kind: 'hook', a11y: false },
+  { name: 'streaming-list', layer: 7, status: 'done', kind: 'component', a11y: true },
+  { name: 'presence', layer: 7, status: 'done', kind: 'component', a11y: true },
+  { name: 'offline-banner', layer: 7, status: 'done', kind: 'component', a11y: true },
+  { name: 'optimistic-toggle', layer: 7, status: 'done', kind: 'component', a11y: true },
 ];
 
 /** Guaranteed first component, used as a safe fallback when a selection misses. */
@@ -2163,32 +2163,339 @@ export const docs: Record<string, Doc> = {
   },
   'use-stream': {
     intro:
-      'Planned. Subscribe to a stream of data (Server-Sent Events or WebSocket) and turn it into the traffic-light states — so a live feed gets the same loading / error handling as a fetch.',
+      'Subscribe to a stream of values (Server-Sent Events, a WebSocket, a live query) and get back a typed AsyncState<T[]> that fills in as events arrive — so a live feed gets the same loading / empty / error handling as a one-shot fetch. The buffer lives outside React state, so rapid bursts each append cleanly, and any value landing after teardown is ignored so a fast retry never gets clobbered.',
     apiFile: 'hooks/use-stream.ts',
-    api: 'const feed = useStream(() => sse("/feed"));\n// feed.state: AsyncState<Event[]>, appended as events arrive',
+    api: 'const feed = useStream<Event>((s) => {\n  const es = new EventSource("/feed");\n  es.onmessage = (e) => s.emit(JSON.parse(e.data));\n  es.onerror = () => s.error(new Error("stream dropped"));\n  return () => es.close();\n});\n// feed.state: AsyncState<Event[]>, appended as events arrive\n// feed.retry(): tear down and re-subscribe',
+    tutorialIntro:
+      'use-stream turns any subscription into the AsyncState contract. It depends on async-state, which the CLI adds automatically.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Adds the hook and its dependency, async-state, in one go.',
+        file: 'terminal',
+        code: '$ npx ibirdui add use-stream\n+ also adding dependency: async-state\n✓ wrote hooks/use-stream.ts',
+      },
+      {
+        title: 'Open a subscription',
+        body: 'Pass a function that wires your source to the controller and returns a cleanup — the same shape as an EventSource or WebSocket teardown. It returns { state, retry }.',
+        file: 'feed.tsx',
+        code: 'const feed = useStream<Event>((s) => {\n  const es = new EventSource("/feed");\n  es.onmessage = (e) => s.emit(JSON.parse(e.data));\n  es.onerror = () => s.error(new Error("stream dropped"));\n  return () => es.close();\n});',
+      },
+      {
+        title: 'Hand the state to a list',
+        body: 'state starts at "loading", flips to "success" on the first value and appends after that — so any ibirdui list renders the feed with no extra wiring.',
+        file: 'feed.tsx',
+        code: '<StreamingList state={feed.state} label="Activity" getKey={(e) => e.id}>\n  {(event) => <EventRow event={event} />}\n</StreamingList>',
+      },
+      {
+        title: 'Retry re-subscribes',
+        body: 'On s.error() the state carries retry() (wired to feed.retry), which tears the connection down and opens a fresh one. Pass a limit to keep only the most recent N values for busy feeds.',
+        file: '—',
+        code: '// state = { status: "error", error, retry }\nuseStream(subscribe, [], { limit: 100 });',
+      },
+    ],
+    propsTitle: 'Signature',
+    propsIntro: 'useStream(subscribe, deps?, options?) → { state, retry }.',
+    col0: 'argument',
+    props: [
+      {
+        name: 'subscribe',
+        type: '(c: StreamController<T>) => undefined | (() => void)',
+        desc: 'Required. Open the subscription and return a cleanup. The controller exposes emit, set, error and close.',
+      },
+      {
+        name: 'deps',
+        type: 'unknown[]',
+        desc: 'Re-subscribes when any entry changes (like useEffect). Default [].',
+      },
+      {
+        name: 'options.enabled',
+        type: 'boolean',
+        desc: 'Skip subscribing until true — e.g. wait for an id. Default true.',
+      },
+      {
+        name: 'options.initial',
+        type: 'T[]',
+        desc: 'Seed the buffer before the first value arrives.',
+      },
+      {
+        name: 'options.limit',
+        type: 'number',
+        desc: 'Keep only the most recent N values — a sliding window for busy feeds.',
+      },
+      {
+        name: '→ state',
+        type: 'AsyncState<T[]>',
+        desc: 'The live buffer, ready for any ibirdui list.',
+      },
+      {
+        name: '→ retry',
+        type: '() => void',
+        desc: 'Tear down and re-subscribe; also wired into the error variant’s retry().',
+      },
+    ],
   },
   'streaming-list': {
     intro:
-      'Planned. A list that fills in live as data streams in, on top of use-stream — the same StateBoundary states, but the rows arrive over time.',
+      'A list that fills in live as values stream in — the same state-complete behaviour as data-list (skeletons while connecting, a dedicated empty slot, error + retry), but built for data that arrives over time. As new rows land it politely announces "N new items" so assistive-tech users hear the feed move without it stealing focus.',
     apiFile: 'components/streaming-list.tsx',
-    api: '<StreamingList state={feed.state} label="Activity" getKey={(e) => e.id}>\n  {(event) => <EventRow event={event} />}\n</StreamingList>',
+    api: 'const feed = useStream<Event>(subscribe);\n<StreamingList state={feed.state} label="Activity" getKey={(e) => e.id}>\n  {(event) => <EventRow event={event} />}\n</StreamingList>',
+    tutorialIntro:
+      'streaming-list is data-list’s realtime sibling. Feed it the state from use-stream and write only the row; it owns every other state plus the live announcements.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Adds the component and its state-boundary dependency, which the CLI pulls in for you.',
+        file: 'terminal',
+        code: '$ npx ibirdui add streaming-list\n+ also adding dependency: state-boundary\n✓ wrote components/streaming-list.tsx',
+      },
+      {
+        title: 'Wire it to a stream',
+        body: 'Hand it the AsyncState from use-stream. While connecting it shows skeleton rows; the first value flips it to the live list.',
+        file: 'activity.tsx',
+        code: 'const feed = useStream<Event>(subscribe);\n<StreamingList state={feed.state} label="Activity" getKey={(e) => e.id}>\n  {(event) => <EventRow event={event} />}\n</StreamingList>',
+      },
+      {
+        title: 'Newest first',
+        body: 'Set newestFirst to prepend arrivals so the freshest row sits at the top — handy for a chat or notifications feed.',
+        file: 'activity.tsx',
+        code: '<StreamingList state={feed.state} label="Activity" newestFirst getKey={(e) => e.id}>\n  {(event) => <EventRow event={event} />}\n</StreamingList>',
+      },
+      {
+        title: 'Arrivals announce themselves',
+        body: 'You write nothing extra: as rows land, a polite live region says "N new items" so screen-reader users hear the feed move without losing their place.',
+        file: '—',
+        code: '// 3 events arrive → "3 new items" announced politely',
+      },
+    ],
+    propsTitle: 'Props',
+    propsIntro: 'The component props:',
+    col0: 'Prop',
+    props: [
+      {
+        name: 'state',
+        type: 'AsyncState<T[]>',
+        desc: 'The live buffer — wire it straight from useStream.',
+      },
+      {
+        name: 'children',
+        type: '(item: T, index: number) => ReactNode',
+        desc: 'Render a single row. Only called in the success state.',
+      },
+      {
+        name: 'getKey',
+        type: '(item: T, index: number) => Key',
+        desc: 'Stable key for each row.',
+      },
+      { name: 'label', type: 'string', desc: 'Accessible name for the list.' },
+      {
+        name: 'newestFirst',
+        type: 'boolean',
+        desc: 'Prepend new arrivals instead of appending. Default false.',
+      },
+      {
+        name: 'skeletonCount',
+        type: 'number',
+        desc: 'Number of skeleton rows shown while connecting. Default 3.',
+      },
+      {
+        name: 'empty',
+        type: 'ReactNode',
+        desc: 'Custom content shown when the stream closes with nothing.',
+      },
+    ],
+    a11y: true,
+    a11yList: [
+      'Renders a labelled role=list with role=listitem rows.',
+      'A polite live region announces new arrivals ("N new items") without stealing focus.',
+      'The connecting skeleton is aria-hidden; inherits the empty and error + retry slots from StateBoundary.',
+      'Verified by a shipped axe-core test.',
+    ],
   },
   presence: {
-    intro: 'Planned. Show who is online right now, kept in sync over a realtime channel.',
+    intro:
+      'Show who is online right now as a row of overlapping avatars with a live count and a "+N" overflow chip. Feed it the current set of users from your realtime channel and it stacks them, collapses the overflow, and announces the count as people come and go.',
     apiFile: 'components/presence.tsx',
-    api: '<Presence users={online} />',
+    api: '<Presence users={online} />\n<Presence users={online} max={3} size={28} />',
+    tutorialIntro:
+      'presence is a thin, accessible layer over avatar. Give it the live set of users; it handles the stacking, overflow and announcements.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Adds the component and its avatar dependency, which the CLI pulls in for you.',
+        file: 'terminal',
+        code: '$ npx ibirdui add presence\n+ also adding dependency: avatar\n✓ wrote components/presence.tsx',
+      },
+      {
+        title: 'Pass the online users',
+        body: 'Each user needs an id and a name (src is optional). Keep the array in sync over your realtime channel — a presence subscription, useStream, etc.',
+        file: 'room.tsx',
+        code: 'const online = usePresenceChannel("room:42");\n<Presence users={online} />',
+      },
+      {
+        title: 'Cap the row',
+        body: 'max sets how many avatars show before the rest collapse into a "+N" chip; size sets the avatar diameter in pixels.',
+        file: 'room.tsx',
+        code: '<Presence users={online} max={3} size={28} />\n// 8 online → 3 avatars + "+5"',
+      },
+      {
+        title: 'It announces changes',
+        body: 'A polite live region re-announces "N people online" whenever the count changes, so the room’s activity is heard without stealing focus.',
+        file: '—',
+        code: '// someone joins → "6 people online" announced politely',
+      },
+    ],
+    propsTitle: 'Props',
+    propsIntro: 'Forwards every native <div> attribute. The extras:',
+    col0: 'Prop',
+    props: [
+      {
+        name: 'users',
+        type: 'PresenceUser[]',
+        desc: 'Who is online right now. Each is { id, name, src? }.',
+      },
+      {
+        name: 'max',
+        type: 'number',
+        desc: 'How many avatars to show before a "+N" chip. Default 5.',
+      },
+      { name: 'size', type: 'number', desc: 'Avatar diameter in pixels. Default 32.' },
+    ],
+    a11y: true,
+    a11yList: [
+      'Avatars sit in a labelled role=list and each is announced by name via avatar’s role=img.',
+      'The overflow chip carries an accessible "+N more" label.',
+      'A polite live region re-announces the summary when the count changes; the visible count is aria-hidden so it isn’t read twice.',
+      'Verified by a shipped axe-core test.',
+    ],
   },
   'offline-banner': {
     intro:
-      'Planned. A banner that appears on its own when the connection drops — the first real consumer of use-online.',
+      'A banner that appears on its own the moment the browser goes offline — the first real consumer of use-online. It renders nothing while connected, an assertive alert while offline, and a brief polite "back online" note when the connection returns. SSR-safe, so there’s no hydration flash.',
     apiFile: 'components/offline-banner.tsx',
-    api: '<OfflineBanner />  // uses use-online under the hood',
+    api: '<OfflineBanner />\n<OfflineBanner className="sticky top-0 z-50" message="No connection — retrying…" />',
+    tutorialIntro:
+      'offline-banner is a drop-in. Mount it once near the top of your app; it watches connectivity via use-online and shows itself only when needed.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'Adds the component and its use-online dependency, which the CLI pulls in for you.',
+        file: 'terminal',
+        code: '$ npx ibirdui add offline-banner\n+ also adding dependency: use-online\n✓ wrote components/offline-banner.tsx',
+      },
+      {
+        title: 'Mount it once',
+        body: 'Place it high in the tree. While connected it renders nothing, so there’s no layout cost until the network drops.',
+        file: 'layout.tsx',
+        code: '<body>\n  <OfflineBanner />\n  {children}\n</body>',
+      },
+      {
+        title: 'Position and word it',
+        body: 'It returns a plain block, so style placement with className; pass message to change the offline copy.',
+        file: 'layout.tsx',
+        code: '<OfflineBanner\n  className="sticky top-0 z-50"\n  message="No connection — retrying…"\n/>',
+      },
+      {
+        title: 'Reconnection note',
+        body: 'When the connection returns it flashes a polite "back online" note for a few seconds. Tune it with reconnectedMessage / reconnectedDuration, or pass null to skip it.',
+        file: 'layout.tsx',
+        code: '<OfflineBanner reconnectedMessage={null} />        // skip the note\n<OfflineBanner reconnectedDuration={5000} />       // linger 5s',
+      },
+    ],
+    propsTitle: 'Props',
+    propsIntro: 'Forwards every native <div> attribute. The extras:',
+    col0: 'Prop',
+    props: [
+      {
+        name: 'message',
+        type: 'ReactNode',
+        desc: 'Shown while offline. Default "You’re offline. Some changes may not be saved.".',
+      },
+      {
+        name: 'reconnectedMessage',
+        type: 'ReactNode | null',
+        desc: 'Flashed briefly when the connection returns. Set null to skip it. Default "Back online".',
+      },
+      {
+        name: 'reconnectedDuration',
+        type: 'number',
+        desc: 'How long the reconnected note stays, in ms. Default 3000.',
+      },
+    ],
+    a11y: true,
+    a11yList: [
+      'The offline state is a role=alert, announced assertively the moment it appears.',
+      'The reconnected note is a polite role=status so it doesn’t interrupt.',
+      'Icons are decorative (aria-hidden); renders nothing on the server (assumed online).',
+      'Verified by a shipped axe-core test.',
+    ],
   },
   'optimistic-toggle': {
     intro:
-      'Planned. A like / favourite button that flips instantly and rolls back if the server refuses — a showcase of use-optimistic-list.',
+      'A like / favourite button that flips the instant you press it and rolls back if the server refuses — the single-value showcase of the optimistic pattern behind use-optimistic-list. On success the optimistic value is kept until the pressed prop catches up, so the server stays authoritative; on rejection it reverts and announces the failure.',
     apiFile: 'components/optimistic-toggle.tsx',
-    api: '<OptimisticToggle pressed={liked} onToggle={() => api.like(id)} label="Like" />',
+    api: '<OptimisticToggle pressed={liked} onToggle={() => api.like(id)} label="Like" />\n<OptimisticToggle pressed={fav} onToggle={(next) => api.setFavourite(id, next)} label="Favourite">\n  {count}\n</OptimisticToggle>',
+    tutorialIntro:
+      'optimistic-toggle owns the optimistic dance for a single boolean. Give it the server’s value and a commit; it handles the instant flip and the rollback.',
+    tutorial: [
+      {
+        title: 'Install',
+        body: 'A single self-contained file — no dependencies beyond React.',
+        file: 'terminal',
+        code: '$ npx ibirdui add optimistic-toggle\n✓ wrote components/optimistic-toggle.tsx',
+      },
+      {
+        title: 'Pass the truth and the commit',
+        body: 'pressed is the server’s current value; onToggle commits the change and receives the next value. The button flips immediately, before onToggle resolves.',
+        file: 'post.tsx',
+        code: '<OptimisticToggle\n  pressed={post.liked}\n  onToggle={(next) => api.setLike(post.id, next)}\n  label="Like"\n/>',
+      },
+      {
+        title: 'Rollback is automatic',
+        body: 'If onToggle rejects, the button reverts to pressed and a polite live region announces the failure — no try/catch in your view.',
+        file: '—',
+        code: '// onToggle throws → pressed restored, "Couldn’t save" announced',
+      },
+      {
+        title: 'Add a count or icon',
+        body: 'children render after the heart, so you can show a like count. The optimistic value is kept until pressed catches up, so the server stays the source of truth.',
+        file: 'post.tsx',
+        code: '<OptimisticToggle pressed={fav} onToggle={onFav} label="Favourite">\n  {count}\n</OptimisticToggle>',
+      },
+    ],
+    propsTitle: 'Props',
+    propsIntro: 'Forwards every native <button> attribute except onClick. The extras:',
+    col0: 'Prop',
+    props: [
+      {
+        name: 'pressed',
+        type: 'boolean',
+        desc: 'The server’s current pressed state — the source of truth.',
+      },
+      {
+        name: 'onToggle',
+        type: '(next: boolean) => Promise<unknown> | unknown',
+        desc: 'Commit the toggle. Reject the promise to roll back to pressed.',
+      },
+      { name: 'label', type: 'string', desc: 'Accessible action label, e.g. "Like".' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        desc: 'Optional trailing content, e.g. a like count.',
+      },
+      {
+        name: 'errorLabel',
+        type: 'string',
+        desc: 'Announced when the toggle fails. Default "Couldn’t save".',
+      },
+    ],
+    a11y: true,
+    a11yList: [
+      'A real toggle button with aria-pressed, so the state is announced ("Like, pressed").',
+      'aria-busy is set while the commit is in flight.',
+      'A polite live region announces a rollback when the commit fails.',
+      'The heart icon is decorative; the action is named via aria-label. Verified by a shipped axe-core test.',
+    ],
   },
 };
 

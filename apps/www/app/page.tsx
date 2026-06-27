@@ -313,16 +313,16 @@ const homeComponents: HC[] = [
   {
     name: 'use-stream',
     layer: 7,
-    status: 'planned',
+    status: 'done',
     kind: 'hook',
     a11y: false,
     desc: 'Turn an SSE / WebSocket stream into async-state.',
-    states: ['loading', 'error'],
+    states: ['loading', 'empty', 'error'],
   },
   {
     name: 'streaming-list',
     layer: 7,
-    status: 'planned',
+    status: 'done',
     kind: 'component',
     a11y: true,
     desc: 'A list that fills in live as data streams in.',
@@ -331,7 +331,7 @@ const homeComponents: HC[] = [
   {
     name: 'presence',
     layer: 7,
-    status: 'planned',
+    status: 'done',
     kind: 'component',
     a11y: true,
     desc: 'Show who is online right now.',
@@ -340,7 +340,7 @@ const homeComponents: HC[] = [
   {
     name: 'offline-banner',
     layer: 7,
-    status: 'planned',
+    status: 'done',
     kind: 'component',
     a11y: true,
     desc: 'Appears on its own when the connection drops.',
@@ -349,11 +349,11 @@ const homeComponents: HC[] = [
   {
     name: 'optimistic-toggle',
     layer: 7,
-    status: 'planned',
+    status: 'done',
     kind: 'component',
     a11y: true,
     desc: 'Like / favourite that flips instantly, rolls back.',
-    states: [],
+    states: ['optimistic', 'error'],
   },
 ];
 
