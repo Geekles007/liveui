@@ -29,6 +29,7 @@ const layerNames: Record<number, string> = {
   6: 'Forms',
   7: 'Realtime',
   8: 'Overlays & menus',
+  9: 'Utility hooks',
 };
 
 const homeComponents: HC[] = [
@@ -400,6 +401,51 @@ const homeComponents: HC[] = [
     a11y: true,
     desc: 'Multi-step wizard with async validation between steps.',
     states: ['loading', 'error'],
+  },
+  {
+    name: 'use-debounce',
+    layer: 9,
+    status: 'done',
+    kind: 'hook',
+    a11y: false,
+    desc: 'Debounce a fast-changing value before reacting.',
+    states: [],
+  },
+  {
+    name: 'use-intersection',
+    layer: 9,
+    status: 'done',
+    kind: 'hook',
+    a11y: false,
+    desc: 'Know when an element scrolls into view.',
+    states: [],
+  },
+  {
+    name: 'use-clipboard',
+    layer: 9,
+    status: 'done',
+    kind: 'hook',
+    a11y: false,
+    desc: 'Copy to clipboard with a self-resetting "Copied!" flag.',
+    states: [],
+  },
+  {
+    name: 'use-media-query',
+    layer: 9,
+    status: 'done',
+    kind: 'hook',
+    a11y: false,
+    desc: 'React to a CSS media query in JavaScript.',
+    states: [],
+  },
+  {
+    name: 'use-poll',
+    layer: 9,
+    status: 'done',
+    kind: 'hook',
+    a11y: false,
+    desc: 'Re-fetch on an interval, no loading flash.',
+    states: ['loading', 'empty', 'error'],
   },
 ];
 
